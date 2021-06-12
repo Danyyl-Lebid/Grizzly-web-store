@@ -23,16 +23,16 @@ public class Subcategory {
     private long id ;
 
     @NotNull
-    @Column(name = "parent_category", nullable = false, columnDefinition = "VARCHAR(32)")
-    private String parentCategory;
+    @Column(name = "parent_category", nullable = false, columnDefinition = "BIGINT(20)")
+    private long idParentCategory;
 
     @NotNull
     @Column(name = "name_subcategory", nullable = false, columnDefinition = "VARCHAR(32)")
     private String nameSubcategory;
 
-    public Subcategory(long id, String parentCategory, String nameSubcategory) {
+    public Subcategory(long id, long idParentCategory, String nameSubcategory) {
         this.id = id;
-        this.parentCategory = parentCategory;
+        this.idParentCategory = idParentCategory;
         this.nameSubcategory = nameSubcategory;
     }
 }
