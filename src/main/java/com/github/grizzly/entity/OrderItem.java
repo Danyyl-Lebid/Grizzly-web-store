@@ -14,16 +14,13 @@ public class OrderItem {
     private long orderItemId;
 
 //    @Column(name = "productId")
-    private @NotNull
-    Long productId;
+    private @NotNull long productId;
 
 //    @Column(name = "quantity")
-    private @NotNull
-    int quantity;
+    private @NotNull int quantity;
 
 //    @Column(name = "price")
-    private @NotNull
-    double price;
+    private @NotNull double price;
 
 //    @Column(name = "order_id")
     private long orderId;
