@@ -1,30 +1,39 @@
 package com.github.grizzly.entity;
 
-import lombok.Data;
+import com.sun.istack.NotNull;
+import lombok.*;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.Set;
 
+@EqualsAndHashCode
 @Data
 @Entity
 @Table(name = "category")
+@NoArgsConstructor
 public class Category {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Setter(value= AccessLevel.NONE)
+    @Column(name = "id", nullable = false, columnDefinition = "BIGINT(20)")
+    private long id;
 
-    @Column(name = "name")
+    @NotNull
+    @Column(name = "parent_id", nullable = false, columnDefinition = "BIGINT(20)")
+    private long parentId;
+
+    @NotNull
+    @Column(name = "name", nullable = false, columnDefinition = "VARCHAR(32)")
     private String name;
 
-    @Column(name = "description")
+    @Column(name = "description", nullable = false, columnDefinition = "VARCHAR(256)")
     private String description;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "category", cascade = CascadeType.ALL)
-    private Set<Product> products = new HashSet<>();
+    private Set<Product> products;
 
-    public Category(String name, String description) {
+    public Category(long parentId, String name, String description) {
+        this.parentId = parentId;
         this.name = name;
         this.description = description;
     }

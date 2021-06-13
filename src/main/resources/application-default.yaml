@@ -4,7 +4,7 @@ spring:
       on-profile: default
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: postgres://faiasdqftxbjsr:a56859a38e5d2634e0eab825d19e160f63dbe026b10012322e01c3891254dc23@ec2-54-72-155-238.eu-west-1.compute.amazonaws.com:5432/dbqtgi4vd8s3s4
+    url: jdbc:postgresql://ec2-54-72-155-238.eu-west-1.compute.amazonaws.com:5432/dbqtgi4vd8s3s4
     driver-class-name: org.postgresql.Driver
     username: faiasdqftxbjsr
     password: a56859a38e5d2634e0eab825d19e160f63dbe026b10012322e01c3891254dc23
