@@ -8,10 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.Date;
 
-@Getter
-@Setter
-@ToString
-@RequiredArgsConstructor
+@Data
 @Entity
 @Table(name = "USER")
 @NoArgsConstructor
@@ -20,26 +17,37 @@ public class User {
     @Id
     @Column(name = "id", nullable = false, columnDefinition = "BIGINT(20)")
     private long id;
+
     @Column(name = "first_name")
     private String firstName;
+
     @Column(name = "last_name")
     private String lastName;
+
     @Column(name = "login")
     private String login;
+
     @Column(name = "password")
     private String password;
+
     @Column(name = "email")
     private String email;
+
     @Column(name = "phone")
     private String phone;
+
     @Column(name = "created_at")
     private Date createdAt;
+
     @Column(name = "updated_at")
     private Date updatedAt;
+
     @Column(name = "active")
     private Active active;
+
     @Column(name = "is_verified")
     private String verification;
+
     @Column(name = "role")
     private String role;
 

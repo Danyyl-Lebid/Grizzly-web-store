@@ -2,10 +2,9 @@ package com.github.grizzly.entity;
 
 import com.sun.istack.NotNull;
 import lombok.*;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.util.Objects;
+import java.util.Set;
 
 @EqualsAndHashCode
 @Data
@@ -17,24 +16,24 @@ public class Category {
     @Id
     @Setter(value= AccessLevel.NONE)
     @Column(name = "id", nullable = false, columnDefinition = "BIGINT(20)")
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
-    @GenericGenerator(name = "native", strategy = "native")
     private long id;
 
     @NotNull
-    @Column(name = "parent", nullable = false, columnDefinition = "BIGINT(20)")
-    private long idParent;
+    @Column(name = "parent_id", nullable = false, columnDefinition = "BIGINT(20)")
+    private long parentId;
 
     @NotNull
     @Column(name = "name", nullable = false, columnDefinition = "VARCHAR(32)")
     private String name;
 
-    @NotNull
-    @Column(name = "description", columnDefinition = "VARCHAR(128)")
+    @Column(name = "description", nullable = false, columnDefinition = "VARCHAR(256)")
     private String description;
 
-    public Category(long idParent, String name, String description) {
-        this.idParent = idParent;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "category", cascade = CascadeType.ALL)
+    private Set<Product> products;
+
+    public Category(long parentId, String name, String description) {
+        this.parentId = parentId;
         this.name = name;
         this.description = description;
     }
