@@ -4,9 +4,9 @@ import com.sun.istack.NotNull;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
-@EqualsAndHashCode
 @Data
 @Entity
 @Table(name = "category")
@@ -15,14 +15,12 @@ public class Category {
 
     @Id
     @Setter(value= AccessLevel.NONE)
-    @Column(name = "id", nullable = false, columnDefinition = "BIGINT(20)")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @NotNull
-    @Column(name = "parent_id", nullable = false, columnDefinition = "BIGINT(20)")
+    @Column(name = "parent_id", nullable = false)
     private long parentId;
 
-    @NotNull
     @Column(name = "name", nullable = false, columnDefinition = "VARCHAR(32)")
     private String name;
 
@@ -30,7 +28,7 @@ public class Category {
     private String description;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "category", cascade = CascadeType.ALL)
-    private Set<Product> products;
+    private Set<Product> products = new HashSet<>();
 
     public Category(long parentId, String name, String description) {
         this.parentId = parentId;

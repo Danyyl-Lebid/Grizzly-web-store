@@ -17,12 +17,10 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
     @Column(name = "name", nullable = false, columnDefinition = "VARCHAR(64)")
     private String name;
 
-    @NotNull
-    @Column(name = "description", insertable = false)
+    @Column(name = "description")
     private String description;
 
     @NotNull

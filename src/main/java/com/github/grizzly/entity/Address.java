@@ -1,32 +1,24 @@
 package com.github.grizzly.entity;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
-@Getter
-@Setter
-@ToString
-@Table(name = "ADDRESS")
+@Data
 @Entity
+@Table(name = "address")
 @NoArgsConstructor
 public class Address {
 
     @Id
-    @Column(name = "id", nullable = false, columnDefinition = "BIGINT(20)")
-
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private String fullAddress;
+    @Column(name = "address")
+    private String address;
 
-    public Address(long id, String fullAddress) {
-        this.id = id;
-        this.fullAddress = fullAddress;
+    public Address(String address) {
+        this.address = address;
     }
+
 }
