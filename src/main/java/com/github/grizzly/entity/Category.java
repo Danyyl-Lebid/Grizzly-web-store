@@ -1,15 +1,13 @@
 package com.github.grizzly.entity;
 
 import com.sun.istack.NotNull;
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.Objects;
 
+@EqualsAndHashCode
 @Data
 @Entity
 @Table(name = "category")
@@ -35,21 +33,7 @@ public class Category {
     @Column(name = "description", columnDefinition = "VARCHAR(128)")
     private String description;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Category category = (Category) o;
-        return id == category.id && idParent == category.idParent && Objects.equals(name, category.name) && Objects.equals(description, category.description);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, idParent, name, description);
-    }
-
-    public Category(long id, long idParent, String name, String description) {
-        this.id = id;
+    public Category(long idParent, String name, String description) {
         this.idParent = idParent;
         this.name = name;
         this.description = description;
