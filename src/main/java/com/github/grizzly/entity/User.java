@@ -13,7 +13,6 @@ public class User {
     @Id
     @Setter(value = AccessLevel.MODULE)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false, columnDefinition = "BIGINT(20)")
     private long id;
 
     @NonNull
