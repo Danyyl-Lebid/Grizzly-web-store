@@ -2,20 +2,17 @@ package com.github.grizzly.entity;
 
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 @Data
 @Entity
-@Table(name = "USER")
+@Table(name = "users")
 @NoArgsConstructor
 public class User {
 
     @Id
-    @Column(name = "id", nullable = false, columnDefinition = "BIGINT(20)")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column(name = "first_name")
@@ -43,6 +40,7 @@ public class User {
     private Date updatedAt;
 
     @Column(name = "active")
+    @Enumerated(EnumType.STRING)
     private Active active;
 
     @Column(name = "is_verified")
