@@ -1,7 +1,6 @@
 package com.github.grizzly.entity;
 
 import lombok.*;
-
 import javax.persistence.*;
 import java.util.Date;
 
@@ -12,41 +11,54 @@ import java.util.Date;
 public class User {
 
     @Id
+    @Setter(value = AccessLevel.MODULE)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false, columnDefinition = "BIGINT(20)")
     private long id;
 
-    @Column(name = "first_name")
+    @NonNull
+    @Column(name = "first_name",columnDefinition = "VARCHAR(50)")
     private String firstName;
 
-    @Column(name = "last_name")
+    @NonNull
+    @Column(name = "last_name",columnDefinition = "VARCHAR(50)")
     private String lastName;
 
-    @Column(name = "login")
+    @NonNull
+    @Column(name = "login",columnDefinition = "VARCHAR(32)")
     private String login;
 
-    @Column(name = "password")
+    @NonNull
+    @Column(name = "password",columnDefinition = "VARCHAR(16)")
     private String password;
 
-    @Column(name = "email")
+    @NonNull
+    @Column(name = "email",columnDefinition = "VARCHAR(50)")
     private String email;
 
-    @Column(name = "phone")
+    @NonNull
+    @Column(name = "phone",columnDefinition = "VARCHAR(16)")
     private String phone;
 
+    @NonNull
     @Column(name = "created_at")
     private Date createdAt;
 
+    @NonNull
     @Column(name = "updated_at")
     private Date updatedAt;
 
-    @Column(name = "active")
+    @NonNull
+    @Column(name = "active",columnDefinition = "VARCHAR(32)")
     @Enumerated(EnumType.STRING)
     private Active active;
 
-    @Column(name = "is_verified")
+    @NonNull
+    @Column(name = "is_verified",columnDefinition = "VARCHAR(32)")
     private String verification;
 
-    @Column(name = "role")
+    @NonNull
+    @Column(name = "role",columnDefinition = "VARCHAR(32)")
     private String role;
 
     public User(String firstName, String lastName, String login, String password, String email, String phone, Date createdAt, Date updatedAt, Active active, String verification, String role) {
