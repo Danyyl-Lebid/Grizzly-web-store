@@ -1,30 +1,40 @@
 package com.github.grizzly.entity;
 
-import lombok.Data;
+import com.sun.istack.NotNull;
+import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Objects;
 
+@EqualsAndHashCode
 @Data
 @Entity
 @Table(name = "category")
+@NoArgsConstructor
 public class Category {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Setter(value= AccessLevel.NONE)
+    @Column(name = "id", nullable = false, columnDefinition = "BIGINT(20)")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
+    @GenericGenerator(name = "native", strategy = "native")
+    private long id;
 
-    @Column(name = "name")
+    @NotNull
+    @Column(name = "parent", nullable = false, columnDefinition = "BIGINT(20)")
+    private long idParent;
+
+    @NotNull
+    @Column(name = "name", nullable = false, columnDefinition = "VARCHAR(32)")
     private String name;
 
-    @Column(name = "description")
+    @NotNull
+    @Column(name = "description", columnDefinition = "VARCHAR(128)")
     private String description;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "category", cascade = CascadeType.ALL)
-    private Set<Product> products = new HashSet<>();
-
-    public Category(String name, String description) {
+    public Category(long idParent, String name, String description) {
+        this.idParent = idParent;
         this.name = name;
         this.description = description;
     }
