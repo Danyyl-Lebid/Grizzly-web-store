@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -31,27 +32,26 @@ public class User {
     private String email;
     @Column(name = "phone")
     private String phone;
-    @Column(name = "create_at")
-    private String createAt;
-    @Column(name = "updateA_at")
-    private String updateAt;
+    @Column(name = "created_at")
+    private Date createdAt;
+    @Column(name = "updated_at")
+    private Date updatedAt;
     @Column(name = "active")
     private Active active;
-    @Column(name = "verification")
+    @Column(name = "is_verified")
     private String verification;
     @Column(name = "role")
     private String role;
 
-    public User(long id, String firstName, String lastName, String login, String password, String email, String phone, String createAt, String updateAt, Active active, String verification, String role) {
-        this.id = id;
+    public User(String firstName, String lastName, String login, String password, String email, String phone, Date createdAt, Date updatedAt, Active active, String verification, String role) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.login = login;
         this.password = password;
         this.email = email;
         this.phone = phone;
-        this.createAt = createAt;
-        this.updateAt = updateAt;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
         this.active = active;
         this.verification = verification;
         this.role = role;
