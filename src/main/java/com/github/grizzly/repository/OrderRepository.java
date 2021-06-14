@@ -1,13 +1,13 @@
 package com.github.grizzly.repository;
 
 import com.github.grizzly.entity.Order;
+import com.github.grizzly.entity.User;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface OrderRepository extends JPARepository<Order> {
-
-    List<Order> findAllByUserIdOrder(long userId);
-
+public interface OrderRepository extends JpaRepository<Order, Long> {
+    List<Order> findAllByUserOrderByCreatedDateDesc(User user);
 }
