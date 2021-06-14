@@ -15,6 +15,7 @@ public class Order implements Serializable {
     private static final long serialVersionUID = 123243L;
 
     @Id
+    @Setter(value= AccessLevel.NONE)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
