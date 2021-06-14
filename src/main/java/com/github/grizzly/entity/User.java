@@ -11,7 +11,6 @@ import java.util.Date;
 public class User {
 
     @Id
-    @Setter(value = AccessLevel.MODULE)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
