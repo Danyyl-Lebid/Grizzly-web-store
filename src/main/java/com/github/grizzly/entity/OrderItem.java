@@ -14,6 +14,7 @@ import java.util.Date;
 public class OrderItem {
 
     @Id
+    @Setter(value= AccessLevel.NONE)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 

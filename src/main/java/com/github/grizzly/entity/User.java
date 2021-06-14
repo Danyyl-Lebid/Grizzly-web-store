@@ -1,5 +1,6 @@
 package com.github.grizzly.entity;
 
+import com.sun.istack.NotNull;
 import lombok.*;
 import javax.persistence.*;
 import java.util.Date;
@@ -14,48 +15,48 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @NonNull
+    @NotNull
     @Column(name = "first_name",columnDefinition = "VARCHAR(50)")
     private String firstName;
 
-    @NonNull
+    @NotNull
     @Column(name = "last_name",columnDefinition = "VARCHAR(50)")
     private String lastName;
 
-    @NonNull
+    @NotNull
     @Column(name = "login",columnDefinition = "VARCHAR(32)")
     private String login;
 
-    @NonNull
+    @NotNull
     @Column(name = "password",columnDefinition = "VARCHAR(16)")
     private String password;
 
-    @NonNull
+    @NotNull
     @Column(name = "email",columnDefinition = "VARCHAR(50)")
     private String email;
 
-    @NonNull
+    @NotNull
     @Column(name = "phone",columnDefinition = "VARCHAR(16)")
     private String phone;
 
-    @NonNull
+    @NotNull
     @Column(name = "created_at")
     private Date createdAt;
 
-    @NonNull
+    @NotNull
     @Column(name = "updated_at")
     private Date updatedAt;
 
-    @NonNull
+    @NotNull
     @Column(name = "active",columnDefinition = "VARCHAR(32)")
     @Enumerated(EnumType.STRING)
     private Active active;
 
-    @NonNull
+    @NotNull
     @Column(name = "is_verified",columnDefinition = "VARCHAR(32)")
     private String verification;
 
-    @NonNull
+    @NotNull
     @Column(name = "role",columnDefinition = "VARCHAR(32)")
     private String role;
 
