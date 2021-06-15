@@ -1,4 +1,7 @@
 spring:
+  activemq:
+    pool:
+      max-connections: 3
   config:
     activate:
       on-profile: test
