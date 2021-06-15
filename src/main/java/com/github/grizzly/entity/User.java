@@ -4,6 +4,8 @@ import com.sun.istack.NotNull;
 import lombok.*;
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @Entity
@@ -56,11 +58,22 @@ public class User {
     @Column(name = "is_verified",columnDefinition = "VARCHAR(32)")
     private String verification;
 
-    @NotNull
-    @Column(name = "role",columnDefinition = "VARCHAR(32)")
-    private String role;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+    private Set<Role> roles = new HashSet<>();
 
-    public User(String firstName, String lastName, String login, String password, String email, String phone, Date createdAt, Date updatedAt, Active active, String verification, String role) {
+    public User(
+            String firstName,
+            String lastName,
+            String login,
+            String password,
+            String email,
+            String phone,
+            Date createdAt,
+            Date updatedAt
+    ) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.login = login;
@@ -69,8 +82,5 @@ public class User {
         this.phone = phone;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
-        this.active = active;
-        this.verification = verification;
-        this.role = role;
     }
 }
