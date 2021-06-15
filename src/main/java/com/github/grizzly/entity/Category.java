@@ -30,6 +30,9 @@ public class Category {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "category", cascade = CascadeType.ALL)
     private Set<Product> products = new HashSet<>();
 
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "category", cascade = CascadeType.ALL)
+    private Set<Specification> specifications = new HashSet<>();
+
     public Category(long parentId, String name, String description) {
         this.parentId = parentId;
         this.name = name;
