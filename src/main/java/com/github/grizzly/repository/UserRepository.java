@@ -1,21 +1,20 @@
 package com.github.grizzly.repository;
 
-import com.github.grizzly.entity.Role;
 import com.github.grizzly.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
-public interface UserRepository extends JpaRepository<User,Long> {
+public interface UserRepository extends JpaRepository<User, Long> {
 
-    User findUserById(long userId);
+    Optional<User> findById(long userId);
 
-    User findUserByPhone(String phone);
+    Optional<User> findUserByPhone(String phone);
 
-    User findByEmail(String email);
+    Optional<User> findByEmail(String email);
 
-    User findByLogin(String login);
-
-    User findByRole(Role role);
+    Optional<User> findByLogin(String login);
 
 }
