@@ -40,6 +40,9 @@ public class Product {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "product", cascade = CascadeType.ALL)
     private Set<SpecificationValue> specificationValues = new HashSet<>();
 
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "product", cascade = CascadeType.ALL)
+    private Set<Promotion> promotions = new HashSet<>();
+
     public Product(String name, String description, BigDecimal price, int quantity, Category category) {
         this.name = name;
         this.description = description;
