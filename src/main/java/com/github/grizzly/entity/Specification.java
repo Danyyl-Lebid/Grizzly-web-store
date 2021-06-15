@@ -19,15 +19,19 @@ public class Specification {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Column(name = "category_id")
+    private long categoryId;
+
     @NotNull
     @Column(name = "name")
     private String name;
-
-    @Column(name = "category_id")
-    private long categoryId;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "category_id", referencedColumnName = "id", insertable = false, updatable = false)
     private Category category;
 
+    public Specification(long categoryId, String name) {
+        this.categoryId = categoryId;
+        this.name = name;
+    }
 }
