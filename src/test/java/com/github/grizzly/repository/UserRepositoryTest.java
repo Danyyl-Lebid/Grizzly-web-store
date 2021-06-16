@@ -17,4 +17,9 @@ public class UserRepositoryTest {
     @Autowired
     UserRepository userRepository;
 
+    @Test
+    public void test(){
+
+    }
+
 }
