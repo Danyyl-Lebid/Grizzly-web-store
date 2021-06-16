@@ -27,7 +27,7 @@ public class User {
     private String lastName;
 
     @NotNull
-    @Column(name = "login",columnDefinition = "VARCHAR(32)")
+    @Column(name = "login",columnDefinition = "VARCHAR(32)", unique = true)
     private String login;
 
     @NotNull
@@ -35,11 +35,11 @@ public class User {
     private String password;
 
     @NotNull
-    @Column(name = "email",columnDefinition = "VARCHAR(50)")
+    @Column(name = "email",columnDefinition = "VARCHAR(50)", unique = true)
     private String email;
 
     @NotNull
-    @Column(name = "phone",columnDefinition = "VARCHAR(16)")
+    @Column(name = "phone",columnDefinition = "VARCHAR(16)", unique = true)
     private String phone;
 
     @NotNull
@@ -51,13 +51,14 @@ public class User {
     private Date updatedAt;
 
     @NotNull
-    @Column(name = "active",columnDefinition = "VARCHAR(32)")
+    @Column(name = "active",columnDefinition = "VARCHAR(16)")
     @Enumerated(EnumType.STRING)
     private Active active;
 
     @NotNull
-    @Column(name = "is_verified",columnDefinition = "VARCHAR(32)")
-    private String verification;
+    @Column(name = "is_verified",columnDefinition = "VARCHAR(16)")
+    @Enumerated(EnumType.STRING)
+    private Verification verification;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "users_roles",
@@ -68,6 +69,11 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true)
     @JoinColumn(name = "user_id",referencedColumnName = "id", insertable = false, updatable = false)
     private List<Address> addresses;
+
+    public void addRole(Role role){
+        this.roles.add(role);
+        role.getUsers().add(this);
+    }
 
     public User(
             String firstName,
@@ -87,5 +93,13 @@ public class User {
         this.phone = phone;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+    }
+
+    public enum Active{
+        ON,OFF
+    }
+
+    public enum Verification{
+        YES, NO
     }
 }
