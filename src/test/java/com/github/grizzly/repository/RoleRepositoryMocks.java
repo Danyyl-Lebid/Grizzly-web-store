@@ -6,7 +6,7 @@ import java.util.List;
 
 public class RoleRepositoryMocks {
 
-    public static List<Role> expectedRoles(){
+    public static List<Role> roles(){
         return List.of(
                 guest(),
                 user(),
@@ -18,7 +18,6 @@ public class RoleRepositoryMocks {
     public static Role guest(){
         return new Role(1L, Role.Roles.GUEST);
     }
-
 
     public static Role user(){
         return new Role(2L, Role.Roles.USER);
