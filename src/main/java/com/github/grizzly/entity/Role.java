@@ -1,6 +1,7 @@
 package com.github.grizzly.entity;
 
 import com.sun.istack.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -18,14 +19,28 @@ public class Role {
     private long id;
 
     @NotNull
-    @Column(name = "role")
+    @Column(name = "role", columnDefinition = "VARCHAR(16)", unique = true, updatable = false, nullable = false)
     @Enumerated(EnumType.STRING)
-    private RoleEnum role;
+    private Roles role;
 
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "roles")
     Set<User> users = new HashSet<>();
 
-    public Role(RoleEnum role) {
+    public void addUser(User user){
+        this.getUsers().add(user);
+        user.addRole(this);
+    }
+
+    public Role(long id, Roles role) {
+        this.id = id;
         this.role = role;
+    }
+
+    public Role(Roles role) {
+        this.role = role;
+    }
+
+    public enum Roles{
+        GUEST,USER,MANAGER,ADMIN
     }
 }

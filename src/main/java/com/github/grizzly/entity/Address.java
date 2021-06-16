@@ -6,13 +6,16 @@ import javax.persistence.*;
 
 @Data
 @Entity
-@Table(name = "address")
+@Table(name = "addresses")
 @NoArgsConstructor
 public class Address {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @Column(name = "user_id")
+    private long user_id;
 
     @Column(name = "address")
     private String address;
