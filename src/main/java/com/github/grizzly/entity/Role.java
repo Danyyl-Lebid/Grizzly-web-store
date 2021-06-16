@@ -19,7 +19,7 @@ public class Role {
     private long id;
 
     @NotNull
-    @Column(name = "role", unique = true, columnDefinition = "VARCHAR(16)")
+    @Column(name = "role", columnDefinition = "VARCHAR(16)", unique = true, updatable = false, nullable = false)
     @Enumerated(EnumType.STRING)
     private Roles role;
 
