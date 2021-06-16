@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
@@ -154,7 +155,7 @@ public class RoleRepositoryTest {
         roleRepository.save(new Role(Role.Roles.GUEST));
     }
 
-    @Test
+    @Test(expected = DataIntegrityViolationException.class)
     @Sql("roles-schema.sql")
     public void save_roleNull(){
         roleRepository.save(new Role(null));
