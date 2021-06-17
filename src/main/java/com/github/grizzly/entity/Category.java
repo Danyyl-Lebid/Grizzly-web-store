@@ -20,7 +20,7 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "parent_id", nullable = false)
+    @Column(name = "parent_id")
     private long parentId;
 
     @Column(name = "name", nullable = false, columnDefinition = "VARCHAR(32)")
@@ -36,6 +36,13 @@ public class Category {
     private Set<Specification> specifications = new HashSet<>();
 
     public Category(long parentId, String name, String description) {
+        this.parentId = parentId;
+        this.name = name;
+        this.description = description;
+    }
+
+    public Category(long id, long parentId, String name, String description) {
+        this.id = id;
         this.parentId = parentId;
         this.name = name;
         this.description = description;
