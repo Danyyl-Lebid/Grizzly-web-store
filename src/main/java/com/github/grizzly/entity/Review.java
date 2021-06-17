@@ -1,10 +1,7 @@
 package com.github.grizzly.entity;
 
 import com.sun.istack.NotNull;
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -13,6 +10,7 @@ import java.util.Date;
 @Entity
 @Table(name = "review")
 @NoArgsConstructor
+@EqualsAndHashCode
 public class Review {
 
     @Id
@@ -32,13 +30,18 @@ public class Review {
     private Date createdAt;
 
     @NotNull
+    @Column(name = "product_id", nullable = false)
+    private long productId;
+
+    @NotNull
     @Column(name = "rate", nullable = false)
     private int rate;
 
-    public Review(long idReviewer, String review, Date createdAt, int rate) {
+    public Review(long idReviewer, String review, Date createdAt, long productId, int rate) {
         this.idReviewer = idReviewer;
         this.review = review;
         this.createdAt = createdAt;
+        this.productId = productId;
         this.rate = rate;
     }
 }
