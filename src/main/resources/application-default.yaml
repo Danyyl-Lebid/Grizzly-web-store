@@ -3,6 +3,9 @@ spring:
     activate:
       on-profile: default
   datasource:
+    hikari:
+      maximum-pool-size: 3
+      connection-timeout: 10000
     type: com.zaxxer.hikari.HikariDataSource
     url: jdbc:postgresql://ec2-54-72-155-238.eu-west-1.compute.amazonaws.com:5432/dbqtgi4vd8s3s4
     driver-class-name: org.postgresql.Driver

@@ -1,7 +1,9 @@
 package com.github.grizzly.entity;
 
-import com.sun.istack.NotNull;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -29,6 +31,9 @@ public class Category {
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "category", cascade = CascadeType.ALL)
     private Set<Product> products = new HashSet<>();
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "category", cascade = CascadeType.ALL)
+    private Set<Specification> specifications = new HashSet<>();
 
     public Category(long parentId, String name, String description) {
         this.parentId = parentId;
