@@ -1,9 +1,7 @@
 package com.github.grizzly.entity;
 
 import com.sun.istack.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -24,9 +22,11 @@ public class Role {
     private Roles role;
 
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "roles")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     Set<User> users = new HashSet<>();
 
-    public void addUser(User user){
+    public void addUser(User user) {
         this.getUsers().add(user);
         user.addRole(this);
     }
@@ -40,7 +40,7 @@ public class Role {
         this.role = role;
     }
 
-    public enum Roles{
-        GUEST,USER,MANAGER,ADMIN
+    public enum Roles {
+        GUEST, USER, MANAGER, ADMIN
     }
 }
