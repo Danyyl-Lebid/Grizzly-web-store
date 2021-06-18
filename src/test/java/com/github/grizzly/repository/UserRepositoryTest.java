@@ -24,9 +24,20 @@ public class UserRepositoryTest {
 
     @Test
     @Sql({"users-schema.sql", "users-data.sql"})
-    public void findAllTest(){
+    public void findAll(){
         List<User> exp = UserRepositoryMocks.users();
         List<User> act = userRepository.findAll();
+        Assert.assertThat(exp, containsInAnyOrder(act.toArray()));
+    }
+
+    @Test
+    @Sql({"users-schema.sql", "roles-schema.sql", "roles-data.sql"})
+    public void findUsersByRoleId(){
+        User user = UserRepositoryMocks.firstUser();
+        user.addRole(RoleRepositoryMocks.user());
+        userRepository.save(user);
+        List<User> act = userRepository.findAllByRoles_Role(RoleRepositoryMocks.user().getRole());
+        List<User> exp = List.of(UserRepositoryMocks.firstUser());
         Assert.assertThat(exp, containsInAnyOrder(act.toArray()));
     }
 

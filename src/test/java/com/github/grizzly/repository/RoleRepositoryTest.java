@@ -76,7 +76,7 @@ public class RoleRepositoryTest {
     @Sql({"roles-schema.sql", "roles-data.sql"})
     public void findByRole_guest(){
         Role exp = RoleRepositoryMocks.guest();
-        Role act = roleRepository.findByRole(Role.Roles.GUEST).orElseThrow();
+        Role act = roleRepository.findByRole(Role.Values.GUEST).orElseThrow();
         Assert.assertEquals(exp, act);
     }
 
@@ -84,7 +84,7 @@ public class RoleRepositoryTest {
     @Sql({"roles-schema.sql", "roles-data.sql"})
     public void findByRole_user(){
         Role exp = RoleRepositoryMocks.user();
-        Role act = roleRepository.findByRole(Role.Roles.USER).orElseThrow();
+        Role act = roleRepository.findByRole(Role.Values.USER).orElseThrow();
         Assert.assertEquals(exp, act);
     }
 
@@ -92,7 +92,7 @@ public class RoleRepositoryTest {
     @Sql({"roles-schema.sql", "roles-data.sql"})
     public void findByRole_manager(){
         Role exp = RoleRepositoryMocks.manager();
-        Role act = roleRepository.findByRole(Role.Roles.MANAGER).orElseThrow();
+        Role act = roleRepository.findByRole(Role.Values.MANAGER).orElseThrow();
         Assert.assertEquals(exp, act);
     }
 
@@ -100,7 +100,7 @@ public class RoleRepositoryTest {
     @Sql({"roles-schema.sql", "roles-data.sql"})
     public void findByRole_admin(){
         Role exp = RoleRepositoryMocks.admin();
-        Role act = roleRepository.findByRole(Role.Roles.ADMIN).orElseThrow();
+        Role act = roleRepository.findByRole(Role.Values.ADMIN).orElseThrow();
         Assert.assertEquals(exp, act);
     }
 
@@ -152,7 +152,7 @@ public class RoleRepositoryTest {
     @Test
     @Sql({"roles-schema.sql", "roles-data.sql"})
     public void save_duplicate(){
-        roleRepository.save(new Role(Role.Roles.GUEST));
+        roleRepository.save(new Role(Role.Values.GUEST));
     }
 
     @Test(expected = DataIntegrityViolationException.class)
