@@ -16,18 +16,18 @@ public class RoleRepositoryMocks {
     }
 
     public static Role guest(){
-        return new Role(1L, Role.Roles.GUEST);
+        return new Role(1L, Role.Values.GUEST);
     }
 
     public static Role user(){
-        return new Role(2L, Role.Roles.USER);
+        return new Role(2L, Role.Values.USER);
     }
 
     public static Role manager(){
-        return new Role(3L, Role.Roles.MANAGER);
+        return new Role(3L, Role.Values.MANAGER);
     }
 
     public static Role admin(){
-        return new Role(4L, Role.Roles.ADMIN);
+        return new Role(4L, Role.Values.ADMIN);
     }
 }
