@@ -63,7 +63,16 @@ public class User {
     @ElementCollection(targetClass = Role.class)
     @CollectionTable(name = "users_roles",
             joinColumns = @JoinColumn(columnDefinition = "user_id"))
-    private Set<Role> role = new HashSet<>();
+    @Column(name="role")
+    private Set<Role> roles = new HashSet<>();
+
+    public void addRole(Role role){
+        this.roles.add(role);
+    }
+
+    public void addRoles(Set<Role> roles){
+        this.roles.addAll(roles);
+    }
 
     @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true)
     @JoinColumn(name = "user_id",referencedColumnName = "id", insertable = false, updatable = false)
