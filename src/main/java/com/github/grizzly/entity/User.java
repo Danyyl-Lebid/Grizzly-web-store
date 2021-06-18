@@ -60,24 +60,25 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Verification verification;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "users_roles",
-            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
+    @ElementCollection(targetClass = Role.class)
+    @CollectionTable(name = "users_roles",
+            joinColumns = @JoinColumn(columnDefinition = "user_id"))
+    @Column(name="role")
     private Set<Role> roles = new HashSet<>();
+
+    public void addRole(Role role){
+        this.roles.add(role);
+    }
+
+    public void addRoles(Set<Role> roles){
+        this.roles.addAll(roles);
+    }
 
     @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true)
     @JoinColumn(name = "user_id",referencedColumnName = "id", insertable = false, updatable = false)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private List<Address> addresses;
-
-    public void addRole(Role role){
-        this.roles.add(role);
-        role.getUsers().add(this);
-    }
 
     public User(
             String firstName,
