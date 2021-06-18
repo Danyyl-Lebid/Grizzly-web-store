@@ -19,7 +19,7 @@ public class Role {
     @NotNull
     @Column(name = "role", columnDefinition = "VARCHAR(16)", unique = true, updatable = false, nullable = false)
     @Enumerated(EnumType.STRING)
-    private Roles role;
+    private Values role;
 
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "roles")
     @EqualsAndHashCode.Exclude
@@ -31,16 +31,16 @@ public class Role {
         user.addRole(this);
     }
 
-    public Role(long id, Roles role) {
+    public Role(long id, Values role) {
         this.id = id;
         this.role = role;
     }
 
-    public Role(Roles role) {
+    public Role(Values role) {
         this.role = role;
     }
 
-    public enum Roles {
+    public enum Values {
         GUEST, USER, MANAGER, ADMIN
     }
 }
