@@ -27,6 +27,7 @@ public class UserRepositoryTest {
     public void findAll(){
         List<User> exp = UserRepositoryMocks.users();
         List<User> act = userRepository.findAll();
+        System.out.println(act);
         Assert.assertThat(exp, containsInAnyOrder(act.toArray()));
     }
 
