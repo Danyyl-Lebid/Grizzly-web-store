@@ -30,15 +30,4 @@ public class UserRepositoryTest {
         Assert.assertThat(exp, containsInAnyOrder(act.toArray()));
     }
 
-    @Test
-    @Sql({"users-schema.sql", "roles-schema.sql", "roles-data.sql"})
-    public void findUsersByRoleId(){
-        User user = UserRepositoryMocks.firstUser();
-        user.addRole(RoleRepositoryMocks.user());
-        userRepository.save(user);
-        List<User> act = userRepository.findAllByRoles_Role(RoleRepositoryMocks.user().getRole());
-        List<User> exp = List.of(UserRepositoryMocks.firstUser());
-        Assert.assertThat(exp, containsInAnyOrder(act.toArray()));
-    }
-
 }
