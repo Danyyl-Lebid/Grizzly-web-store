@@ -1,39 +1,51 @@
 package com.github.grizzly.entity;
+import com.github.grizzly.enums.Status;
+import com.sun.istack.NotNull;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
 @Entity
-@Table(name = "orders")
 @NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "orders")
 public class Order implements Serializable {
 
-    private static final long serialVersionUID = 123243L;
+    private static final long serialVersionUID = 1L;
 
     @Id
     @Setter(value= AccessLevel.NONE)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "user_id")
-    private long userId;
+    @CreationTimestamp
+    @Column(name = "create_date")
+    private LocalDateTime createDate;
 
-    @Column(name = "created_date")
-    private Date createdDate;
+    @UpdateTimestamp
+    @Column(name = "modify_date")
+    private LocalDateTime modifyDate;
 
     @Column(name = "total_price")
-    private Double totalPrice;
+    private BigDecimal totalPrice;
 
-    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true)
-    @JoinColumn(name = "order_id",referencedColumnName = "id", insertable = false, updatable = false)
+    @NotNull
+    @Column(name = "status",columnDefinition = "VARCHAR(32)")
+    @Enumerated(EnumType.STRING)
+    private Status status;
+
+    @OneToMany(mappedBy = "order")
     private List<OrderItem> orderItems;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", referencedColumnName = "id", insertable = false, updatable = false)
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
 }
