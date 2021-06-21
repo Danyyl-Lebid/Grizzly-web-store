@@ -16,6 +16,8 @@ public interface IUserService {
 
     User create(UserRegDto regDto);
 
+    User authorize(UserAuthDto authDto);
+
     User authorizeViaEmail(UserAuthDto authDto);
 
     User authorizeViaLogin(UserAuthDto authDto);
