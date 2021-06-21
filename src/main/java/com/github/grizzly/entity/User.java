@@ -80,6 +80,12 @@ public class User {
     @ToString.Exclude
     private List<Address> addresses;
 
+    @OneToMany(mappedBy = "user",
+            fetch = FetchType.LAZY)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private List<Order> orders;
+
     public User(
             String firstName,
             String lastName,

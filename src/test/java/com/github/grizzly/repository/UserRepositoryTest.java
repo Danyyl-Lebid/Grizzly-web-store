@@ -182,5 +182,4 @@ public class UserRepositoryTest {
         Set<Role> exp = Set.of(Role.USER, Role.MANAGER, Role.ADMIN);
         Assert.assertThat(exp, containsInAnyOrder(act.toArray()));
     }
-
 }
