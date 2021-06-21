@@ -1,9 +1,9 @@
-package com.github.grizzly.exceptions.user;
+package com.github.grizzly.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@ResponseStatus(code = HttpStatus.CONFLICT, reason = "There is already database")
+@ResponseStatus(code = HttpStatus.CONFLICT)
 public class DuplicatedDataException extends RuntimeException {
 
     public DuplicatedDataException() {
