@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -166,5 +167,19 @@ public class UserRepositoryTest {
         Set<Role> act = userRepository.findById(1L).orElseThrow().getRoles();
         Set<Role> exp = Set.of(Role.USER, Role.MANAGER, Role.ADMIN);
         Assert.assertThat(exp, containsInAnyOrder(act.toArray()));
+    }
+
+    @Test(expected = DataIntegrityViolationException.class)
+    @Sql({"users-schema.sql", "users-data.sql"})
+    public void saveDuplicate(){
+        User user = new User(
+                "firstName",
+                "lastName",
+                "user1_login",
+                "password",
+                "user2_@email.com",
+                "user3_phone"
+        );
+        userRepository.save(user);
     }
 }
