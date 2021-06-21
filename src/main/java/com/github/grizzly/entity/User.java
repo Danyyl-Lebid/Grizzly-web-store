@@ -1,13 +1,16 @@
 package com.github.grizzly.entity;
 
 import com.sun.istack.NotNull;
-import lombok.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -39,6 +42,7 @@ public class User {
     private String password;
 
     @NotNull
+    @Email
     @Column(name = "email", columnDefinition = "VARCHAR(32)", unique = true, nullable = false)
     private String email;
 
