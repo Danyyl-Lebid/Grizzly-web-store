@@ -20,7 +20,7 @@ public class UserRegDto {
     private String login;
 
     @NotEmpty(message = "Password is required")
-    @Size(min = 6)
+    @Size(min = 6, max = 16, message = "Password must be 6 to 16 symbols")
     private String password;
 
     @Email(message = "Should have email format")
