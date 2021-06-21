@@ -15,7 +15,7 @@ public class TransferObj {
         );
     }
 
-    public static ProductDto fromProduct(Product data){
+    public static ProductDto fromProduct(Product data) {
         return new ProductDto(
                 data.getName(),
                 data.getDescription(),

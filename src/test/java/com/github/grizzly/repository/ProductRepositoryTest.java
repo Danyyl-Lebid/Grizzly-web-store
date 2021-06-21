@@ -20,9 +20,10 @@ public class ProductRepositoryTest {
     private ProductRepository productRepository;
 
     @Test
-    @Sql(value = {"grizzly-schema.sql", "product-data.sql"})
+    @Sql(value = {"grizzly-schema-product.sql", "grizzly-product-data.sql"})
     public void findAllProduct(){
         List<Product> act = this.productRepository.findAllByCategoryId(1);
+        System.out.println(act);
     }
 
 }
