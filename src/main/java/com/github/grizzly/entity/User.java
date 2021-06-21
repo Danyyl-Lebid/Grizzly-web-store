@@ -2,7 +2,11 @@ package com.github.grizzly.entity;
 
 import com.sun.istack.NotNull;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -19,63 +23,67 @@ public class User {
     private long id;
 
     @NotNull
-    @Column(name = "first_name",columnDefinition = "VARCHAR(32)", nullable = false)
+    @Column(name = "first_name", columnDefinition = "VARCHAR(32)", nullable = false)
     private String firstName;
 
     @NotNull
-    @Column(name = "last_name",columnDefinition = "VARCHAR(32)", nullable = false)
+    @Column(name = "last_name", columnDefinition = "VARCHAR(32)", nullable = false)
     private String lastName;
 
     @NotNull
-    @Column(name = "login",columnDefinition = "VARCHAR(32)", unique = true, nullable = false, updatable = false)
+    @Column(name = "login", columnDefinition = "VARCHAR(32)", unique = true, nullable = false, updatable = false)
     private String login;
 
     @NotNull
-    @Column(name = "password",columnDefinition = "VARCHAR(16)", nullable = false)
+    @Column(name = "password", columnDefinition = "VARCHAR(16)", nullable = false)
     private String password;
 
     @NotNull
-    @Column(name = "email",columnDefinition = "VARCHAR(32)", unique = true, nullable = false)
+    @Column(name = "email", columnDefinition = "VARCHAR(32)", unique = true, nullable = false)
     private String email;
 
     @NotNull
-    @Column(name = "phone",columnDefinition = "VARCHAR(16)", unique = true, nullable = false)
+    @Column(name = "phone", columnDefinition = "VARCHAR(16)", unique = true, nullable = false)
     private String phone;
 
     @NotNull
+    @CreationTimestamp
+    @EqualsAndHashCode.Exclude
     @Column(name = "created_at", nullable = false, updatable = false)
-    private Date createdAt;
+    private LocalDateTime createdAt;
 
     @NotNull
+    @UpdateTimestamp
+    @EqualsAndHashCode.Exclude
     @Column(name = "updated_at")
-    private Date updatedAt;
+    private LocalDateTime updatedAt;
 
     @NotNull
-    @Column(name = "active",columnDefinition = "VARCHAR(16)", nullable = false)
+    @Column(name = "active", columnDefinition = "VARCHAR(16)", nullable = false)
     @Enumerated(EnumType.STRING)
     private Active active;
 
     @NotNull
-    @Column(name = "is_verified",columnDefinition = "VARCHAR(16)", nullable = false)
+    @Column(name = "is_verified", columnDefinition = "VARCHAR(16)", nullable = false)
     @Enumerated(EnumType.STRING)
     private Verification verification;
 
     @ElementCollection(targetClass = Role.class)
     @CollectionTable(name = "users_roles",
             joinColumns = @JoinColumn(columnDefinition = "user_id"))
-    @Column(name="role")
+    @Column(name = "role")
     private Set<Role> roles = new HashSet<>();
 
-    public void addRole(Role role){
+    public void addRole(Role role) {
         this.roles.add(role);
     }
 
-    public void addRoles(Set<Role> roles){
+    public void addRoles(Set<Role> roles) {
         this.roles.addAll(roles);
     }
 
-    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true)
-    @JoinColumn(name = "user_id",referencedColumnName = "id", insertable = false, updatable = false)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "user_id", referencedColumnName = "id", insertable = false, updatable = false)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private List<Address> addresses;
@@ -92,9 +100,7 @@ public class User {
             String login,
             String password,
             String email,
-            String phone,
-            Date createdAt,
-            Date updatedAt
+            String phone
     ) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -102,13 +108,19 @@ public class User {
         this.password = password;
         this.email = email;
         this.phone = phone;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
         this.active = Active.OFF;
         this.verification = Verification.NO;
     }
 
-    public User(long id, String firstName, String lastName, String login, String password, String email, String phone, Date createdAt, Date updatedAt) {
+    public User(
+            long id,
+            String firstName,
+            String lastName,
+            String login,
+            String password,
+            String email,
+            String phone
+    ) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -116,17 +128,15 @@ public class User {
         this.password = password;
         this.email = email;
         this.phone = phone;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
         this.active = Active.OFF;
         this.verification = Verification.NO;
     }
 
-    public enum Active{
-        ON,OFF
+    public enum Active {
+        ON, OFF
     }
 
-    public enum Verification{
+    public enum Verification {
         YES, NO
     }
 }
