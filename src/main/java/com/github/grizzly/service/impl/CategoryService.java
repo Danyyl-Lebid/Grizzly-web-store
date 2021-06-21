@@ -3,6 +3,7 @@ package com.github.grizzly.service.impl;
 import com.github.grizzly.entity.Category;
 import com.github.grizzly.repository.CategoryRepository;
 import com.github.grizzly.service.ICategoryService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
@@ -10,6 +11,7 @@ public class CategoryService implements ICategoryService {
 
     private final CategoryRepository categoryRepository;
 
+    @Autowired
     public CategoryService(CategoryRepository categoryRepository) {
         this.categoryRepository = categoryRepository;
     }
