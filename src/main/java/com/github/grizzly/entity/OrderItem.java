@@ -5,22 +5,18 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.Date;
 
 @Data
 @Entity
 @Table(name = "order_items")
 @NoArgsConstructor
+@AllArgsConstructor
 public class OrderItem {
 
     @Id
     @Setter(value= AccessLevel.NONE)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
-    @NotNull
-    @Column(name = "product_id")
-    private long productId;
 
     @NotNull
     @Column(name = "quantity")
@@ -30,11 +26,8 @@ public class OrderItem {
     @Column(name = "price")
     private BigDecimal price;
 
-    @Column(name = "created_date")
-    private Date createdDate;
-
     @ManyToOne
-    @JoinColumn(name = "order_id", referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "order_id", referencedColumnName = "id", nullable=false)
     private Order order;
 
     @OneToOne
