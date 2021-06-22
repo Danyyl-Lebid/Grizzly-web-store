@@ -18,7 +18,7 @@ public class CategoryRepositoryTest {
 
     @Test
     public void findByIdTest(){
-        this.categoryRepository.save(new Category( 0, "Milk", "Test-category"));
+        this.categoryRepository.save(new Category( null, "Milk", "Test-category"));
     }
 
 }
