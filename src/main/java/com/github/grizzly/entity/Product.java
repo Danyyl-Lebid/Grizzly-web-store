@@ -1,16 +1,17 @@
 package com.github.grizzly.entity;
 
 import com.sun.istack.NotNull;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Data
 @Entity
+@AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "products")
 public class Product {
@@ -19,10 +20,12 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name", nullable = false, columnDefinition = "VARCHAR(64)")
+    @NotNull
+    @Column(name = "name", columnDefinition = "VARCHAR(64)")
     private String name;
 
-    @Column(name = "description")
+    @NotNull
+    @Column(name = "description",  columnDefinition = "VARCHAR(256)")
     private String description;
 
     @NotNull
@@ -34,16 +37,29 @@ public class Product {
     private int quantity;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "category_id")
+    @JoinColumn(name = "category_id", referencedColumnName = "id")
     private Category category;
 
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "product", cascade = CascadeType.ALL)
     private Set<SpecificationValue> specificationValues = new HashSet<>();
 
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "product", cascade = CascadeType.ALL)
     private Set<Promotion> promotions = new HashSet<>();
 
     public Product(String name, String description, BigDecimal price, int quantity, Category category) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.quantity = quantity;
+        this.category = category;
+    }
+
+    public Product(Long id, String name, String description, BigDecimal price, int quantity, Category category) {
+        this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
