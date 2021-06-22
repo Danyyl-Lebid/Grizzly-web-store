@@ -29,7 +29,7 @@ public class CategoryService implements ICategoryService {
 
     @Override
     public List<Category> findCategoriesByParentIdIsNull() {
-        return categoryRepository.findCategoriesByParentIdIsNull(null);
+        return categoryRepository.findCategoriesByParentIdIsNull();
     }
 
     @Override
