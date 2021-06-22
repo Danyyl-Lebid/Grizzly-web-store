@@ -4,13 +4,13 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Data
 @Entity
 @Table(name = "category")
 @NoArgsConstructor
-@EqualsAndHashCode
 public class Category {
 
     @Id
@@ -18,8 +18,8 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "parent_id", nullable = false)
-    private long parentId;
+    @Column(name = "parent_id")
+    private Long parentId;
 
     @Column(name = "name", nullable = false, columnDefinition = "VARCHAR(32)")
     private String name;
@@ -27,13 +27,24 @@ public class Category {
     @Column(name = "description", nullable = false, columnDefinition = "VARCHAR(256)")
     private String description;
 
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "category", cascade = CascadeType.ALL)
     private Set<Product> products = new HashSet<>();
 
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "category", cascade = CascadeType.ALL)
     private Set<Specification> specifications = new HashSet<>();
 
-    public Category(long parentId, String name, String description) {
+    public Category(Long parentId, String name, String description) {
+        this.parentId = parentId;
+        this.name = name;
+        this.description = description;
+    }
+
+    public Category(long id, Long parentId, String name, String description) {
+        this.id = id;
         this.parentId = parentId;
         this.name = name;
         this.description = description;
