@@ -7,19 +7,22 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
-@RequiredArgsConstructor
 public class ReviewService implements IReviewService {
 
     private final ReviewRepository reviewRepository;
 
+    public ReviewService(ReviewRepository reviewRepository) {
+        this.reviewRepository = reviewRepository;
+    }
+
     @Override
     public List<Review> findAllByProduct(Long idProduct) {
-        return reviewRepository.findAllByProduct(idProduct);
+        return reviewRepository.findAllByProductId(idProduct);
     }
 
     @Override
     public List<Review> findAllByUserId(Long idUser) {
-        return reviewRepository.findAllByUserId(idUser);
+        return reviewRepository.findAllByIdReviewer(idUser);
     }
 
     @Override
