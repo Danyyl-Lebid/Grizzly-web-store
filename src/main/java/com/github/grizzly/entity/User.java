@@ -87,7 +87,6 @@ public class User {
     }
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "user_id", referencedColumnName = "id", insertable = false, updatable = false)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private List<Address> addresses;
