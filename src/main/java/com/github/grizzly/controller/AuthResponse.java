@@ -1,4 +1,4 @@
-package com.github.grizzly.controller.test;
+package com.github.grizzly.controller;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

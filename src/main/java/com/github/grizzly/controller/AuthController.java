@@ -1,4 +1,4 @@
-package com.github.grizzly.controller.test;
+package com.github.grizzly.controller;
 
 import com.github.grizzly.dto.UserAuthDto;
 import com.github.grizzly.entity.User;
@@ -10,8 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.validation.Valid;
 
 @RestController
 public class AuthController {
@@ -27,7 +25,7 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public String registerUser(@RequestBody @Valid UserRegDto userRegDto) {
+    public String registerUser(@RequestBody UserRegDto userRegDto) {
         userService.create(userRegDto);
         return "OK";
     }

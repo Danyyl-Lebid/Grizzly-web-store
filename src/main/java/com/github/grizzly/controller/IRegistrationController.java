@@ -15,5 +15,4 @@ public interface IRegistrationController {
 
     @PostMapping("/")
     ModelAndView register(@ModelAttribute("user") @Valid UserRegDto regDto);
-
 }
