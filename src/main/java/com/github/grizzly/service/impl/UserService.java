@@ -63,10 +63,13 @@ public class UserService implements IUserService {
         boolean loginConflict = userRepository.existsByLogin(regDto.getLogin());
         boolean emailConflict = userRepository.existsByEmail(regDto.getEmail());
         boolean phoneConflict = userRepository.existsByPhone(regDto.getPhone());
-        String message = String.format(
-                "loginConflict = %b, emailConflict = %b, phoneConflict = %b",
-                loginConflict, emailConflict, phoneConflict);
-        throw new DuplicatedDataException(message);
+        if (loginConflict || emailConflict || phoneConflict){
+            String message = String.format(
+                    "loginConflict = %b, emailConflict = %b, phoneConflict = %b",
+                    loginConflict, emailConflict, phoneConflict);
+            throw new DuplicatedDataException(message);
+        }
+
     }
 
     @Override
@@ -113,6 +116,18 @@ public class UserService implements IUserService {
         user.setActive(User.Active.ON);
         userRepository.save(user);
         return user;
+    }
+
+    public User findByLoginAndPassword(String login, String password) {
+        User user = findByLogin(login);
+        if (user != null) {
+            if (passwordEncoder.matches(password, user.getPassword())) {
+                user.setActive(User.Active.ON);
+                userRepository.save(user);
+                return user;
+            }
+        }
+        return null;
     }
 
 }

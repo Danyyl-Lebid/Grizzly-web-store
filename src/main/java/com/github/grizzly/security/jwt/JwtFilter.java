@@ -1,7 +1,7 @@
-package com.github.grizzly.config.jwt;
+package com.github.grizzly.security.jwt;
 
-import com.github.grizzly.config.CustomUserDetails;
-import com.github.grizzly.config.CustomUserDetailsService;
+import com.github.grizzly.security.CustomUserDetails;
+import com.github.grizzly.security.CustomUserDetailsService;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
