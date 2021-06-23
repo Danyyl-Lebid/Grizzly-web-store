@@ -5,8 +5,9 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Objects;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -43,6 +44,12 @@ public class Product {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     private Category category;
+
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "product_images", joinColumns = @JoinColumn(name = "product_id"))
+    private List<String> images = new ArrayList<>();
 
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
