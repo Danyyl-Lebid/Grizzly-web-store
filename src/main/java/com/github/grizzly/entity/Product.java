@@ -1,6 +1,5 @@
 package com.github.grizzly.entity;
 
-import com.sun.istack.NotNull;
 import lombok.*;
 
 import javax.persistence.*;
@@ -24,7 +23,7 @@ public class Product {
     @Column(name = "name", columnDefinition = "VARCHAR(64)", nullable = false)
     private String name;
 
-    @Column(name = "description",  columnDefinition = "VARCHAR(256)", nullable = false)
+    @Column(name = "description", columnDefinition = "VARCHAR(256)", nullable = false)
     private String description;
 
     @Column(name = "image", nullable = false)
@@ -56,7 +55,14 @@ public class Product {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "product", cascade = CascadeType.ALL)
     private Set<Promotion> promotions = new HashSet<>();
 
-    public Product(String name, String description, String mainImage, BigDecimal price, int quantity, Category category) {
+    public Product(
+            String name,
+            String description,
+            String mainImage,
+            BigDecimal price,
+            int quantity,
+            Category category
+    ) {
         this.name = name;
         this.description = description;
         this.mainImage = mainImage;
@@ -65,7 +71,15 @@ public class Product {
         this.category = category;
     }
 
-    public Product(Long id, String name, String description, String mainImage, BigDecimal price, int quantity, Category category) {
+    public Product(
+            Long id,
+            String name,
+            String description,
+            String mainImage,
+            BigDecimal price,
+            int quantity,
+            Category category
+    ) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -73,5 +87,7 @@ public class Product {
         this.price = price;
         this.quantity = quantity;
         this.category = category;
+
     }
+
 }
