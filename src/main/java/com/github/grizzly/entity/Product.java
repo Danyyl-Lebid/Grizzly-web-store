@@ -29,6 +29,10 @@ public class Product {
     private String description;
 
     @NotNull
+    @Column(name = "image")
+    private String mainImage;
+
+    @NotNull
     @Column(name = "price")
     private BigDecimal price;
 
@@ -50,18 +54,20 @@ public class Product {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "product", cascade = CascadeType.ALL)
     private Set<Promotion> promotions = new HashSet<>();
 
-    public Product(String name, String description, BigDecimal price, int quantity, Category category) {
+    public Product(String name, String description, String mainImage, BigDecimal price, int quantity, Category category) {
         this.name = name;
         this.description = description;
+        this.mainImage = mainImage;
         this.price = price;
         this.quantity = quantity;
         this.category = category;
     }
 
-    public Product(Long id, String name, String description, BigDecimal price, int quantity, Category category) {
+    public Product(Long id, String name, String description, String mainImage, BigDecimal price, int quantity, Category category) {
         this.id = id;
         this.name = name;
         this.description = description;
+        this.mainImage = mainImage;
         this.price = price;
         this.quantity = quantity;
         this.category = category;
