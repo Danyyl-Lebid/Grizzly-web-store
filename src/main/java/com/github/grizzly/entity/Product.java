@@ -21,24 +21,19 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
-    @Column(name = "name", columnDefinition = "VARCHAR(64)")
+    @Column(name = "name", columnDefinition = "VARCHAR(64)", nullable = false)
     private String name;
 
-    @NotNull
-    @Column(name = "description",  columnDefinition = "VARCHAR(256)")
+    @Column(name = "description",  columnDefinition = "VARCHAR(256)", nullable = false)
     private String description;
 
-    @NotNull
-    @Column(name = "image")
+    @Column(name = "image", nullable = false)
     private String mainImage;
 
-    @NotNull
-    @Column(name = "price")
+    @Column(name = "price", nullable = false)
     private BigDecimal price;
 
-    @NotNull
-    @Column(name = "quantity")
+    @Column(name = "quantity", nullable = false)
     private int quantity;
 
     @ManyToOne(fetch = FetchType.EAGER)
