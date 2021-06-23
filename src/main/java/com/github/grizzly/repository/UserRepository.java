@@ -30,4 +30,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     List<User> findByVerification(User.Verification verification);
 
+    boolean existsByLogin(String login);
+
+    boolean existsByEmail(String email);
+
+    boolean existsByPhone(String phone);
+
 }

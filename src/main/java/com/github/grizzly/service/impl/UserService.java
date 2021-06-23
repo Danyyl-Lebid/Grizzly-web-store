@@ -4,13 +4,13 @@ import com.github.grizzly.dto.UserAuthDto;
 import com.github.grizzly.dto.UserRegDto;
 import com.github.grizzly.entity.Role;
 import com.github.grizzly.entity.User;
+import com.github.grizzly.exceptions.DuplicatedDataException;
 import com.github.grizzly.exceptions.EntityNotFoundException;
-import com.github.grizzly.exceptions.user.DuplicatedDataException;
+import com.github.grizzly.exceptions.InvalidInputData;
 import com.github.grizzly.exceptions.user.IncorrectPasswordException;
 import com.github.grizzly.repository.UserRepository;
 import com.github.grizzly.service.IUserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
+import com.github.grizzly.validation.user.UserValidationUtils;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.Objects;
@@ -21,7 +21,6 @@ public class UserService implements IUserService {
 
     private final BCryptPasswordEncoder passwordEncoder;
 
-    @Autowired
     public UserService(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
@@ -44,6 +43,7 @@ public class UserService implements IUserService {
 
     @Override
     public User create(UserRegDto regDto) {
+        checkPresence(regDto);
         User user = new User(
                 regDto.getFirstName(),
                 regDto.getLastName(),
@@ -53,11 +53,28 @@ public class UserService implements IUserService {
                 regDto.getPhone()
         );
         user.addRole(Role.USER);
-        try {
-            return userRepository.save(user);
-        } catch (DataIntegrityViolationException e) {
-            throw new DuplicatedDataException(e);
-        }
+        return userRepository.save(user);
+    }
+
+    private void checkPresence(UserRegDto regDto) {
+        boolean loginConflict = userRepository.existsByLogin(regDto.getLogin());
+        boolean emailConflict = userRepository.existsByEmail(regDto.getEmail());
+        boolean phoneConflict = userRepository.existsByPhone(regDto.getPhone());
+        String message = String.format(
+                "loginConflict = %b, emailConflict = %b, phoneConflict = %b",
+                loginConflict, emailConflict, phoneConflict);
+        throw new DuplicatedDataException(message);
+    }
+
+    @Override
+    public User authorize(UserAuthDto authDto) {
+        if(UserValidationUtils.isValidEmail(authDto.getLogin())){
+            return authorizeViaEmail(authDto);
+        } else if(UserValidationUtils.isValidPhone(authDto.getLogin())){
+            return authorizeViaPhone(authDto);
+        } else if(UserValidationUtils.isValidLogin(authDto.getLogin())){
+            return authorizeViaLogin(authDto);
+        } else throw new InvalidInputData();
     }
 
     @Override
@@ -84,7 +101,7 @@ public class UserService implements IUserService {
         return userRepository.save(user);
     }
 
-    private User authorizeUser(User user, String password){
+    private User authorizeUser(User user, String password) {
         if (!Objects.equals(
                 passwordEncoder.encode(password),
                 user.getPassword())) {
