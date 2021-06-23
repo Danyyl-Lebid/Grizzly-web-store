@@ -19,9 +19,9 @@ public class CategoryRepositoryMock {
         return new Category(
                 1L,
                 null,
-                "Phone description",
-                "Phone"
-        );
+                "Phone",
+                "Phone description"
+                );
     }
 
     public static Category category2() {
