@@ -118,6 +118,7 @@ public class UserService implements IUserService {
         return user;
     }
 
+    @Override
     public User findByLoginAndPassword(String login, String password) {
         User user = findByLogin(login);
         if (user != null) {
