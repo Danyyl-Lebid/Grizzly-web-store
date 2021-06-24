@@ -1,5 +1,6 @@
 package com.github.grizzly.entity;
 
+import com.sun.istack.NotNull;
 import lombok.*;
 
 import javax.persistence.*;
@@ -20,19 +21,24 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name", columnDefinition = "VARCHAR(64)", nullable = false)
+    @NotNull
+    @Column(name = "name", columnDefinition = "VARCHAR(64)")
     private String name;
 
-    @Column(name = "description", columnDefinition = "VARCHAR(256)", nullable = false)
+    @NotNull
+    @Column(name = "description", columnDefinition = "VARCHAR(256)")
     private String description;
 
-    @Column(name = "image", nullable = false)
+    @NotNull
+    @Column(name = "image")
     private String mainImage;
 
-    @Column(name = "price", nullable = false)
+    @NotNull
+    @Column(name = "price")
     private BigDecimal price;
 
-    @Column(name = "quantity", nullable = false)
+    @NotNull
+    @Column(name = "quantity")
     private int quantity;
 
     @ManyToOne(fetch = FetchType.EAGER)
