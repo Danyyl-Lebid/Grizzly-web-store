@@ -28,7 +28,7 @@ public class JwtProvider {
         return Jwts.builder()
                 .setSubject(login)
                 .setExpiration(date)
-                .signWith(SignatureAlgorithm.HS512, secret)
+                .signWith(SignatureAlgorithm.HS256, secret)
                 .compact();
     }
 
