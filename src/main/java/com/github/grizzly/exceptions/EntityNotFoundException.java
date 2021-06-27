@@ -3,8 +3,8 @@ package com.github.grizzly.exceptions;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@ResponseStatus(code = HttpStatus.FORBIDDEN, reason = "Entity not found")
-public class EntityNotFoundException extends RuntimeException{
+@ResponseStatus(code = HttpStatus.NOT_FOUND, reason = "Entity not found")
+public class EntityNotFoundException extends RuntimeException {
 
     public EntityNotFoundException() {
     }

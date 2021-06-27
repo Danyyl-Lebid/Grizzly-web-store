@@ -28,5 +28,4 @@ public interface IUserService {
 
     User verify(User user);
 
-
 }

@@ -4,7 +4,6 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
 @Data
@@ -14,7 +13,7 @@ import java.util.Set;
 public class Category {
 
     @Id
-    @Setter(value= AccessLevel.NONE)
+    @Setter(value = AccessLevel.NONE)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 

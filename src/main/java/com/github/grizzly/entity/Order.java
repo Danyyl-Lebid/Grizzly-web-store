@@ -1,4 +1,5 @@
 package com.github.grizzly.entity;
+
 import com.github.grizzly.enums.Status;
 import com.sun.istack.NotNull;
 import lombok.*;
@@ -21,7 +22,7 @@ public class Order implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @Setter(value= AccessLevel.NONE)
+    @Setter(value = AccessLevel.NONE)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
@@ -37,7 +38,7 @@ public class Order implements Serializable {
     private BigDecimal totalPrice;
 
     @NotNull
-    @Column(name = "status",columnDefinition = "VARCHAR(32)")
+    @Column(name = "status", columnDefinition = "VARCHAR(32)")
     @Enumerated(EnumType.STRING)
     private Status status;
 

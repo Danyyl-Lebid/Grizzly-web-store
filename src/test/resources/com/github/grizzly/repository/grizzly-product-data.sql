@@ -1,39 +1,43 @@
-insert into PUBLIC.products (id, name, description, price, quantity, category_id)
+insert into PUBLIC.products (id, name, description, image, price, quantity, category_id)
 
 values (1,
         'product1_name',
         'product1_description',
+        'https://grizzly.com/prodycts/img/main1.png',
         11.99,
         11,
         1
        );
 
-insert into PUBLIC.products (id, name, description, price, quantity, category_id)
+insert into PUBLIC.products (id, name, description, image, price, quantity, category_id)
 
 values (2,
         'product2_name',
         'product2_description',
+        'https://grizzly.com/prodycts/img/main2.png',
         12.99,
         12,
         2
        );
 
-insert into PUBLIC.products (id, name, description, price, quantity, category_id)
+insert into PUBLIC.products (id, name, description, image, price, quantity, category_id)
 
 values (3,
         'product3_name',
         'product3_description',
+        'https://grizzly.com/prodycts/img/main3.png',
         13.99,
         13,
         3
        );
 
 
-insert into PUBLIC.products (id, name, description, price, quantity, category_id)
+insert into PUBLIC.products (id, name, description, image, price, quantity, category_id)
 
 values (4,
         'product4_name',
         'product4_description',
+        'https://grizzly.com/prodycts/img/main4.png',
         14.99,
         14,
         4

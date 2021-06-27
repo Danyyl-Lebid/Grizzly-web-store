@@ -3,7 +3,6 @@ package com.github.grizzly.service.impl;
 import com.github.grizzly.entity.Review;
 import com.github.grizzly.repository.ReviewRepository;
 import com.github.grizzly.service.IReviewService;
-import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 

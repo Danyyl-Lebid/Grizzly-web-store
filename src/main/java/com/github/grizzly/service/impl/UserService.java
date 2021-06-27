@@ -74,11 +74,11 @@ public class UserService implements IUserService {
 
     @Override
     public User authorize(UserAuthDto authDto) {
-        if(UserValidationUtils.isValidEmail(authDto.getLogin())){
+        if (UserValidationUtils.isValidEmail(authDto.getLogin())) {
             return authorizeViaEmail(authDto);
-        } else if(UserValidationUtils.isValidPhone(authDto.getLogin())){
+        } else if (UserValidationUtils.isValidPhone(authDto.getLogin())) {
             return authorizeViaPhone(authDto);
-        } else if(UserValidationUtils.isValidLogin(authDto.getLogin())){
+        } else if (UserValidationUtils.isValidLogin(authDto.getLogin())) {
             return authorizeViaLogin(authDto);
         } else throw new InvalidInputData();
     }
