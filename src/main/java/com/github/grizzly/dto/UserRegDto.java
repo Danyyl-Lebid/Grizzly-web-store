@@ -9,11 +9,11 @@ import javax.validation.constraints.NotEmpty;
 @Data
 public class UserRegDto {
 
-    @ValidName
+//    @ValidName
     @NotEmpty(message = "Firstname is required")
     private String firstName;
 
-    @ValidName
+//    @ValidName
     @NotEmpty(message = "Lastname is required")
     private String lastName;
 
@@ -21,7 +21,7 @@ public class UserRegDto {
     @NotEmpty(message = "Login is required")
     private String login;
 
-    @ValidPassword
+//    @ValidPassword
     @NotEmpty(message = "Password is required")
     private String password;
 
@@ -29,7 +29,7 @@ public class UserRegDto {
     @NotBlank(message = "Email is required")
     private String email;
 
-    @ValidPhone
+//    @ValidPhone
     @NotEmpty(message = "Phone is required")
     private String phone;
 
