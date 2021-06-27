@@ -27,27 +27,27 @@ public class UserValidationUtils {
     private static final String PHONE_PATTERN =
             "/\\(?([0-9]{3})\\)?([ .-]?)([0-9]{3})\\2([0-9]{4})/";
 
-    private static boolean isValidValue(String value, Pattern pattern){
+    private static boolean isValidValue(String value, Pattern pattern) {
         return pattern.matcher(value).matches();
     }
 
-    public static boolean isValidEmail(String email){
+    public static boolean isValidEmail(String email) {
         return isValidValue(email, Pattern.compile(EMAIL_PATTERN));
     }
 
-    public static boolean isValidLogin(String login){
+    public static boolean isValidLogin(String login) {
         return isValidValue(login, Pattern.compile(LOGIN_PATTERN));
     }
 
-    public static boolean isValidName(String name){
+    public static boolean isValidName(String name) {
         return isValidValue(name, Pattern.compile(NAME_PATTERN));
     }
 
-    public static boolean isValidPassword(String password){
+    public static boolean isValidPassword(String password) {
         return isValidValue(password, Pattern.compile(PASSWORD_PATTERN));
     }
 
-    public static boolean isValidPhone(String phone){
+    public static boolean isValidPhone(String phone) {
         return isValidValue(phone, Pattern.compile(PHONE_PATTERN));
     }
 

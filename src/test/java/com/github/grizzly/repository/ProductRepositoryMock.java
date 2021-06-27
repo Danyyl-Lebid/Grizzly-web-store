@@ -44,6 +44,7 @@ public class ProductRepositoryMock {
         return new Product(1L,
                 "product1_name",
                 "product1_description",
+                "https://grizzly.com/prodycts/img/main1.png",
                 new BigDecimal("11.99"),
                 11,
                 category1()
@@ -54,6 +55,7 @@ public class ProductRepositoryMock {
         return new Product(2L,
                 "product2_name",
                 "product2_description",
+                "https://grizzly.com/prodycts/img/main2.png",
                 new BigDecimal("12.99"),
                 12,
                 category2()
@@ -64,6 +66,7 @@ public class ProductRepositoryMock {
         return new Product(3L,
                 "product3_name",
                 "product3_description",
+                "https://grizzly.com/prodycts/img/main3.png",
                 new BigDecimal("13.99"),
                 13,
                 category3()
@@ -74,6 +77,7 @@ public class ProductRepositoryMock {
         return new Product(4L,
                 "product4_name",
                 "product4_description",
+                "https://grizzly.com/prodycts/img/main4.png",
                 new BigDecimal("14.99"),
                 14,
                 category4()
