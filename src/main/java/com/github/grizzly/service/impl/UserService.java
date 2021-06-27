@@ -16,6 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
+
 @Service
 public class UserService implements IUserService {
 
@@ -63,7 +64,7 @@ public class UserService implements IUserService {
         boolean loginConflict = userRepository.existsByLogin(regDto.getLogin());
         boolean emailConflict = userRepository.existsByEmail(regDto.getEmail());
         boolean phoneConflict = userRepository.existsByPhone(regDto.getPhone());
-        if (loginConflict || emailConflict || phoneConflict){
+        if (loginConflict || emailConflict || phoneConflict) {
             String message = String.format(
                     "loginConflict = %b, emailConflict = %b, phoneConflict = %b",
                     loginConflict, emailConflict, phoneConflict);
