@@ -3,7 +3,7 @@ package com.github.grizzly.service.impl;
 import com.github.grizzly.entity.Review;
 import com.github.grizzly.repository.ReviewRepository;
 import com.github.grizzly.service.IReviewService;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
@@ -11,6 +11,7 @@ public class ReviewService implements IReviewService {
 
     private final ReviewRepository reviewRepository;
 
+    @Autowired
     public ReviewService(ReviewRepository reviewRepository) {
         this.reviewRepository = reviewRepository;
     }

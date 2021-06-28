@@ -5,6 +5,8 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @Entity
@@ -36,6 +38,12 @@ public class Review {
     @NotNull
     @Column(name = "rate", nullable = false)
     private int rate;
+
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "products",  referencedColumnName = "id")
+    private Product products;
 
     public Review(long idReviewer, String review, Date createdAt, long productId, int rate) {
         this.idReviewer = idReviewer;
