@@ -50,4 +50,8 @@ public class Product {
         this.quantity = quantity;
         this.category = category;
     }
+
+    public Product(Long id) {
+        this.id = id;
+    }
 }

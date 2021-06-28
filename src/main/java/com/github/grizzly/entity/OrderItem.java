@@ -34,4 +34,10 @@ public class OrderItem {
     @JoinColumn(name = "product_id", referencedColumnName = "id", insertable = false, updatable = false)
     private Product product;
 
+    public OrderItem(int quantity, BigDecimal price, Order order, Product product) {
+        this.quantity = quantity;
+        this.price = price;
+        this.order = order;
+        this.product = product;
+    }
 }

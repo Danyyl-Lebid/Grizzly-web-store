@@ -122,6 +122,10 @@ public class User {
         this.verification = Verification.NO;
     }
 
+    public User(long id) {
+        this.id = id;
+    }
+
     public enum Active{
         ON,OFF
     }
