@@ -2,7 +2,6 @@ package com.github.grizzly.repository;
 
 import com.github.grizzly.entity.User;
 
-import java.util.Date;
 import java.util.List;
 
 public class UserRepositoryMocks {
@@ -22,9 +21,7 @@ public class UserRepositoryMocks {
                 "user1_login",
                 "user1_password",
                 "user1_@email.com",
-                "user1_phone",
-                new Date(0),
-                null
+                "user1_phone"
         );
     }
 
@@ -35,9 +32,7 @@ public class UserRepositoryMocks {
                 "user2_login",
                 "user2_password",
                 "user2_@email.com",
-                "user2_phone",
-                new Date(0),
-                null
+                "user2_phone"
         );
     }
 
@@ -48,9 +43,7 @@ public class UserRepositoryMocks {
                 "user3_login",
                 "user3_password",
                 "user3_@email.com",
-                "user3_phone",
-                new Date(0),
-                null
+                "user3_phone"
         );
     }
 

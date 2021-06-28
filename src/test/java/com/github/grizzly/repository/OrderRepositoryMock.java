@@ -20,9 +20,7 @@ public class OrderRepositoryMock {
                 "user1_login",
                 "user1_password",
                 "user1_@email.com",
-                "user1_phone",
-                new Date(0),
-                null
+                "user1_phone"
         );
     }
 
@@ -33,9 +31,7 @@ public class OrderRepositoryMock {
                 "user2_login",
                 "user2_password",
                 "user2_@email.com",
-                "user2_phone",
-                new Date(0),
-                null
+                "user2_phone"
         );
     }
 

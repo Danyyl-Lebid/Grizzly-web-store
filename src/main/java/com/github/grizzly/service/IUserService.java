@@ -14,10 +14,18 @@ public interface IUserService {
 
     User findByEmail(String email);
 
-    User register(UserRegDto regDto);
-
-    void save(User user);
+    User create(UserRegDto regDto);
 
     User authorize(UserAuthDto authDto);
+
+    User authorizeViaEmail(UserAuthDto authDto);
+
+    User authorizeViaLogin(UserAuthDto authDto);
+
+    User authorizeViaPhone(UserAuthDto authDto);
+
+    User findByLoginAndPassword(String login, String password);
+
+    User verify(User user);
 
 }

@@ -1,7 +1,5 @@
 package com.github.grizzly.entity;
-import com.github.grizzly.dto.OrderItemsDto;
 import com.github.grizzly.enums.Status;
-import com.github.grizzly.repository.UserRepository;
 import com.sun.istack.NotNull;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -23,7 +21,7 @@ public class Order implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @Setter(value= AccessLevel.NONE)
+    @Setter(value = AccessLevel.NONE)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
@@ -36,7 +34,7 @@ public class Order implements Serializable {
     private LocalDateTime modifyDate;
 
     @NotNull
-    @Column(name = "status",columnDefinition = "VARCHAR(32)")
+    @Column(name = "status", columnDefinition = "VARCHAR(32)")
     @Enumerated(EnumType.STRING)
     private Status status;
 
