@@ -24,7 +24,8 @@ public interface IUserService {
 
     User authorizeViaPhone(UserAuthDto authDto);
 
-    User verify(User user);
+    User findByLoginAndPassword(String login, String password);
 
+    User verify(User user);
 
 }

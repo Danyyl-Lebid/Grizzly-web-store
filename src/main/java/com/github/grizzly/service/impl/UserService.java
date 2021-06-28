@@ -11,17 +11,20 @@ import com.github.grizzly.exceptions.user.IncorrectPasswordException;
 import com.github.grizzly.repository.UserRepository;
 import com.github.grizzly.service.IUserService;
 import com.github.grizzly.validation.user.UserValidationUtils;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
 import java.util.Objects;
-
+@Service
 public class UserService implements IUserService {
 
     private final UserRepository userRepository;
 
-    private final BCryptPasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder) {
+    @Autowired
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
@@ -60,19 +63,22 @@ public class UserService implements IUserService {
         boolean loginConflict = userRepository.existsByLogin(regDto.getLogin());
         boolean emailConflict = userRepository.existsByEmail(regDto.getEmail());
         boolean phoneConflict = userRepository.existsByPhone(regDto.getPhone());
-        String message = String.format(
-                "loginConflict = %b, emailConflict = %b, phoneConflict = %b",
-                loginConflict, emailConflict, phoneConflict);
-        throw new DuplicatedDataException(message);
+        if (loginConflict || emailConflict || phoneConflict){
+            String message = String.format(
+                    "loginConflict = %b, emailConflict = %b, phoneConflict = %b",
+                    loginConflict, emailConflict, phoneConflict);
+            throw new DuplicatedDataException(message);
+        }
+
     }
 
     @Override
     public User authorize(UserAuthDto authDto) {
-        if(UserValidationUtils.isValidEmail(authDto.getLogin())){
+        if (UserValidationUtils.isValidEmail(authDto.getLogin())) {
             return authorizeViaEmail(authDto);
-        } else if(UserValidationUtils.isValidPhone(authDto.getLogin())){
+        } else if (UserValidationUtils.isValidPhone(authDto.getLogin())) {
             return authorizeViaPhone(authDto);
-        } else if(UserValidationUtils.isValidLogin(authDto.getLogin())){
+        } else if (UserValidationUtils.isValidLogin(authDto.getLogin())) {
             return authorizeViaLogin(authDto);
         } else throw new InvalidInputData();
     }
@@ -110,6 +116,19 @@ public class UserService implements IUserService {
         user.setActive(User.Active.ON);
         userRepository.save(user);
         return user;
+    }
+
+    @Override
+    public User findByLoginAndPassword(String login, String password) {
+        User user = findByLogin(login);
+        if (user != null) {
+            if (passwordEncoder.matches(password, user.getPassword())) {
+                user.setActive(User.Active.ON);
+                userRepository.save(user);
+                return user;
+            }
+        }
+        return null;
     }
 
 }

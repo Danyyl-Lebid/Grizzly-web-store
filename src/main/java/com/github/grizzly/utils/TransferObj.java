@@ -9,6 +9,7 @@ public class TransferObj {
         return new Product(
                 data.getName(),
                 data.getDescription(),
+                data.getMainImage(),
                 data.getPrice(),
                 data.getQuantity(),
                 data.getCategory()
@@ -19,6 +20,7 @@ public class TransferObj {
         return new ProductDto(
                 data.getName(),
                 data.getDescription(),
+                data.getMainImage(),
                 data.getPrice(),
                 data.getQuantity(),
                 data.getCategory()

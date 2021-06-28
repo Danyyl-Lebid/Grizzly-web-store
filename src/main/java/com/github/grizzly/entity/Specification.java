@@ -15,7 +15,7 @@ import javax.persistence.*;
 public class Specification {
 
     @Id
-    @Setter(value= AccessLevel.NONE)
+    @Setter(value = AccessLevel.NONE)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
