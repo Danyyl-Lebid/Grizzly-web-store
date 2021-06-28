@@ -1,4 +1,4 @@
-package com.github.grizzly.dto;
+package com.github.grizzly.dto.order;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

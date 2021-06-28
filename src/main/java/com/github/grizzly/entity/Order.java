@@ -6,9 +6,12 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import javax.validation.constraints.Digits;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -45,16 +48,23 @@ public class Order implements Serializable {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
-    public Order(long id, LocalDateTime createDate, Status status,
-                 List<OrderItem> orderItems, User user) {
-        this.id = id;
-        this.createDate = createDate;
-        this.status = status;
-        this.orderItems = orderItems;
-        this.user = user;
+    @Transient
+    @Digits(integer = 9, fraction = 2)
+    public BigDecimal getTotalOrderPrice() {
+        BigDecimal sum = new BigDecimal("0");
+        List<OrderItem> orderItems = getOrderItems();
+        if(orderItems == null || orderItems.size() == 0) {
+            return sum;
+        }
+        for (OrderItem orderItem : orderItems) {
+            sum = sum.add(orderItem.getTotalPrice());
+        }
+
+        return sum.setScale(2, RoundingMode.HALF_EVEN);
     }
 
-    public Order(long id) {
-        this.id = id;
+    public Order(User user) {
+        this.status = Status.OPEN;
+        this.user = user;
     }
 }
