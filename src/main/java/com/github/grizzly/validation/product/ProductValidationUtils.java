@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 public class ProductValidationUtils {
 
     private static final String NAME_PRODUCT_PATTERN =
-            "^[A-Za-z\\x{00C0}-\\x{00FF}][A-Za-z\\x{00C0}-\\x{00FF}\\'\\-]+([\\ A-Za-z\\x{00C0}-\\x{00FF}][A-Za-z\\x{00C0}-\\x{00FF}\\'\\-]+)*/u";
+            "^[a-zA-Z0-9]{4,10}$";
 
     private static boolean isValidValue(String value, Pattern pattern) {
         return pattern.matcher(value).matches();
