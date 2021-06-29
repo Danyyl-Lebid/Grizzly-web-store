@@ -257,41 +257,6 @@
             -->
         </module>
 
-        <!--WHITESPACE CHECKS-->
-
-        <module name="WhitespaceAround">
-            <!-- Checks that various tokens are surrounded by whitespace.
-                This includes most binary operators and keywords followed
-                by regular or curly braces.
-            -->
-
-            <!-- ASSIGN - " = "
-                 ARRAY_INIT - " {"
-                 BAND - " & "
-                 BAND_ASSIGN-
-                 BOR - " | "
-                 DIV - " / "
-                 GENERIC_START - " < "
-                 GENERIC_END - " > "
-                 ELLIPSIS
-                 ARRAY_INIT
-            -->
-
-            <property name ="tokens"
-                      value="ASSIGN, BAND, BAND_ASSIGN, BOR,
-                             BOR_ASSIGN, BSR, BSR_ASSIGN, BXOR, BXOR_ASSIGN, COLON, DIV,
-                             DIV_ASSIGN, DO_WHILE, EQUAL, GE, GT, LAMBDA, LAND, LCURLY,
-                             LE, LITERAL_CATCH, LITERAL_DO, LITERAL_ELSE, LITERAL_FINALLY,
-                             LITERAL_FOR, LITERAL_IF, LITERAL_RETURN, LITERAL_SWITCH,
-                             LITERAL_SYNCHRONIZED, LITERAL_TRY, LITERAL_WHILE, LOR, LT,
-                             MINUS, MINUS_ASSIGN, MOD, MOD_ASSIGN, NOT_EQUAL, PLUS,
-                             PLUS_ASSIGN, QUESTION, RCURLY, SL, SLIST, SL_ASSIGN, SR,
-                             SR_ASSIGN, STAR, STAR_ASSIGN, LITERAL_ASSERT, TYPE_EXTENSION_AND,
-                             WILDCARD_TYPE"
-            />
-            <property name="severity" value="error"/>
-        </module>
-
         <module name="WhitespaceAfter">
             <!-- Checks that commas, semicolons and typecasts are followed by
               whitespace.
