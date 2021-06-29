@@ -4,7 +4,9 @@ import com.sun.istack.NotNull;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.Digits;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 
 @Data
 @Entity
@@ -24,6 +26,7 @@ public class OrderItem {
 
     @NotNull
     @Column(name = "price")
+    @Digits(integer = 9, fraction = 2)
     private BigDecimal price;
 
     @ManyToOne
@@ -34,4 +37,18 @@ public class OrderItem {
     @JoinColumn(name = "product_id", referencedColumnName = "id", insertable = false, updatable = false)
     private Product product;
 
+    @Transient
+    public BigDecimal getTotalPrice() {
+        return getPrice().multiply(BigDecimal.valueOf(getQuantity()));
+    }
+
+    public OrderItem(int quantity,
+                     @Digits(integer = 9, fraction = 2) BigDecimal price,
+                     Order order,
+                     Product product) {
+        this.quantity = quantity;
+        this.price = price;
+        this.order = order;
+        this.product = product;
+    }
 }
