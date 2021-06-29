@@ -13,8 +13,11 @@ import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
-@Data
+@Getter
+@Setter
+@ToString
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -66,5 +69,33 @@ public class Order implements Serializable {
     public Order(User user) {
         this.status = Status.OPEN;
         this.user = user;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Order order = (Order) o;
+
+        if (id != order.id) return false;
+        if (!Objects.equals(createDate, order.createDate)) return false;
+        if (!Objects.equals(modifyDate, order.modifyDate)) return false;
+        if (status != order.status) return false;
+        if(!Objects.deepEquals(
+                this.getOrderItems() != null ? this.getOrderItems().toArray() : this,
+                (order.getOrderItems() != null ? order.getOrderItems().toArray() : order))) return false;
+        return Objects.equals(user, order.user);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) (id ^ (id >>> 32));
+        result = 31 * result + (createDate != null ? createDate.hashCode() : 0);
+        result = 31 * result + (modifyDate != null ? modifyDate.hashCode() : 0);
+        result = 31 * result + (status != null ? status.hashCode() : 0);
+        result = 31 * result + (orderItems != null ? orderItems.hashCode() : 0);
+        result = 31 * result + (user != null ? user.hashCode() : 0);
+        return result;
     }
 }

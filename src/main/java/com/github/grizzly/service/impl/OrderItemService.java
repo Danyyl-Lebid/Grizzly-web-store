@@ -26,7 +26,7 @@ public class OrderItemService implements IOrderItemService {
     @Override
     public OrderItem create(OrderItemsDto orderItemDto, Order order) {
         Product product = this.productRepository.getById(orderItemDto.getProductId());
-        OrderItem orderItem = OrderItemTransferObject.toOrderItem(orderItemDto, order,product);
+        OrderItem orderItem = OrderItemTransferObject.toOrderItem(orderItemDto, order, product);
         return this.orderItemRepository.save(orderItem);
     }
 }

@@ -6,6 +6,7 @@ import com.github.grizzly.entity.User;
 import com.github.grizzly.enums.Status;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface IOrderService {
 
@@ -16,6 +17,8 @@ public interface IOrderService {
     List<OrderDto> readAllOrderByUser(User user);
 
     List<OrderDto> readAllOrderByUserAndByStatus(User user, Status status);
+
+    OrderDto findOrderById(long id);
 
     Order create(User user);
 

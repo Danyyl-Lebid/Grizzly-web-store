@@ -68,6 +68,12 @@ public class OrderController implements IOrderController {
     }
 
     @Override
+    public ResponseEntity<OrderDto> findAllOrderByUserId(long userId, long orderId, String jwtToken) {
+        return new ResponseEntity<>(this.orderService.findOrderById(orderId), HttpStatus.OK);
+    }
+
+
+    @Override
     public ResponseEntity<List<OrderDto>> findAllOrderByUserIdAndByStatusCreateDateDesc(long userId, Status status, String jwtToken) {
         User user = this.userService.findById(userId);
         return new ResponseEntity<>(this.orderService.readAllOrderByUserAndByStatus(user, status), HttpStatus.OK);

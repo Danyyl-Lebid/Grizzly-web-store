@@ -21,6 +21,9 @@ public interface IOrderController {
     @GetMapping(path = "/my-orders/{userId}/all", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<List<OrderDto>> findAllOrderByUserId(@PathVariable("userId") long userId, @RequestHeader("authorization") String jwtToken);
 
+    @GetMapping(path = "/my-orders/{userId}/order-{orderId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity<OrderDto> findAllOrderByUserId(@PathVariable("userId") long userId, @PathVariable("orderId") long orderId, @RequestHeader("authorization") String jwtToken);
+
     @GetMapping(path = "/my-orders/{userId}/all-{status}", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<List<OrderDto>> findAllOrderByUserIdAndByStatusCreateDateDesc(@PathVariable("userId") long userId, @PathVariable("status") Status status, @RequestHeader("authorization") String jwtToken);
 
