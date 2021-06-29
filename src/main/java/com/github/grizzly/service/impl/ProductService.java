@@ -1,8 +1,10 @@
 package com.github.grizzly.service.impl;
 
+import com.github.grizzly.dto.ProductDto;
 import com.github.grizzly.entity.Product;
 import com.github.grizzly.repository.ProductRepository;
 import com.github.grizzly.service.IProductService;
+import com.github.grizzly.utils.TransferObj;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +22,8 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public Product create(Product product) {
+    public Product create(ProductDto productDto) {
+        Product product = TransferObj.toProduct(productDto);
         return this.productRepository.save(product);
     }
 

@@ -30,7 +30,7 @@ public class ProductController implements IProductController {
 
     @Override
     public ProductDto save(ProductDto payload) {
-        return fromProduct(this.productService.create(toProduct(payload)));
+        return fromProduct(this.productService.create(payload));
     }
 
     @Override
