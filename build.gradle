@@ -17,6 +17,7 @@ configurations {
 
 checkstyle {
     toolVersion = "8.0"
+    configFile = file("${rootDir}/config/checkstyle/checkstyle.xml")
     maxErrors = 0
     maxWarnings = 10
 }
