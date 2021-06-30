@@ -6,15 +6,20 @@ import com.github.grizzly.repository.ProductRepository;
 import com.github.grizzly.service.IProductService;
 import com.github.grizzly.utils.TransferObj;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 public class ProductService implements IProductService {
 
     private final ProductRepository productRepository;
+
+    @Autowired
+    public ProductService(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
 
     @Override
     public List<Product> readAll() {
