@@ -22,6 +22,14 @@ checkstyle {
     maxWarnings = 10
 }
 
+checkstyleMain {
+    source ='src/main/java'
+}
+
+checkstyleTest {
+    source ='src/test/java'
+}
+
 repositories {
     mavenCentral()
 }

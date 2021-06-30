@@ -10,6 +10,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.github.grizzly.repository.ProductRepositoryMock.*;
@@ -60,6 +61,15 @@ public class ProductRepositoryTest {
     public void findAllProducts() {
         List<Product> exp = products();
         List<Product> act = this.productRepository.findAll();
+        Assert.assertThat(exp, containsInAnyOrder(act.toArray()));
+    }
+
+    @Test
+    @Sql(value = {"grizzly-schema-product.sql", "grizzly-product-data.sql"})
+    public void shouldDeletedAll(){
+        this.productRepository.deleteAll();
+        List<Product> exp = new ArrayList<>();
+        List<Product> act = productRepository.findAll();
         Assert.assertThat(exp, containsInAnyOrder(act.toArray()));
     }
 }

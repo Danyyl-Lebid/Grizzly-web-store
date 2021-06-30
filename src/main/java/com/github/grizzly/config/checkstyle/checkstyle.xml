@@ -19,51 +19,19 @@
     <module name="TreeWalker">
 
         <!--IMPORT CHECKS-->
-
         <module name="RedundantImport">
             <!-- Checks for redundant import statements. -->
             <property name="severity" value="error"/>
         </module>
 
         <module name="ImportOrder">
-            <!--This config matches default IntelliJ IDEA formatter-->
-
-            <!--group of static imports is on the bottom-->
-            <!--groups of non-static imports: all imports except of "javax" and "java", then "javax" and "java"-->
-            <!--imports will be sorted in the groups-->
-            <!--groups are separated by, at least, one blank line and aren't separated internally-->
-
             <property name="groups" value="*,javax,java"/>
             <property name="ordered" value="false"/>
             <property name="separated" value="false"/>
             <property name="option" value="bottom"/>
         </module>
 
-        <!--<module name="AvoidStarImport">-->
-        <!--<property name="severity" value="warning"/>-->
-        <!--</module>-->
-
         <module name="UnusedImports"/>
-
-        <!--DOCUMENTS STYLE-->
-
-        <!--        <module name="JavadocStyle">-->
-        <!--            <property name="severity" value="warning"/>-->
-        <!--        </module>-->
-
-        <!--        <module name="JavadocMethod">-->
-        <!--            <property name="severity" value="warning"/>-->
-        <!--        </module>-->
-
-        <!--        <module name="JavadocType">-->
-        <!--            <property name="severity" value="warning"/>-->
-        <!--        </module>-->
-
-        <!--        <module name="JavadocVariable">-->
-        <!--            <property name="severity" value="warning"/>-->
-        <!--        </module>-->
-
-        <!--NAMING CHECKS-->
 
         <module name="PackageName">
             <!-- Validates identifiers for package names against the supplied expression. -->
@@ -152,22 +120,6 @@
         </module>
 
         <module name="RightCurly">
-            <!-- Checks right curlies on CATCH, ELSE, and TRY blocks are on
-                the same line. e.g., the following example is fine:
-                <pre>
-                    if {
-                    ...
-                    } else
-                </pre>
-            -->
-            <!-- This next example is not fine:
-            <pre>
-                if {
-                    ...
-                    }
-                else
-            </pre>
-       -->
             <property name="option" value="same"/>
             <property name="severity" value="error"/>
         </module>
@@ -247,14 +199,6 @@
         <module name="NPathComplexity">
             <property name="max" value="200"/>
             <property name="severity" value="warning"/>
-        </module>
-
-        <module name="ModifierOrder">
-            <!-- Warn if modifier order is inconsistent with JLS3 8.1.1, 8.3.1, and
-            8.4.3.  The prescribed order is:
-            public, protected, private, abstract, static, final, transient, volatile,
-            synchronized, native, strictfp
-            -->
         </module>
 
         <module name="WhitespaceAfter">
