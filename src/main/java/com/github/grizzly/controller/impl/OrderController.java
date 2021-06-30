@@ -123,14 +123,4 @@ public class OrderController implements IOrderController {
                 .status(HttpStatus.NOT_FOUND)
                 .body("No such order!");
     }
-
-    @ExceptionHandler(EmptyResultDataAccessException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ResponseEntity<String> EmptyResultDataAccessException(
-            NoSuchElementException exception
-    ) {
-        return ResponseEntity
-                .status(HttpStatus.NOT_FOUND)
-                .body("No such order!");
-    }
 }
