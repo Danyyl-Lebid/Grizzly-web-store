@@ -1,6 +1,7 @@
 package com.github.grizzly.repository;
 
 import com.github.grizzly.entity.Order;
+import com.github.grizzly.entity.OrderItem;
 import com.github.grizzly.entity.User;
 import com.github.grizzly.enums.Status;
 import org.junit.Assert;
@@ -12,8 +13,12 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import static com.github.grizzly.repository.OrderRepositoryMock.*;
 import static com.github.grizzly.repository.UserRepositoryMocks.user_1;
@@ -26,6 +31,9 @@ public class OrderRepositoryTest {
 
     @Autowired
     OrderRepository orderRepository;
+
+    @Autowired
+    UserRepository userRepository;
 
     @Test
     @Sql({"grizzly-schema-order.sql", "grizzly-data-order.sql"})
@@ -41,7 +49,7 @@ public class OrderRepositoryTest {
         List<Order> exp = ordersUser1Desc();
         User user = user_1();
         List<Order> act = this.orderRepository.findAllByUserOrderByCreateDateDesc(user);
-        Assert.assertEquals(exp, act);
+        Assert.assertThat(exp, containsInAnyOrder(act.toArray()));
     }
 
     @Test
@@ -72,10 +80,26 @@ public class OrderRepositoryTest {
     @Test
     @Sql({"grizzly-schema-order.sql", "grizzly-data-order.sql"})
     public void shouldFindOrderById(){
+        long id = 1L;
+        Order act = order1();
+        Order exp = this.orderRepository.getById(id);
+        Assert.assertEquals(exp, act);
+    }
+
+    @Test
+    @Sql({"grizzly-schema-order.sql", "grizzly-data-order.sql"})
+    public void shouldFindOrderById2(){
         long id = 2L;
         Order act = order2();
-        Order exp = this.orderRepository.getById(id);
-        Assert.assertEquals(act, exp);
+        Order exp = this.orderRepository.findById(id).orElse(null);
+        Assert.assertEquals(exp, act);
+    }
+
+    @Test (expected = NoSuchElementException.class)
+    @Sql({"grizzly-schema-order.sql", "grizzly-data-order.sql"})
+    public void shouldFindOrderById3(){
+        long id = 12L;
+        Order exp = this.orderRepository.findById(id).get();
     }
 
     @Test

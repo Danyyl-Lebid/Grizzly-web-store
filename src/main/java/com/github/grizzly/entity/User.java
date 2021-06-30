@@ -135,6 +135,22 @@ public class User {
         this.verification = Verification.NO;
     }
 
+    public User(long id, String firstName,
+                String lastName, String login,
+                String password, @Email String email,
+                String phone, LocalDateTime createdAt) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.login = login;
+        this.password = password;
+        this.email = email;
+        this.phone = phone;
+        this.createdAt = createdAt;
+        this.active = Active.OFF;
+        this.verification = Verification.NO;
+    }
+
     public enum Active {
         ON, OFF
     }

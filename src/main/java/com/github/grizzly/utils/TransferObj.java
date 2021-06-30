@@ -26,5 +26,4 @@ public class TransferObj {
                 data.getCategory()
         );
     }
-
 }
