@@ -17,6 +17,7 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import static com.github.grizzly.repository.OrderRepositoryMock.*;
@@ -92,6 +93,13 @@ public class OrderRepositoryTest {
         Order act = order2();
         Order exp = this.orderRepository.findById(id).orElse(null);
         Assert.assertEquals(exp, act);
+    }
+
+    @Test (expected = NoSuchElementException.class)
+    @Sql({"grizzly-schema-order.sql", "grizzly-data-order.sql"})
+    public void shouldFindOrderById3(){
+        long id = 12L;
+        Order exp = this.orderRepository.findById(id).get();
     }
 
     @Test

@@ -22,7 +22,7 @@ public interface IOrderController {
     ResponseEntity<List<OrderDto>> findAllOrderByUserId(@PathVariable("userId") long userId, @RequestHeader("authorization") String jwtToken);
 
     @GetMapping(path = "/my-orders/{userId}/order-{orderId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<OrderDto> findAllOrderByUserId(@PathVariable("userId") long userId, @PathVariable("orderId") long orderId, @RequestHeader("authorization") String jwtToken);
+    ResponseEntity<OrderDto> findOrderById(@PathVariable("userId") long userId, @PathVariable("orderId") long orderId, @RequestHeader("authorization") String jwtToken);
 
     @GetMapping(path = "/my-orders/{userId}/all-{status}", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<List<OrderDto>> findAllOrderByUserIdAndByStatusCreateDateDesc(@PathVariable("userId") long userId, @PathVariable("status") Status status, @RequestHeader("authorization") String jwtToken);
@@ -30,9 +30,9 @@ public interface IOrderController {
     @PostMapping (path = "/my-orders/{userId}/add", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<OrderDto> save(@PathVariable("userId") long userId, @RequestHeader("authorization") String jwtToken, @RequestBody DistributeOrderDto payload);
 
-    @PutMapping
-    void update(@RequestBody OrderDto payload);
+    @PutMapping(path = "/my-orders/{userId}/update", produces = MediaType.APPLICATION_JSON_VALUE)
+    void updateOrderStatus(@RequestBody OrderDto payload);
 
-    @DeleteMapping(path = "/{id}")
-    void deleteById(@PathVariable(name = "id") Long id);
+    @DeleteMapping(path = "/my-orders/{userId}/delete-{orderId}")
+    void deleteById(@PathVariable("orderId") long orderId);
 }
