@@ -1,6 +1,7 @@
 package com.github.grizzly.security;
 
 
+import com.github.grizzly.dto.UserRegDto;
 import com.github.grizzly.entity.User;
 import com.github.grizzly.service.impl.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +20,8 @@ public class CustomUserDetailsService implements UserDetailsService {
     }
 
     @Override
-    public CustomUserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserRegDto loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userService.findByLogin(username);
-        return CustomUserDetails.fromUserEntityToCustomUserDetails(user);
+        return UserRegDto.fromUserEntityToCustomUserDetails(user);
     }
 }

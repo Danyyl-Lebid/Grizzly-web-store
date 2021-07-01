@@ -1,5 +1,6 @@
 package com.github.grizzly.controller;
 
+import com.github.grizzly.dto.AuthResponse;
 import com.github.grizzly.dto.UserAuthDto;
 import org.springframework.web.bind.annotation.PostMapping;
 

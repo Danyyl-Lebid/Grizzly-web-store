@@ -1,4 +1,4 @@
-package com.github.grizzly.security;
+package com.github.grizzly.config;
 
 import com.github.grizzly.security.jwt.JwtFilter;
 import org.springframework.beans.factory.annotation.Autowired;
