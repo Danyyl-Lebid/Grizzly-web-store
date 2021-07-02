@@ -53,12 +53,12 @@ public class Product {
 
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "product", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "product",  cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<SpecificationValue> specificationValues = new HashSet<>();
 
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "product", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "product",  cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<Promotion> promotions = new HashSet<>();
 
     public Product(
