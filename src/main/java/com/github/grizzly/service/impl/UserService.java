@@ -9,13 +9,17 @@ import com.github.grizzly.exceptions.EntityNotFoundException;
 import com.github.grizzly.exceptions.InvalidInputData;
 import com.github.grizzly.exceptions.user.IncorrectPasswordException;
 import com.github.grizzly.repository.UserRepository;
+import com.github.grizzly.service.IEmailService;
 import com.github.grizzly.service.IUserService;
 import com.github.grizzly.validation.user.UserValidationUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.Objects;
+import java.util.UUID;
+
 @Service
 public class UserService implements IUserService {
 
@@ -23,10 +27,13 @@ public class UserService implements IUserService {
 
     private final PasswordEncoder passwordEncoder;
 
+    private final IEmailService emailService;
+
     @Autowired
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, IEmailService emailService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.emailService = emailService;
     }
 
     @Override
@@ -55,7 +62,21 @@ public class UserService implements IUserService {
                 regDto.getEmail(),
                 regDto.getPhone()
         );
-        user.addRole(Role.USER);
+        user.addRole(Role.ROLE_USER);
+        user.setActivationCode(UUID.randomUUID().toString());
+        userRepository.save(user);
+
+        if (StringUtils.hasText(user.getEmail())) {
+            String message = String.format(
+                    "Hello, %s! \n" +
+                            "Welcome to GRIZZLY. Please, visit next link: http://localhost:8080/activate/%s",
+                    user.getFirstName(),
+                    user.getActivationCode()
+            );
+
+            emailService.send(user.getEmail(), "Activation code", message);
+        }
+
         return userRepository.save(user);
     }
 
@@ -129,6 +150,20 @@ public class UserService implements IUserService {
             }
         }
         return null;
+    }
+
+    public boolean activateUser(String code) {
+        User user = userRepository.findByActivationCode(code);
+
+        if (user == null) {
+            return false;
+        }
+
+        user.setActivationCode(null);
+
+        userRepository.save(user);
+
+        return true;
     }
 
 }

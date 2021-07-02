@@ -2,6 +2,7 @@ package com.github.grizzly.service.impl;
 
 import com.github.grizzly.service.IEmailService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -9,15 +10,20 @@ import org.springframework.stereotype.Service;
 @Service
 public class EmailService implements IEmailService {
     @Autowired
-    public JavaMailSender javaMailSender;
+    private JavaMailSender mailSender;
 
-    @Override
-    public String sendMessageToEmail(String toAddress, String subject, String text) {
-        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
-        simpleMailMessage.setTo(toAddress);
-        simpleMailMessage.setSubject(subject);
-        simpleMailMessage.setText(text);
-        javaMailSender.send(simpleMailMessage);
-        return "Email Send";
+    @Value("${spring.mail.username}")
+    private String username;
+
+
+    public void send(String emailTo, String subject, String message) {
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+
+        mailMessage.setFrom(username);
+        mailMessage.setTo(emailTo);
+        mailMessage.setSubject(subject);
+        mailMessage.setText(message);
+
+        mailSender.send(mailMessage);
     }
 }

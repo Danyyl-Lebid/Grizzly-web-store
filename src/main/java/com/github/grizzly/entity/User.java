@@ -50,6 +50,8 @@ public class User {
     @Column(name = "phone", columnDefinition = "VARCHAR(32)", unique = true, nullable = false)
     private String phone;
 
+    private String activationCode;
+
     @NotNull
     @CreationTimestamp
     @EqualsAndHashCode.Exclude
