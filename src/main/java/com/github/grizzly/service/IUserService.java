@@ -18,6 +18,8 @@ public interface IUserService {
 
     User authorize(UserAuthDto authDto);
 
+    boolean activateUser(String code);
+
     User authorizeViaEmail(UserAuthDto authDto);
 
     User authorizeViaLogin(UserAuthDto authDto);
