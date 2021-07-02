@@ -3,6 +3,8 @@ package com.github.grizzly.entity;
 import com.sun.istack.NotNull;
 import lombok.*;
 import org.hibernate.Hibernate;
+import org.hibernate.annotations.ResultCheckStyle;
+import org.hibernate.annotations.SQLDelete;
 
 import javax.persistence.*;
 import javax.validation.constraints.Digits;
@@ -13,6 +15,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @Entity
+@SQLDelete(sql = "UPDATE order_items SET state = 'OFF' WHERE id = ?", check = ResultCheckStyle.COUNT)
 @Table(name = "order_items")
 @NoArgsConstructor
 @AllArgsConstructor
@@ -41,6 +44,11 @@ public class OrderItem {
     @OneToOne
     @JoinColumn(name = "product_id", referencedColumnName = "id")
     private Product product;
+
+    @NotNull
+    @Column(name = "state", columnDefinition = "VARCHAR(32)")
+    @Enumerated(EnumType.STRING)
+    private ActiveState state;
 
     @Transient
     public BigDecimal getTotalPrice() {
