@@ -3,6 +3,8 @@ import com.github.grizzly.enums.Status;
 import com.sun.istack.NotNull;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.ResultCheckStyle;
+import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
@@ -19,6 +21,7 @@ import java.util.Objects;
 @Setter
 @ToString
 @Entity
+@SQLDelete(sql = "UPDATE orders SET state = 'OFF' WHERE id = ?", check = ResultCheckStyle.COUNT)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "orders")
@@ -44,12 +47,17 @@ public class Order implements Serializable {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order", cascade = CascadeType.REMOVE)
     private List<OrderItem> orderItems;
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
+
+    @NotNull
+    @Column(name = "state", columnDefinition = "VARCHAR(32)")
+    @Enumerated(EnumType.STRING)
+    private ActiveState state;
 
     @Transient
     @Digits(integer = 9, fraction = 2)

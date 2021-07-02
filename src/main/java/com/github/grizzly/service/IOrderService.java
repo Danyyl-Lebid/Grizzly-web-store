@@ -11,13 +11,13 @@ import java.util.Optional;
 
 public interface IOrderService {
 
-    List<OrderDto> readAll();
+    List<Order> readAll();
 
-    List<OrderDto> readAllOrdersByStatus(Status status);
+    List<Order> readAllOrdersByStatus(Status status);
 
-    List<OrderDto> readAllOrderByUser(User user);
+    List<Order> readAllOrderByUser(User user);
 
-    List<OrderDto> readAllOrderByUserAndByStatus(User user, Status status);
+    List<Order> readAllOrderByUserAndByStatus(User user, Status status);
 
     Optional<Order> findOrderById(long id);
 

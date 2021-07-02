@@ -29,35 +29,23 @@ public class OrderService implements IOrderService {
     OrderItemService orderItemService;
 
     @Override
-    public List<OrderDto> readAll() {
-        return this.orderRepository.findAll()
-                .stream()
-                .map(OrderTransferObject::fromOrder)
-                .collect(Collectors.toList());
+    public List<Order> readAll() {
+        return this.orderRepository.findAll();
     }
 
     @Override
-    public List<OrderDto> readAllOrdersByStatus(Status status) {
-        return this.orderRepository.findOrderByStatus(status)
-                .stream()
-                .map(OrderTransferObject::fromOrder)
-                .collect(Collectors.toList());
+    public List<Order> readAllOrdersByStatus(Status status) {
+        return this.orderRepository.findOrderByStatus(status);
     }
 
     @Override
-    public List<OrderDto> readAllOrderByUser(User user) {
-        return this.orderRepository.findAllByUserOrderByCreateDateDesc(user)
-                .stream()
-                .map(OrderTransferObject::fromOrder)
-                .collect(Collectors.toList());
+    public List<Order> readAllOrderByUser(User user) {
+        return this.orderRepository.findAllByUserOrderByCreateDateDesc(user);
     }
 
     @Override
-    public List<OrderDto> readAllOrderByUserAndByStatus(User user, Status status) {
-        return this.orderRepository.findAllByUserAndStatusOrderByCreateDateDesc(user, status)
-                .stream()
-                .map(OrderTransferObject::fromOrder)
-                .collect(Collectors.toList());
+    public List<Order> readAllOrderByUserAndByStatus(User user, Status status) {
+        return this.orderRepository.findAllByUserAndStatusOrderByCreateDateDesc(user, status);
     }
 
     @Override
