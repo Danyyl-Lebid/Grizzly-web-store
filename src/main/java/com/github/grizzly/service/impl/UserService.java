@@ -151,7 +151,7 @@ public class UserService implements IUserService {
         }
         return null;
     }
-
+    @Override
     public boolean activateUser(String code) {
         User user = userRepository.findByActivationCode(code);
 
@@ -160,7 +160,7 @@ public class UserService implements IUserService {
         }
 
         user.setActivationCode(null);
-
+        user.setVerification(User.Verification.YES);
         userRepository.save(user);
 
         return true;
