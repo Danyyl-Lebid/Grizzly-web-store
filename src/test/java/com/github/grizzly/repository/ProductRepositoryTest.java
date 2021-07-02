@@ -63,13 +63,4 @@ public class ProductRepositoryTest {
         List<Product> act = this.productRepository.findAll();
         Assert.assertThat(exp, containsInAnyOrder(act.toArray()));
     }
-
-    @Test
-    @Sql(value = {"grizzly-schema-product.sql", "grizzly-product-data.sql"})
-    public void shouldDeletedAll(){
-        this.productRepository.deleteAll();
-        List<Product> exp = new ArrayList<>();
-        List<Product> act = productRepository.findAll();
-        Assert.assertThat(exp, containsInAnyOrder(act.toArray()));
-    }
 }
