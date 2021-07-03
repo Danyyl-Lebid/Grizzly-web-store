@@ -11,9 +11,10 @@ import com.github.grizzly.exceptions.user.IncorrectPasswordException;
 import com.github.grizzly.repository.UserRepository;
 import com.github.grizzly.service.IEmailService;
 import com.github.grizzly.service.IUserService;
-import com.github.grizzly.validation.user.UserValidationUtils;
+import com.github.grizzly.utils.UserValidationUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -25,12 +26,12 @@ public class UserService implements IUserService {
 
     private final UserRepository userRepository;
 
-    private final PasswordEncoder passwordEncoder;
+    private final BCryptPasswordEncoder passwordEncoder;
 
     private final IEmailService emailService;
 
     @Autowired
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, IEmailService emailService) {
+    public UserService(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder, IEmailService emailService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.emailService = emailService;
@@ -84,13 +85,12 @@ public class UserService implements IUserService {
         boolean loginConflict = userRepository.existsByLogin(regDto.getLogin());
         boolean emailConflict = userRepository.existsByEmail(regDto.getEmail());
         boolean phoneConflict = userRepository.existsByPhone(regDto.getPhone());
-        if (loginConflict || emailConflict || phoneConflict){
+        if (loginConflict || emailConflict || phoneConflict) {
             String message = String.format(
                     "loginConflict = %b, emailConflict = %b, phoneConflict = %b",
                     loginConflict, emailConflict, phoneConflict);
             throw new DuplicatedDataException(message);
         }
-
     }
 
     @Override
@@ -151,6 +151,7 @@ public class UserService implements IUserService {
         }
         return null;
     }
+
     @Override
     public boolean activateUser(String code) {
         User user = userRepository.findByActivationCode(code);

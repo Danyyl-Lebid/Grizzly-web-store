@@ -4,7 +4,7 @@ import com.github.grizzly.dto.AuthResponse;
 import com.github.grizzly.controller.IAuthorizationController;
 import com.github.grizzly.dto.UserAuthDto;
 import com.github.grizzly.entity.User;
-import com.github.grizzly.security.jwt.JwtProvider;
+import com.github.grizzly.security.TokenJwtProvider;
 import com.github.grizzly.service.IUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,13 +18,12 @@ public class AuthorizationController implements IAuthorizationController {
 
     private final IUserService userService;
 
-    private final JwtProvider jwtProvider;
+    private final TokenJwtProvider tokenJwtProvider;
 
     @Override
     public AuthResponse authorize(@RequestBody @Valid UserAuthDto authDto) {
         User user = userService.findByLoginAndPassword(authDto.getLogin(), authDto.getPassword());
-        String token = jwtProvider.generateToken(user);
-//        tityl.direr
+        String token = tokenJwtProvider.generateToken(user);
         return new AuthResponse(token);
     }
 }

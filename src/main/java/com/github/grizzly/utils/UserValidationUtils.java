@@ -1,4 +1,4 @@
-package com.github.grizzly.validation.user;
+package com.github.grizzly.utils;
 
 import java.util.regex.Pattern;
 

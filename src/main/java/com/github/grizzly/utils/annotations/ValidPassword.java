@@ -1,6 +1,6 @@
-package com.github.grizzly.annotations;
+package com.github.grizzly.utils.annotations;
 
-import com.github.grizzly.validation.user.PhoneValidator;
+import com.github.grizzly.utils.PasswordValidator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -8,9 +8,9 @@ import java.lang.annotation.*;
 
 @Target({ElementType.TYPE, ElementType.FIELD, ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = PhoneValidator.class)
+@Constraint(validatedBy = PasswordValidator.class)
 @Documented
-public @interface ValidPhone {
+public @interface ValidPassword {
     String message() default "Invalid Email";
 
     Class<?>[] groups() default {};
