@@ -13,8 +13,14 @@ spring:
     password: 007a2f841cf28cd5a9b917c075e29369a3e53558790e75306b1ce563ff6a600d
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     database-platform: org.hibernate.dialect.PostgreSQLDialect
-    show-sql: true
+    show-sql: false
+logging:
+    level:
+      root: INFO,DEBUG
+jwt:
+  token:
+    secret: answerqwerty

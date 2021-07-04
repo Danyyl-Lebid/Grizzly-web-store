@@ -38,7 +38,7 @@ public class User {
     private String login;
 
     @NotNull
-    @Column(name = "password", columnDefinition = "VARCHAR(16)", nullable = false)
+    @Column(name = "password", columnDefinition = "VARCHAR(128)", nullable = false)
     private String password;
 
     @NotNull
@@ -47,8 +47,10 @@ public class User {
     private String email;
 
     @NotNull
-    @Column(name = "phone", columnDefinition = "VARCHAR(16)", unique = true, nullable = false)
+    @Column(name = "phone", columnDefinition = "VARCHAR(32)", unique = true, nullable = false)
     private String phone;
+
+    private String activationCode;
 
     @NotNull
     @CreationTimestamp
@@ -87,7 +89,6 @@ public class User {
     }
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "user_id", referencedColumnName = "id", insertable = false, updatable = false)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private List<Address> addresses;
@@ -132,6 +133,22 @@ public class User {
         this.password = password;
         this.email = email;
         this.phone = phone;
+        this.active = Active.OFF;
+        this.verification = Verification.NO;
+    }
+
+    public User(long id, String firstName,
+                String lastName, String login,
+                String password, @Email String email,
+                String phone, LocalDateTime createdAt) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.login = login;
+        this.password = password;
+        this.email = email;
+        this.phone = phone;
+        this.createdAt = createdAt;
         this.active = Active.OFF;
         this.verification = Verification.NO;
     }

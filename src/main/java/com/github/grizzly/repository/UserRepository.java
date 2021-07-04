@@ -18,6 +18,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     Optional<User> findByPhone(@NonNull String phone);
 
+    User findByActivationCode(String code);
+
     List<User> findByCreatedAtBefore(LocalDateTime createdAt);
 
     List<User> findByCreatedAtAfter(LocalDateTime createdAt);

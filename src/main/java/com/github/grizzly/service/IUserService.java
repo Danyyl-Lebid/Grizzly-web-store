@@ -18,11 +18,15 @@ public interface IUserService {
 
     User authorize(UserAuthDto authDto);
 
+    boolean activateUser(String code);
+
     User authorizeViaEmail(UserAuthDto authDto);
 
     User authorizeViaLogin(UserAuthDto authDto);
 
     User authorizeViaPhone(UserAuthDto authDto);
+
+    User findByLoginAndPassword(String login, String password);
 
     User verify(User user);
 
