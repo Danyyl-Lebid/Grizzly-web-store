@@ -6,7 +6,7 @@ plugins {
 }
 
 group = 'com.github'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.1'
 sourceCompatibility = '11'
 
 configurations {
@@ -34,6 +34,7 @@ dependencies {
     implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '2.5.1'
     implementation 'junit:junit:4.12'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-mail', version: '2.5.2'
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'com.h2database:h2'

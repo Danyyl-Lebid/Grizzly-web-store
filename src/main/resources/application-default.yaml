@@ -18,6 +18,28 @@ spring:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
+  mail:
+    default-encoding: UTF-8
+    host: smtp.gmail.com
+    username: forgotandry@gmail.com
+    password: 12345@wsw
+    port: 587
+    protocol: smtp
+    properties:
+      mail:
+        smtp:
+          ssl: trust
+          auth: true
+          starttls:
+            enable: true
+mail:
+  debug: true
 jwt:
   token:
-    secret: answerqwerty
+    secret: $2a$10$p6iLHfivb8.YcOQ1Axp6oegs25dFur/WJGmgraf5ro9v/r0Ua0qie
+server:
+  error:
+    include-message: always
+    include-binding-errors: always
+    include-stacktrace: on_param
+    include-exception: false

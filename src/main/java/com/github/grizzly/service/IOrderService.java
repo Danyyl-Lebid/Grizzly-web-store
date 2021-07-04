@@ -5,17 +5,21 @@ import com.github.grizzly.entity.Order;
 import com.github.grizzly.entity.User;
 import com.github.grizzly.enums.Status;
 
+import javax.swing.text.html.Option;
 import java.util.List;
+import java.util.Optional;
 
 public interface IOrderService {
 
-    List<OrderDto> readAll();
+    List<Order> readAll();
 
-    List<OrderDto> readAllOrdersByStatus(Status status);
+    List<Order> readAllOrdersByStatus(Status status);
 
-    List<OrderDto> readAllOrderByUser(User user);
+    List<Order> readAllOrderByUser(User user);
 
-    List<OrderDto> readAllOrderByUserAndByStatus(User user, Status status);
+    List<Order> readAllOrderByUserAndByStatus(User user, Status status);
+
+    Optional<Order> findOrderById(long id);
 
     Order create(User user);
 

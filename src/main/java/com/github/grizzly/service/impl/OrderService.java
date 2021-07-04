@@ -8,10 +8,14 @@ import com.github.grizzly.repository.OrderRepository;
 import com.github.grizzly.service.IOrderService;
 import com.github.grizzly.utils.OrderTransferObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -25,35 +29,28 @@ public class OrderService implements IOrderService {
     OrderItemService orderItemService;
 
     @Override
-    public List<OrderDto> readAll() {
-        return this.orderRepository.findAll()
-                .stream()
-                .map(OrderTransferObject::fromOrder)
-                .collect(Collectors.toList());
+    public List<Order> readAll() {
+        return this.orderRepository.findAll();
     }
 
     @Override
-    public List<OrderDto> readAllOrdersByStatus(Status status) {
-        return this.orderRepository.findOrderByStatus(status)
-                .stream()
-                .map(OrderTransferObject::fromOrder)
-                .collect(Collectors.toList());
+    public List<Order> readAllOrdersByStatus(Status status) {
+        return this.orderRepository.findOrderByStatus(status);
     }
 
     @Override
-    public List<OrderDto> readAllOrderByUser(User user) {
-        return this.orderRepository.findAllByUserOrderByCreateDateDesc(user)
-                .stream()
-                .map(OrderTransferObject::fromOrder)
-                .collect(Collectors.toList());
+    public List<Order> readAllOrderByUser(User user) {
+        return this.orderRepository.findAllByUserOrderByCreateDateDesc(user);
     }
 
     @Override
-    public List<OrderDto> readAllOrderByUserAndByStatus(User user, Status status) {
-        return this.orderRepository.findAllByUserAndStatusOrderByCreateDateDesc(user, status)
-                .stream()
-                .map(OrderTransferObject::fromOrder)
-                .collect(Collectors.toList());
+    public List<Order> readAllOrderByUserAndByStatus(User user, Status status) {
+        return this.orderRepository.findAllByUserAndStatusOrderByCreateDateDesc(user, status);
+    }
+
+    @Override
+    public Optional <Order> findOrderById(long id) {
+        return this.orderRepository.findById(id);
     }
 
 
@@ -70,6 +67,6 @@ public class OrderService implements IOrderService {
 
     @Override
     public void deleteById(Long id) {
-        this.orderRepository.deleteById(id);
+            this.orderRepository.deleteById(id);
     }
 }

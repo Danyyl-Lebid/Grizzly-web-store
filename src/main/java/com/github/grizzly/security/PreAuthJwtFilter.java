@@ -1,11 +1,12 @@
-package com.github.grizzly.security.jwt;
+package com.github.grizzly.security;
 
-import com.github.grizzly.security.CustomUserDetails;
-import com.github.grizzly.security.CustomUserDetailsService;
-import lombok.extern.java.Log;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.GenericFilterBean;
 
@@ -18,32 +19,33 @@ import java.io.IOException;
 
 import static org.springframework.util.StringUtils.hasText;
 
+@Slf4j
 @Component
-@Log
-public class JwtFilter extends GenericFilterBean {
+public class PreAuthJwtFilter extends GenericFilterBean {
 
     public static final String AUTHORIZATION = "Authorization";
 
-    private final JwtProvider jwtProvider;
+    private final TokenJwtProvider tokenJwtProvider;
 
     private final CustomUserDetailsService customUserDetailsService;
+
     @Autowired
-    public JwtFilter(JwtProvider jwtProvider, CustomUserDetailsService customUserDetailsService) {
-        this.jwtProvider = jwtProvider;
+    public PreAuthJwtFilter(TokenJwtProvider tokenJwtProvider, CustomUserDetailsService customUserDetailsService) {
+        this.tokenJwtProvider = tokenJwtProvider;
         this.customUserDetailsService = customUserDetailsService;
     }
 
     @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        logger.info("do filter...");
-        String token = getTokenFromRequest((HttpServletRequest) servletRequest);
-        if (token != null && jwtProvider.validateToken(token)) {
-            String userLogin = jwtProvider.getLoginFromToken(token);
-            CustomUserDetails customUserDetails = customUserDetailsService.loadUserByUsername(userLogin);
-            UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(customUserDetails, null, customUserDetails.getAuthorities());
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+        var token = getTokenFromRequest((HttpServletRequest) request);
+        if (token != null && tokenJwtProvider.validateToken(token)) {
+            var id = this.tokenJwtProvider.getUserIdFromToken(token);
+            UserDetails user = this.customUserDetailsService.loadUserById(id);
+            UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(auth);
+            request.setAttribute("userId",id);
         }
-        filterChain.doFilter(servletRequest, servletResponse);
+        chain.doFilter(request, response);
     }
 
     private String getTokenFromRequest(HttpServletRequest request) {

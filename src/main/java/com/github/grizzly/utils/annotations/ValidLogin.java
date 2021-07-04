@@ -1,6 +1,6 @@
-package com.github.grizzly.annotations;
+package com.github.grizzly.utils.annotations;
 
-import com.github.grizzly.validation.user.LoginValidator;
+import com.github.grizzly.utils.LoginValidator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;

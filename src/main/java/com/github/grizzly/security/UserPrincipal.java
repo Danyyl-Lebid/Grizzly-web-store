@@ -7,34 +7,36 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
-public class CustomUserDetails implements UserDetails {
+public class UserPrincipal implements UserDetails {
 
-    private String login;
-    private String password;
-    private Collection<? extends GrantedAuthority> grantedAuthorities;
+    private final User user;
 
-    public static CustomUserDetails fromUserEntityToCustomUserDetails(User user) {
-        CustomUserDetails c = new CustomUserDetails();
-        c.login = user.getLogin();
-        c.password = user.getPassword();
-        c.grantedAuthorities = Collections.singletonList(new SimpleGrantedAuthority(user.getRoles().toString()));
-        return c;
+    private final Collection<? extends GrantedAuthority> authorities;
+
+    public UserPrincipal(User user, Collection<? extends GrantedAuthority> authorities) {
+        this.user = user;
+        this.authorities = authorities;
     }
 
+    public static UserDetails create(User user) {
+        List<SimpleGrantedAuthority> authorities = Collections.singletonList(new SimpleGrantedAuthority(user.getRoles().toString()));
+        return new UserPrincipal(user,authorities);
+    }
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return grantedAuthorities;
+        return authorities;
     }
 
     @Override
     public String getPassword() {
-        return password;
+        return this.user.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return login;
+        return this.user.getLogin();
     }
 
     @Override
@@ -54,6 +56,6 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return false;
     }
 }

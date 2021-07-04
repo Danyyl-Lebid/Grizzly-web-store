@@ -1,54 +1,52 @@
-package com.github.grizzly.security.jwt;
+package com.github.grizzly.security;
 
 
 import com.github.grizzly.entity.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import lombok.extern.java.Log;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 
+@Slf4j
 @Component
-@Log
-public class JwtProvider {
+public class TokenJwtProvider {
 
     @Value("${jwt.token.secret}")
     private String secret;
 
     public String generateToken(User user) {
-        String login = user.getLogin();
+        var id = user.getId();
         Date date = Date.from(LocalDate.now().plusDays(15).atStartOfDay(ZoneId.systemDefault()).toInstant());
         return Jwts.builder()
-                .setSubject(login)
+                .setSubject(String.valueOf(id))
                 .setExpiration(date)
-                .signWith(SignatureAlgorithm.HS256, secret)
+                .signWith(SignatureAlgorithm.HS256, this.secret)
                 .compact();
     }
 
     public boolean validateToken(String token) {
         try {
-            Jwts.parser().setSigningKey(secret).parseClaimsJws(token);
+            Jwts.parser().setSigningKey(this.secret).parseClaimsJws(token);
             return true;
-        } catch (Exception e) {
-            log.severe("invalid token");
+        } catch (Throwable e) {
+            log.warn("invalid token {}", e.getMessage());
         }
         return false;
     }
 
     public String getLoginFromToken(String token) {
-        Claims claims = Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
+        Claims claims = Jwts.parser().setSigningKey(this.secret).parseClaimsJws(token).getBody();
         return claims.getSubject();
     }
 
-    @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+    public Long getUserIdFromToken(String token) {
+        Claims claims = Jwts.parser().setSigningKey(this.secret.getBytes()).parseClaimsJws(token).getBody();
+        return Long.parseLong(claims.getSubject());
     }
 }
