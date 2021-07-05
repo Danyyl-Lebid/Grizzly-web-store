@@ -15,7 +15,7 @@ import java.util.List;
 
 public class OrderRepositoryMock {
 
-    private static Order order1 = new Order(
+    /*private static Order order1 = new Order(
                 1L,
                 LocalDateTime.of(2020, Month.JULY, 29, 19, 30, 40),
                 LocalDateTime.of(2020, Month.JULY, 29, 19, 30, 40),
@@ -301,5 +301,5 @@ public class OrderRepositoryMock {
                 order3(),
                 order4()
         );
-    }
+    }*/
 }
