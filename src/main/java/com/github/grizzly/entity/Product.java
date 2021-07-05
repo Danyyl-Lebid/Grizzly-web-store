@@ -45,6 +45,11 @@ public class Product {
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     private Category category;
 
+    @NotNull
+    @Column(name = "state", columnDefinition = "VARCHAR(32)")
+    @Enumerated(EnumType.STRING)
+    private ActiveState state;
+
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     @ElementCollection(fetch = FetchType.EAGER)
@@ -53,12 +58,12 @@ public class Product {
 
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "product", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "product", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<SpecificationValue> specificationValues = new HashSet<>();
 
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "product", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "product", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<Promotion> promotions = new HashSet<>();
 
     public Product(
@@ -67,7 +72,8 @@ public class Product {
             String mainImage,
             BigDecimal price,
             int quantity,
-            Category category
+            Category category,
+            ActiveState state
     ) {
         this.name = name;
         this.description = description;
@@ -75,6 +81,7 @@ public class Product {
         this.price = price;
         this.quantity = quantity;
         this.category = category;
+        this.state = state;
     }
 
     public Product(
@@ -84,7 +91,8 @@ public class Product {
             String mainImage,
             BigDecimal price,
             int quantity,
-            Category category
+            Category category,
+            ActiveState state
     ) {
         this.id = id;
         this.name = name;
@@ -93,7 +101,7 @@ public class Product {
         this.price = price;
         this.quantity = quantity;
         this.category = category;
-
+        this.state = state;
     }
 
 }

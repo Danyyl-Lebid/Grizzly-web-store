@@ -12,7 +12,8 @@ public class TransferObj {
                 data.getMainImage(),
                 data.getPrice(),
                 data.getQuantity(),
-                data.getCategory()
+                data.getCategory(),
+                data.getState()
         );
     }
 
@@ -23,7 +24,8 @@ public class TransferObj {
                 data.getMainImage(),
                 data.getPrice(),
                 data.getQuantity(),
-                data.getCategory()
+                data.getCategory(),
+                data.getState()
         );
     }
 }
