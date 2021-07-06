@@ -12,6 +12,7 @@ import com.github.grizzly.repository.UserRepository;
 import com.github.grizzly.service.IEmailService;
 import com.github.grizzly.service.IUserService;
 import com.github.grizzly.utils.UserValidationUtils;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -22,6 +23,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 @Service
+@RequiredArgsConstructor
 public class UserService implements IUserService {
 
     private final UserRepository userRepository;
@@ -29,13 +31,6 @@ public class UserService implements IUserService {
     private final BCryptPasswordEncoder passwordEncoder;
 
     private final IEmailService emailService;
-
-    @Autowired
-    public UserService(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder, IEmailService emailService) {
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
-        this.emailService = emailService;
-    }
 
     @Override
     public User findById(Long id) {
@@ -160,8 +155,8 @@ public class UserService implements IUserService {
             return false;
         }
 
-        user.setActivationCode(null);
         user.setVerification(User.Verification.YES);
+        user.setActivationCode(null);
         userRepository.save(user);
 
         return true;

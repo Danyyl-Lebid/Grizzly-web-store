@@ -1,5 +1,7 @@
 package com.github.grizzly.security;
 
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -20,20 +22,15 @@ import java.io.IOException;
 import static org.springframework.util.StringUtils.hasText;
 
 @Slf4j
-@Component
+@NoArgsConstructor
 public class PreAuthJwtFilter extends GenericFilterBean {
 
     public static final String AUTHORIZATION = "Authorization";
 
-    private final TokenJwtProvider tokenJwtProvider;
-
-    private final CustomUserDetailsService customUserDetailsService;
-
     @Autowired
-    public PreAuthJwtFilter(TokenJwtProvider tokenJwtProvider, CustomUserDetailsService customUserDetailsService) {
-        this.tokenJwtProvider = tokenJwtProvider;
-        this.customUserDetailsService = customUserDetailsService;
-    }
+    private TokenJwtProvider tokenJwtProvider;
+    @Autowired
+    private CustomUserDetailsService customUserDetailsService;
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
