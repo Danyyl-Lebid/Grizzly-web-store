@@ -13,8 +13,6 @@ import com.github.grizzly.service.IEmailService;
 import com.github.grizzly.service.IUserService;
 import com.github.grizzly.utils.UserValidationUtils;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
