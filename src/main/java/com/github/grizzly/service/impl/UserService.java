@@ -58,8 +58,6 @@ public class UserService implements IUserService {
         );
         user.addRole(Role.ROLE_USER);
         user.setActivationCode(UUID.randomUUID().toString());
-        userRepository.save(user);
-
         if (StringUtils.hasText(user.getEmail())) {
             String message = String.format(
                     "Hello, %s! \n" +
@@ -86,8 +84,8 @@ public class UserService implements IUserService {
         }
     }
 
-    @Override
-    public User authorize(UserAuthDto authDto) {
+
+    public User authorizeV(UserAuthDto authDto) {
         if (UserValidationUtils.isValidEmail(authDto.getLogin())) {
             return authorizeViaEmail(authDto);
         } else if (UserValidationUtils.isValidPhone(authDto.getLogin())) {
@@ -115,12 +113,6 @@ public class UserService implements IUserService {
         return authorizeUser(user, authDto.getPassword());
     }
 
-    @Override
-    public User verify(User user) {
-        user.setVerification(User.Verification.YES);
-        return userRepository.save(user);
-    }
-
     private User authorizeUser(User user, String password) {
         if (!Objects.equals(
                 passwordEncoder.encode(password),
@@ -133,13 +125,16 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public User findByLoginAndPassword(String login, String password) {
+    public User authorize(String login, String password) {
         User user = findByLogin(login);
         if (user != null) {
             if (passwordEncoder.matches(password, user.getPassword())) {
-                user.setActive(User.Active.ON);
-                userRepository.save(user);
-                return user;
+                if (user.getVerification().equals(User.Verification.YES)) {
+                    user.setActive(User.Active.ON);
+                    userRepository.save(user);
+                    return user;
+                }
+                System.out.println("the user was not verified");
             }
         }
         return null;

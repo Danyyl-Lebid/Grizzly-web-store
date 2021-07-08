@@ -16,7 +16,7 @@ public interface IUserService {
 
     User create(UserRegDto regDto);
 
-    User authorize(UserAuthDto authDto);
+    User authorize(String login, String password);
 
     boolean activateUser(String code);
 
@@ -25,9 +25,5 @@ public interface IUserService {
     User authorizeViaLogin(UserAuthDto authDto);
 
     User authorizeViaPhone(UserAuthDto authDto);
-
-    User findByLoginAndPassword(String login, String password);
-
-    User verify(User user);
 
 }
