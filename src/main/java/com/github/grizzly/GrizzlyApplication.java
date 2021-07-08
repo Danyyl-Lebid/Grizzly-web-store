@@ -12,9 +12,4 @@ public class GrizzlyApplication {
         SpringApplication.run(GrizzlyApplication.class, args);
     }
 
-    @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
 }
