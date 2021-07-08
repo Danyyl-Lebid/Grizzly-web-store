@@ -93,7 +93,8 @@ public class Order implements Serializable {
         if(!Objects.deepEquals(
                 this.getOrderItems() != null ? this.getOrderItems().toArray() : this,
                 (order.getOrderItems() != null ? order.getOrderItems().toArray() : order))) return false;
-        return Objects.equals(user, order.user);
+        if (!Objects.equals(user, order.user)) return false;
+        return Objects.equals(state, order.state);
     }
 
     @Override
@@ -104,6 +105,7 @@ public class Order implements Serializable {
         result = 31 * result + (status != null ? status.hashCode() : 0);
         result = 31 * result + (orderItems != null ? orderItems.hashCode() : 0);
         result = 31 * result + (user != null ? user.hashCode() : 0);
+        result = 31 * result + (state != null ? state.hashCode() : 0);
         return result;
     }
 }

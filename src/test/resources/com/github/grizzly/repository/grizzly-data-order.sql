@@ -1,11 +1,11 @@
-insert into public.orders (id, user_id, status, create_date, modify_date)
-values (1, 1, 'OPEN', '2020-07-29T19:30:40','2020-07-29T19:30:40');
-insert into public.orders (id, user_id, status, create_date, modify_date)
-values (2, 2, 'OPEN', '2020-07-29T19:30:40','2020-07-29T19:30:40');
-insert into public.orders (id, user_id, status, create_date, modify_date)
-values (3, 1, 'OPEN', '2020-07-29T19:30:40','2020-07-29T19:30:40');
-insert into public.orders (id, user_id, status, create_date, modify_date)
-values (4, 1, 'COMPLETED', '2020-03-29T19:30:40','2020-03-29T19:30:40');
+insert into public.orders (id, user_id, status, create_date, modify_date, state)
+values (1, 1, 'OPEN', '2020-07-29T19:30:40','2020-07-29T19:30:40', 'ON');
+insert into public.orders (id, user_id, status, create_date, modify_date, state)
+values (2, 2, 'OPEN', '2020-07-29T19:30:40','2020-07-29T19:30:40', 'ON');
+insert into public.orders (id, user_id, status, create_date, modify_date, state)
+values (3, 1, 'OPEN', '2020-07-29T19:30:40','2020-07-29T19:30:40', 'ON');
+insert into public.orders (id, user_id, status, create_date, modify_date, state)
+values (4, 1, 'COMPLETED', '2020-03-29T19:30:40','2020-03-29T19:30:40', 'ON');
 
 insert into PUBLIC.users (id, first_name, last_name, login, password, email, phone, created_at, updated_at, active,
                           is_verified)
@@ -63,54 +63,61 @@ values (3,
         1);
 
 
-insert into PUBLIC.order_items (id, quantity,  price, order_id, product_id)
+insert into PUBLIC.order_items (id, quantity,  price, order_id, product_id, state)
 values (1,
         3,
         '11.22',
         1,
-        1);
+        1,
+        'ON');
 
-insert into PUBLIC.order_items (id, quantity,  price, order_id, product_id)
+insert into PUBLIC.order_items (id, quantity,  price, order_id, product_id, state)
 values (2,
         5,
         '3.33',
         1,
-        2);
+        2,
+        'ON');
 
-insert into PUBLIC.order_items (id, quantity,  price, order_id, product_id)
+insert into PUBLIC.order_items (id, quantity,  price, order_id, product_id, state)
 values (3,
         1,
         '89.7',
         1,
-        3);
+        3,
+        'ON');
 
-insert into PUBLIC.order_items (id, quantity,  price, order_id, product_id)
+insert into PUBLIC.order_items (id, quantity,  price, order_id, product_id, state)
 values (4,
         2,
         '11.22',
         2,
-        1);
+        1,
+        'ON');
 
-insert into PUBLIC.order_items (id, quantity,  price, order_id, product_id)
+insert into PUBLIC.order_items (id, quantity,  price, order_id, product_id, state)
 values (5,
         1,
         '3.33',
         2,
-        2);
+        2,
+        'ON');
 
-insert into PUBLIC.order_items (id, quantity,  price, order_id, product_id)
+insert into PUBLIC.order_items (id, quantity,  price, order_id, product_id, state)
 values (6,
         1,
         '3.33',
         3,
-        2);
+        2,
+        'ON');
 
-insert into PUBLIC.order_items (id, quantity,  price, order_id, product_id)
+insert into PUBLIC.order_items (id, quantity,  price, order_id, product_id, state)
 values (7,
         10,
         '89.7',
         3,
-        3);
+        3,
+        'ON');
 
 insert into PUBLIC.category (id, parent_id, name, description)
 values (1,

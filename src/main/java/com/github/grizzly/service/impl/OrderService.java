@@ -1,6 +1,7 @@
 package com.github.grizzly.service.impl;
 
 import com.github.grizzly.dto.order.OrderDto;
+import com.github.grizzly.entity.ActiveState;
 import com.github.grizzly.entity.Order;
 import com.github.grizzly.entity.User;
 import com.github.grizzly.enums.Status;
@@ -30,7 +31,11 @@ public class OrderService implements IOrderService {
 
     @Override
     public List<Order> readAll() {
-        return this.orderRepository.findAll();
+
+        return this.orderRepository.findAll()
+                .stream()
+                .filter(order -> order.getState().equals(ActiveState.ON))
+                .collect(Collectors.toList());
     }
 
     @Override
