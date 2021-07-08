@@ -1,5 +1,6 @@
 package com.github.grizzly.repository;
 
+import com.github.grizzly.entity.ActiveState;
 import com.github.grizzly.entity.Product;
 import lombok.NonNull;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -18,5 +19,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Product> findAllByCategoryId(Long categoryId);
 
     List<Product> findAllByCategoryName(String name);
+
+    List<Product> findProductByStatus(ActiveState activeState);
 
 }

@@ -4,27 +4,22 @@ import com.github.grizzly.entity.*;
 import com.github.grizzly.enums.Status;
 
 import java.math.BigDecimal;
-import java.sql.Time;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class OrderRepositoryMock {
 
-    /*private static Order order1 = new Order(
-                1L,
-                LocalDateTime.of(2020, Month.JULY, 29, 19, 30, 40),
-                LocalDateTime.of(2020, Month.JULY, 29, 19, 30, 40),
-                Status.OPEN,
-                new ArrayList<>(),
-                user1(),
-                ActiveState.ON
-        );
+    private static Order order1 = new Order(
+            1L,
+            LocalDateTime.of(2020, Month.JULY, 29, 19, 30, 40),
+            LocalDateTime.of(2020, Month.JULY, 29, 19, 30, 40),
+            Status.OPEN,
+            new ArrayList<>(),
+            user1(),
+            ActiveState.ON
+    );
 
     private static Order order2 = new Order(
             2L,
@@ -113,7 +108,8 @@ public class OrderRepositoryMock {
                 null,
                 new BigDecimal("11.22"),
                 11,
-                category()
+                category(),
+                ActiveState.ON
         );
     }
 
@@ -125,7 +121,8 @@ public class OrderRepositoryMock {
                 null,
                 new BigDecimal("3.33"),
                 110,
-                category()
+                category(),
+                ActiveState.ON
         );
     }
 
@@ -137,7 +134,8 @@ public class OrderRepositoryMock {
                 null,
                 new BigDecimal("89.70"),
                 13,
-                category()
+                category(),
+                ActiveState.ON
         );
     }
 
@@ -381,5 +379,5 @@ public class OrderRepositoryMock {
                 order3AfterDelete(),
                 order4AfterDelete()
         );
-    }*/
+    }
 }

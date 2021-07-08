@@ -32,6 +32,11 @@ public class ProductService implements IProductService {
     }
 
     @Override
+    public List<Product> readAllProductByStatus(ActiveState activeState) {
+        return this.productRepository.findProductByStatus(activeState);
+    }
+
+    @Override
     public Product create(Product product) {
         return this.productRepository.save(product);
     }

@@ -1,4 +1,5 @@
 package com.github.grizzly.entity;
+
 import com.github.grizzly.enums.Status;
 import com.sun.istack.NotNull;
 import lombok.*;

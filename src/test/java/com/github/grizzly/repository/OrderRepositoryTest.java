@@ -1,10 +1,12 @@
 package com.github.grizzly.repository;
 
+import com.github.grizzly.entity.ActiveState;
 import com.github.grizzly.entity.Order;
-import com.github.grizzly.entity.OrderItem;
 import com.github.grizzly.entity.User;
 import com.github.grizzly.enums.Status;
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +20,6 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 
 import static com.github.grizzly.repository.OrderRepositoryMock.*;
 import static com.github.grizzly.repository.UserRepositoryMocks.user_1;
@@ -35,11 +36,12 @@ public class OrderRepositoryTest {
     @Autowired
     UserRepository userRepository;
 
+
     @Test
     @Sql({"grizzly-schema-order.sql", "grizzly-data-order.sql"})
     public void findAll(){
         List<Order> exp = OrderRepositoryMock.orders();
-        List<Order> act = orderRepository.findAll();
+        List<Order> act = this.orderRepository.findAll();
         Assert.assertThat(exp, containsInAnyOrder(act.toArray()));
     }
 
@@ -80,8 +82,8 @@ public class OrderRepositoryTest {
     @Test
     @Sql({"grizzly-schema-order.sql", "grizzly-data-order.sql"})
     public void shouldFindOrderById(){
-        long id = 1L;
-        Order act = order1();
+        long id = 3L;
+        Order act = order3();
         Order exp = this.orderRepository.getById(id);
         Assert.assertEquals(exp, act);
     }
@@ -104,27 +106,10 @@ public class OrderRepositoryTest {
 
     @Test
     @Sql({"grizzly-schema-order.sql", "grizzly-data-order.sql"})
-    public void shouldFindOrderByStatus(){
-        List<Order> exp = ordersWithCompletedStatus();
-        List<Order> act = this.orderRepository.findOrderByStatus(Status.COMPLETED);
-        Assert.assertThat(exp, containsInAnyOrder(act.toArray()));
-    }
-
-    @Test
-    @Sql({"grizzly-schema-order.sql", "grizzly-data-order.sql"})
-    public void shouldFindAllById(){
-        List<Order> exp = ordersById();
-        List<Long> ids = List.of(1L,3L);
-        List<Order> act = this.orderRepository.findAllById(ids);
-        Assert.assertThat(exp, containsInAnyOrder(act.toArray()));
-    }
-
-    @Test
-    @Sql({"grizzly-schema-order.sql", "grizzly-data-order.sql"})
     public void shouldDeletedById(){
         long id = 2L;
         this.orderRepository.deleteById(id);
-        List<Order> exp = ordersAfterDelete();
+        List<Order> exp = ordersAfterDeleteOne();
         List<Order> act = orderRepository.findAll();
         Assert.assertThat(exp, containsInAnyOrder(act.toArray()));
     }
@@ -133,7 +118,7 @@ public class OrderRepositoryTest {
     @Sql({"grizzly-schema-order.sql", "grizzly-data-order.sql"})
     public void shouldDeletedAll(){
         this.orderRepository.deleteAll();
-        List<Order> exp = new ArrayList<>();
+        List<Order> exp = ordersAfterDeleteAll();
         List<Order> act = orderRepository.findAll();
         Assert.assertThat(exp, containsInAnyOrder(act.toArray()));
     }
@@ -141,10 +126,55 @@ public class OrderRepositoryTest {
     @Test
     @Sql({"grizzly-schema-order.sql", "grizzly-data-order.sql"})
     public void shouldDeleteById(){
-        List<Order> exp = ordersById();
+        List<Order> exp = ordersAfterDeleteTwo();
         List<Long> ids = List.of(2L,4L);
         this.orderRepository.deleteAllById(ids);
         List<Order> act = orderRepository.findAll();
+        Assert.assertThat(exp, containsInAnyOrder(act.toArray()));
+    }
+
+    @Test
+    @Sql({"grizzly-schema-order.sql", "grizzly-data-order.sql"})
+    public void shouldFindOrderByStatus(){
+        List<Order> exp = List.of(
+                new Order(
+                        4L,
+                        LocalDateTime.of(2020, Month.MARCH, 29, 19, 30, 40),
+                        LocalDateTime.of(2020, Month.MARCH, 29, 19, 30, 40),
+                        Status.COMPLETED,
+                        new ArrayList<>(),
+                        user1(),
+                        ActiveState.ON));
+        List<Order> act = this.orderRepository.findOrderByStatus(Status.COMPLETED);
+        Assert.assertThat(exp, containsInAnyOrder(act.toArray()));
+    }
+
+    @Test
+    @Sql({"grizzly-schema-order.sql", "grizzly-data-order.sql"})
+    public void shouldFindAllById(){
+        List<Order> exp = List.of(
+                new Order(
+                        2L,
+                        LocalDateTime.of(2020, Month.JULY, 29, 19, 30, 40),
+                        LocalDateTime.of(2020, Month.JULY, 29, 19, 30, 40),
+                        Status.OPEN,
+                        list2(),
+                        user2(),
+                        ActiveState.ON
+                ),
+                new Order(
+                        3L,
+                        LocalDateTime.of(2020, Month.JULY, 29, 19, 30, 40),
+                        LocalDateTime.of(2020, Month.JULY, 29, 19, 30, 40),
+                        Status.OPEN,
+                        list3(),
+                        user1(),
+                        ActiveState.ON
+                ));
+        List<Long> ids = List.of(2L,3L);
+        List<Order> act = this.orderRepository.findAllById(ids);
+        System.out.println("!!!!!!!!!!!!!EXP" + exp);
+        System.out.println("!!!!!!!!!!!!!ACT" + act);
         Assert.assertThat(exp, containsInAnyOrder(act.toArray()));
     }
 }
