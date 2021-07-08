@@ -75,7 +75,8 @@ public class OrderItem {
         if (quantity != orderItem.quantity) return false;
         if (!Objects.equals(price, orderItem.price)) return false;
         if (order.getId() != orderItem.order.getId()) return false;
-        return product.getId() == orderItem.product.getId();
+        if (product.getId() != orderItem.product.getId()) return false;
+        return Objects.equals(state, orderItem.state);
     }
 
     @Override
@@ -85,6 +86,7 @@ public class OrderItem {
         result = 31 * result + (price != null ? price.hashCode() : 0);
         result = (int) (31 * result + order.getId());
         result = (int) (31 * result + product.getId());
+        result = 31 * result + (state != null ? state.hashCode() : 0);
         return result;
     }
 
@@ -96,6 +98,7 @@ public class OrderItem {
                 ", price=" + price +
                 ", order=" + order.getId() +
                 ", product=" + product.getId() +
+                ", state=" + state +
                 '}';
     }
 }
