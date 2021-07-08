@@ -20,6 +20,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     List<Product> findAllByCategoryName(String name);
 
-    List<Product> findProductByStatus(ActiveState activeState);
+    List<Product> findProductsByState(ActiveState activeState);
 
 }

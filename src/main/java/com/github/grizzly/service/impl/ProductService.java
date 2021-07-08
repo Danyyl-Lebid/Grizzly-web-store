@@ -33,7 +33,7 @@ public class ProductService implements IProductService {
 
     @Override
     public List<Product> readAllProductByStatus(ActiveState activeState) {
-        return this.productRepository.findProductByStatus(activeState);
+        return this.productRepository.findProductsByState(activeState);
     }
 
     @Override
