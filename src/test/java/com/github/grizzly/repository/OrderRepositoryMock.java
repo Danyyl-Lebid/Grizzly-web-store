@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class OrderRepositoryMock {
 
@@ -21,7 +22,8 @@ public class OrderRepositoryMock {
                 LocalDateTime.of(2020, Month.JULY, 29, 19, 30, 40),
                 Status.OPEN,
                 new ArrayList<>(),
-                user1()
+                user1(),
+                ActiveState.ON
         );
 
     private static Order order2 = new Order(
@@ -30,7 +32,8 @@ public class OrderRepositoryMock {
             LocalDateTime.of(2020, Month.JULY, 29, 19, 30, 40),
             Status.OPEN,
             new ArrayList<>(),
-            user2()
+            user2(),
+            ActiveState.ON
     );
 
     private static Order order3 = new Order(
@@ -39,7 +42,8 @@ public class OrderRepositoryMock {
             LocalDateTime.of(2020, Month.JULY, 29, 19, 30, 40),
             Status.OPEN,
             new ArrayList<>(),
-            user1()
+            user1(),
+            ActiveState.ON
     );
 
     private static Order order4 = new Order(
@@ -48,8 +52,9 @@ public class OrderRepositoryMock {
             LocalDateTime.of(2020, Month.MARCH, 29, 19, 30, 40),
             Status.COMPLETED,
             new ArrayList<>(),
-            user1()
-        );
+            user1(),
+            ActiveState.ON
+    );
 
     private static Order order5 = new Order(
             5L,
@@ -57,7 +62,8 @@ public class OrderRepositoryMock {
             LocalDateTime.of(2021, Month.APRIL, 29, 19, 30, 40),
             Status.OPEN,
             new ArrayList<> (),
-            user1()
+            user1(),
+            ActiveState.ON
     );
 
     private static Order order6 = new Order(
@@ -66,7 +72,8 @@ public class OrderRepositoryMock {
             LocalDateTime.of(2021, Month.MAY, 29, 19, 30, 40),
             Status.COMPLETED,
             new ArrayList<> (),
-            user2()
+            user2(),
+            ActiveState.ON
     );
 
     public static User user1() {
@@ -141,7 +148,8 @@ public class OrderRepositoryMock {
                 3,
                 new BigDecimal("11.22"),
                 order1,
-                product1()
+                product1(),
+                ActiveState.ON
         );
     }
 
@@ -151,7 +159,8 @@ public class OrderRepositoryMock {
                 5,
                 new BigDecimal("3.33"),
                 order1,
-                product2()
+                product2(),
+                ActiveState.ON
         );
     }
 
@@ -161,7 +170,8 @@ public class OrderRepositoryMock {
                 1,
                 new BigDecimal("89.70"),
                 order1,
-                product3()
+                product3(),
+                ActiveState.ON
         );
     }
 
@@ -171,7 +181,8 @@ public class OrderRepositoryMock {
                 2,
                 new BigDecimal("11.22"),
                 order2,
-                product1()
+                product1(),
+                ActiveState.ON
         );
     }
 
@@ -181,7 +192,8 @@ public class OrderRepositoryMock {
                 1,
                 new BigDecimal("3.33"),
                 order2,
-                product2()
+                product2(),
+                ActiveState.ON
         );
     }
 
@@ -191,7 +203,8 @@ public class OrderRepositoryMock {
                 1,
                 new BigDecimal("3.33"),
                 order3,
-                product2()
+                product2(),
+                ActiveState.ON
         );
     }
 
@@ -201,7 +214,8 @@ public class OrderRepositoryMock {
                 10,
                 new BigDecimal("89.70"),
                 order3,
-                product3()
+                product3(),
+                ActiveState.ON
         );
     }
 
@@ -243,7 +257,8 @@ public class OrderRepositoryMock {
                 LocalDateTime.of(2021, Month.APRIL, 29, 19, 30, 40),
                 Status.OPEN,
                 new ArrayList<> (),
-                user1()
+                user1(),
+                ActiveState.ON
         );
         return order5;
     }
@@ -255,13 +270,71 @@ public class OrderRepositoryMock {
                 LocalDateTime.of(2021, Month.MAY, 29, 19, 30, 40),
                 Status.COMPLETED,
                 new ArrayList<> (),
-                user2()
+                user2(),
+                ActiveState.ON
         );
         return order6;
     }
 
     public static Order order4() {
         Order order = order4;
+        return order;
+    }
+
+    public static List<Order> ordersById() {
+        return List.of(
+                order2(),
+                order3()
+        );
+    }
+
+    public static List<Order> ordersWithCompletedStatus() {
+        return List.of(
+                order4()
+        );
+    }
+
+    public static Order order1AfterDelete() {
+        Order order = order1();
+        order.setState(ActiveState.OFF);
+        List<OrderItem> orderItems = order.getOrderItems();
+        for (OrderItem orderItem : order.getOrderItems()) {
+            orderItem.setState(ActiveState.OFF);
+        }
+        order.setOrderItems(orderItems);
+        return order;
+    }
+
+    public static Order order2AfterDelete() {
+        Order order = order2();
+        order.setState(ActiveState.OFF);
+        List<OrderItem> orderItems = order.getOrderItems();
+        for (OrderItem orderItem : order.getOrderItems()) {
+            orderItem.setState(ActiveState.OFF);
+        }
+        order.setOrderItems(orderItems);
+        return order;
+    }
+
+    public static Order order3AfterDelete() {
+        Order order = order3();
+        order.setState(ActiveState.OFF);
+        List<OrderItem> orderItems = order.getOrderItems();
+        for (OrderItem orderItem : order.getOrderItems()) {
+            orderItem.setState(ActiveState.OFF);
+        }
+        order.setOrderItems(orderItems);
+        return order;
+    }
+
+    public static Order order4AfterDelete() {
+        Order order = order4();
+        order.setState(ActiveState.OFF);
+        List<OrderItem> orderItems = order.getOrderItems();
+        for (OrderItem orderItem : order.getOrderItems()) {
+            orderItem.setState(ActiveState.OFF);
+        }
+        order.setOrderItems(orderItems);
         return order;
     }
 
@@ -274,12 +347,6 @@ public class OrderRepositoryMock {
         );
     }
 
-    public static List<Order> ordersById() {
-        return List.of(
-                order1(),
-                order3()
-        );
-    }
 
     public static List<Order> ordersUser1Desc() {
         return List.of(
@@ -289,17 +356,30 @@ public class OrderRepositoryMock {
         );
     }
 
-    public static List<Order> ordersWithCompletedStatus() {
+    public static List<Order> ordersAfterDeleteOne() {
         return List.of(
+                order1(),
+                order2AfterDelete(),
+                order3(),
                 order4()
         );
     }
 
-    public static List<Order> ordersAfterDelete() {
+    public static List<Order> ordersAfterDeleteTwo() {
         return List.of(
                 order1(),
+                order2AfterDelete(),
                 order3(),
-                order4()
+                order4AfterDelete()
+        );
+    }
+
+    public static List<Order> ordersAfterDeleteAll() {
+        return List.of(
+                order1AfterDelete(),
+                order2AfterDelete(),
+                order3AfterDelete(),
+                order4AfterDelete()
         );
     }*/
 }

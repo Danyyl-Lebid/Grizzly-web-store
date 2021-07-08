@@ -1,7 +1,6 @@
 package com.github.grizzly.controller;
 
-import com.github.grizzly.dto.ProductDto;
-import com.github.grizzly.entity.Category;
+import com.github.grizzly.dto.CategoryDto;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,13 +9,13 @@ import java.util.List;
 public interface ICategoryController {
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    List<Category> findAll();
+    List<CategoryDto> findAll();
 
     @PutMapping
-    Category update(@RequestBody Category category);
+    CategoryDto update(@RequestBody CategoryDto category);
 
     @PostMapping()
-    Category save(@RequestBody Category category);
+    CategoryDto save(@RequestBody CategoryDto category);
 
     @DeleteMapping()
     void deleteById(@RequestBody Long id);
