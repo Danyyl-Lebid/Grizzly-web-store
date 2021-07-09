@@ -108,8 +108,7 @@ public class OrderRepositoryMock {
                 null,
                 new BigDecimal("11.22"),
                 11,
-                category(),
-                ActiveState.ON
+                category()
         );
     }
 
@@ -121,8 +120,7 @@ public class OrderRepositoryMock {
                 null,
                 new BigDecimal("3.33"),
                 110,
-                category(),
-                ActiveState.ON
+                category()
         );
     }
 
@@ -134,8 +132,7 @@ public class OrderRepositoryMock {
                 null,
                 new BigDecimal("89.70"),
                 13,
-                category(),
-                ActiveState.ON
+                category()
         );
     }
 

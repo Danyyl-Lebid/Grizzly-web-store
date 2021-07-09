@@ -49,8 +49,7 @@ public class ProductServiceTestMock {
                 "https://grizzly.com/prodycts/img/main1.png",
                 new BigDecimal("11.99"),
                 11,
-                category1(),
-                ON
+                category1()
         );
     }
 
@@ -61,8 +60,7 @@ public class ProductServiceTestMock {
                 "https://grizzly.com/prodycts/img/main2.png",
                 new BigDecimal("12.99"),
                 12,
-                category2(),
-                ON
+                category2()
         );
     }
 
@@ -73,8 +71,7 @@ public class ProductServiceTestMock {
                 "https://grizzly.com/prodycts/img/main3.png",
                 new BigDecimal("13.99"),
                 13,
-                category3(),
-                ON
+                category3()
         );
     }
 
@@ -85,8 +82,7 @@ public class ProductServiceTestMock {
                 "https://grizzly.com/prodycts/img/main4.png",
                 new BigDecimal("14.99"),
                 14,
-                category4(),
-                ON
+                category4()
         );
     }
 
@@ -97,8 +93,7 @@ public class ProductServiceTestMock {
                 "https://grizzly.com/prodycts/img/main5.png",
                 new BigDecimal("15.99"),
                 15,
-                category4(),
-                OFF
+                category4()
         );
     }
 

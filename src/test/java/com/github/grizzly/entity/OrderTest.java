@@ -15,9 +15,9 @@ public class OrderTest {
 
     Product product2 = new Product();
 
-    OrderItem orderItem1 = new OrderItem(1L, 2, new BigDecimal(12.22d), new Order(), product1);
+    OrderItem orderItem1 = new OrderItem(1L, 2, new BigDecimal(12.22d), new Order(), product1, ActiveState.ON);
 
-    OrderItem orderItem2 = new OrderItem(2L, 3, new BigDecimal(2.55d), new Order(), product2);
+    OrderItem orderItem2 = new OrderItem(2L, 3, new BigDecimal(2.55d), new Order(), product2, ActiveState.ON);
 
     Order order = new Order(
             1L,
@@ -25,7 +25,9 @@ public class OrderTest {
             LocalDateTime.now(),
             Status.OPEN,
             List.of(orderItem1, orderItem2),
-            new User());
+            new User(),
+            ActiveState.ON
+    );
 
 
     @Test
