@@ -3,7 +3,7 @@ package com.github.grizzly.utils;
 import com.github.grizzly.dto.ProductDto;
 import com.github.grizzly.entity.Product;
 
-public class TransferObj {
+public class ProductTransferObj {
 
     public static Product toProduct(ProductDto data) {
         return new Product(
@@ -12,20 +12,19 @@ public class TransferObj {
                 data.getMainImage(),
                 data.getPrice(),
                 data.getQuantity(),
-                data.getCategory(),
-                data.getState()
+                CategoryTransferObject.toCategory(data.getCategory())
         );
     }
 
     public static ProductDto fromProduct(Product data) {
         return new ProductDto(
+                data.getId(),
                 data.getName(),
                 data.getDescription(),
                 data.getMainImage(),
                 data.getPrice(),
                 data.getQuantity(),
-                data.getCategory(),
-                data.getState()
+                CategoryTransferObject.fromCategory(data.getCategory())
         );
     }
 }

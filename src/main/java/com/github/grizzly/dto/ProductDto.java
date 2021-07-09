@@ -13,6 +13,8 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 public class ProductDto {
 
+    private Long id;
+
     private String name;
 
     private String description;
@@ -23,8 +25,6 @@ public class ProductDto {
 
     private int quantity;
 
-    private Category category;
-
-    private ActiveState state;
+    private CategoryDto category;
 
 }

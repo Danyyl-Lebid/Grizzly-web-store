@@ -11,13 +11,13 @@ public interface IProductController {
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     List<ProductDto> findAll();
 
-    @PostMapping
+    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     ProductDto save(@RequestBody ProductDto payload);
 
-    @PutMapping
+    @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     void update(@RequestBody ProductDto payload);
 
     @DeleteMapping(path = "/{id}")
-    void deleteById(@PathVariable(name = "id") Long id);
+    void deleteProductById(@PathVariable(name = "id") Long id);
 
 }

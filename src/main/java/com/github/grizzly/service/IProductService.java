@@ -20,6 +20,6 @@ public interface IProductService {
 
     void update(Product product);
 
-    Optional<Product> deleteById(Long id);
+    void deleteById(Long id);
 
 }

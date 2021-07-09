@@ -6,6 +6,7 @@ import com.github.grizzly.repository.ProductRepository;
 import com.github.grizzly.service.IProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -47,9 +48,8 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public Optional<Product> deleteById(Long id) {
-        Optional<Product> product = productRepository.findById(id);
-        product.get().setState(ActiveState.OFF);
-        return productRepository.findById(id);
+    @Transactional
+    public void deleteById(Long id) {
+        productRepository.updateState(id, ActiveState.OFF);
     }
 }

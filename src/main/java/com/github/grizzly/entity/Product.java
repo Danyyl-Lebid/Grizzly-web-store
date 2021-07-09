@@ -5,10 +5,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Data
 @Entity
@@ -41,14 +38,14 @@ public class Product {
     @Column(name = "quantity")
     private int quantity;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     private Category category;
 
     @NotNull
     @Column(name = "state", columnDefinition = "VARCHAR(32)")
     @Enumerated(EnumType.STRING)
-    private ActiveState state;
+    private ActiveState state = ActiveState.ON;
 
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
@@ -72,8 +69,7 @@ public class Product {
             String mainImage,
             BigDecimal price,
             int quantity,
-            Category category,
-            ActiveState state
+            Category category
     ) {
         this.name = name;
         this.description = description;
@@ -81,7 +77,6 @@ public class Product {
         this.price = price;
         this.quantity = quantity;
         this.category = category;
-        this.state = state;
     }
 
     public Product(
@@ -91,8 +86,7 @@ public class Product {
             String mainImage,
             BigDecimal price,
             int quantity,
-            Category category,
-            ActiveState state
+            Category category
     ) {
         this.id = id;
         this.name = name;
@@ -101,7 +95,5 @@ public class Product {
         this.price = price;
         this.quantity = quantity;
         this.category = category;
-        this.state = state;
     }
-
 }
