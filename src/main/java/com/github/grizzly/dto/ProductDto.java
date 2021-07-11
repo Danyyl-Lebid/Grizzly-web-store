@@ -1,7 +1,5 @@
 package com.github.grizzly.dto;
 
-import com.github.grizzly.entity.ActiveState;
-import com.github.grizzly.entity.Category;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,6 +23,6 @@ public class ProductDto {
 
     private int quantity;
 
-    private CategoryDto category;
+    private Long category_id;
 
 }
