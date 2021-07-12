@@ -21,7 +21,7 @@ public class Category {
     @Column(name = "parent_id")
     private Long parentId;
 
-    @Column(name = "name", nullable = false, columnDefinition = "VARCHAR(32)")
+    @Column(name = "name", nullable = false, unique = true, columnDefinition = "VARCHAR(32)")
     private String name;
 
     @Column(name = "description", nullable = false, columnDefinition = "VARCHAR(256)")
