@@ -19,7 +19,7 @@ public class Product {
     private Long id;
 
     @NotNull
-    @Column(name = "name", columnDefinition = "VARCHAR(64)")
+    @Column(name = "name", unique = true, columnDefinition = "VARCHAR(64)")
     private String name;
 
     @NotNull

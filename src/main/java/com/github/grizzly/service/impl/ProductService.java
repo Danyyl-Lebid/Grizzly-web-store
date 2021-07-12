@@ -1,7 +1,10 @@
 package com.github.grizzly.service.impl;
 
+import com.github.grizzly.dto.ProductDto;
 import com.github.grizzly.entity.ActiveState;
+import com.github.grizzly.entity.Category;
 import com.github.grizzly.entity.Product;
+import com.github.grizzly.repository.CategoryRepository;
 import com.github.grizzly.repository.ProductRepository;
 import com.github.grizzly.service.IProductService;
 import lombok.RequiredArgsConstructor;
@@ -43,8 +46,15 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public void update(Product product) {
-        this.productRepository.save(product);
+    public void update(Long id, Product newProduct) {
+        Product product = productRepository.getById(id);
+        product.setName(newProduct.getName());
+        product.setDescription(newProduct.getDescription());
+        product.setMainImage(newProduct.getMainImage());
+        product.setPrice(newProduct.getPrice());
+        product.setQuantity(newProduct.getQuantity());
+        product.setCategory(newProduct.getCategory());
+        this.productRepository.save(newProduct);
     }
 
     @Override
