@@ -12,18 +12,11 @@ public interface IUserService {
 
     User findByLogin(String login);
 
-    User findByEmail(String email);
-
     User create(UserRegDto regDto);
 
     User authorize(String login, String password);
 
     boolean activateUser(String code);
 
-    User authorizeViaEmail(UserAuthDto authDto);
-
-    User authorizeViaLogin(UserAuthDto authDto);
-
-    User authorizeViaPhone(UserAuthDto authDto);
 
 }

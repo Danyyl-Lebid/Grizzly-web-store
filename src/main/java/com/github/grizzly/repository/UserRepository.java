@@ -5,6 +5,7 @@ import lombok.NonNull;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import javax.validation.constraints.Email;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -19,6 +20,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByPhone(@NonNull String phone);
 
     User findByActivationCode(String code);
+
+    Optional<User> findByEmailOrLoginOrPhone(@Email String email, String login, String phone);
 
     List<User> findByCreatedAtBefore(LocalDateTime createdAt);
 

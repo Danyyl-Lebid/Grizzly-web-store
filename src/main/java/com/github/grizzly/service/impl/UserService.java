@@ -1,23 +1,18 @@
 package com.github.grizzly.service.impl;
 
-import com.github.grizzly.dto.UserAuthDto;
 import com.github.grizzly.dto.UserRegDto;
 import com.github.grizzly.entity.Role;
 import com.github.grizzly.entity.User;
 import com.github.grizzly.exceptions.DuplicatedDataException;
 import com.github.grizzly.exceptions.EntityNotFoundException;
-import com.github.grizzly.exceptions.InvalidInputData;
 import com.github.grizzly.exceptions.user.IncorrectPasswordException;
 import com.github.grizzly.repository.UserRepository;
 import com.github.grizzly.service.IEmailService;
 import com.github.grizzly.service.IUserService;
-import com.github.grizzly.utils.UserValidationUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
-import java.util.Objects;
 import java.util.UUID;
 
 @Service
@@ -41,11 +36,6 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public User findByEmail(String email) {
-        return userRepository.findByEmail(email).orElseThrow(EntityNotFoundException::new);
-    }
-
-    @Override
     public User create(UserRegDto regDto) {
         checkPresence(regDto);
         User user = new User(
@@ -56,19 +46,9 @@ public class UserService implements IUserService {
                 regDto.getEmail(),
                 regDto.getPhone()
         );
-        user.addRole(Role.ROLE_USER);
+        user.addRole(Role.USER);
         user.setActivationCode(UUID.randomUUID().toString());
-        if (StringUtils.hasText(user.getEmail())) {
-            String message = String.format(
-                    "Hello, %s! \n" +
-                            "Welcome to GRIZZLY. Please, visit next link: http://localhost:8080/activate/%s",
-                    user.getFirstName(),
-                    user.getActivationCode()
-            );
-
-            emailService.send(user.getEmail(), "Activation code", message);
-        }
-
+        emailService.sendVerificationEmail(user);
         return userRepository.save(user);
     }
 
@@ -84,60 +64,16 @@ public class UserService implements IUserService {
         }
     }
 
-
-    public User authorizeV(UserAuthDto authDto) {
-        if (UserValidationUtils.isValidEmail(authDto.getLogin())) {
-            return authorizeViaEmail(authDto);
-        } else if (UserValidationUtils.isValidPhone(authDto.getLogin())) {
-            return authorizeViaPhone(authDto);
-        } else if (UserValidationUtils.isValidLogin(authDto.getLogin())) {
-            return authorizeViaLogin(authDto);
-        } else throw new InvalidInputData();
-    }
-
-    @Override
-    public User authorizeViaEmail(UserAuthDto authDto) {
-        User user = userRepository.findByEmail(authDto.getLogin()).orElseThrow(EntityNotFoundException::new);
-        return authorizeUser(user, authDto.getPassword());
-    }
-
-    @Override
-    public User authorizeViaLogin(UserAuthDto authDto) {
-        User user = userRepository.findByLogin(authDto.getLogin()).orElseThrow(EntityNotFoundException::new);
-        return authorizeUser(user, authDto.getPassword());
-    }
-
-    @Override
-    public User authorizeViaPhone(UserAuthDto authDto) {
-        User user = userRepository.findByPhone(authDto.getLogin()).orElseThrow(EntityNotFoundException::new);
-        return authorizeUser(user, authDto.getPassword());
-    }
-
-    private User authorizeUser(User user, String password) {
-        if (!Objects.equals(
-                passwordEncoder.encode(password),
-                user.getPassword())) {
-            throw new IncorrectPasswordException();
-        }
-        user.setActive(User.Active.ON);
-        userRepository.save(user);
-        return user;
-    }
-
     @Override
     public User authorize(String login, String password) {
-        User user = findByLogin(login);
-        if (user != null) {
-            if (passwordEncoder.matches(password, user.getPassword())) {
-                if (user.getVerification().equals(User.Verification.YES)) {
-                    user.setActive(User.Active.ON);
-                    userRepository.save(user);
-                    return user;
-                }
-                System.out.println("the user was not verified");
+        User user = userRepository.findByEmailOrLoginOrPhone(login, login, login).orElseThrow(EntityNotFoundException::new);
+        if (passwordEncoder.matches(password, user.getPassword())) {
+            if (user.getVerification().equals(User.Verification.YES)) {
+                user.setActive(User.Active.ON);
+                userRepository.save(user);
+                return user;
             }
-        }
-        return null;
+        }throw new IncorrectPasswordException();
     }
 
     @Override

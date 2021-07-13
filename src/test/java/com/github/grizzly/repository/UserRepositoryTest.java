@@ -124,10 +124,10 @@ public class UserRepositoryTest {
                 "user1_@email.com",
                 "user1_phone"
         );
-        user.addRole(Role.ROLE_USER);
+        user.addRole(Role.USER);
         userRepository.save(user);
         Set<Role> act = userRepository.findById(1L).orElseThrow().getRoles();
-        Set<Role> exp = Set.of(Role.ROLE_USER);
+        Set<Role> exp = Set.of(Role.USER);
         Assert.assertThat(exp, containsInAnyOrder(act.toArray()));
     }
 
@@ -144,10 +144,10 @@ public class UserRepositoryTest {
         );
         userRepository.save(user);
         user = userRepository.findById(1L).orElseThrow();
-        user.addRole(Role.ROLE_USER);
+        user.addRole(Role.USER);
         userRepository.save(user);
         Set<Role> act = userRepository.findById(1L).orElseThrow().getRoles();
-        Set<Role> exp = Set.of(Role.ROLE_USER);
+        Set<Role> exp = Set.of(Role.USER);
         Assert.assertThat(exp, containsInAnyOrder(act.toArray()));
     }
 
@@ -162,10 +162,10 @@ public class UserRepositoryTest {
                 "user1_@email.com",
                 "user1_phone"
         );
-        user.addRoles(Set.of(Role.ROLE_USER, Role.ROLE_MANAGER, Role.ROLE_ADMIN));
+        user.addRoles(Set.of(Role.USER, Role.MANAGER, Role.ADMIN));
         userRepository.save(user);
         Set<Role> act = userRepository.findById(1L).orElseThrow().getRoles();
-        Set<Role> exp = Set.of(Role.ROLE_USER, Role.ROLE_MANAGER, Role.ROLE_ADMIN);
+        Set<Role> exp = Set.of(Role.USER, Role.MANAGER, Role.ADMIN);
         Assert.assertThat(exp, containsInAnyOrder(act.toArray()));
     }
 
