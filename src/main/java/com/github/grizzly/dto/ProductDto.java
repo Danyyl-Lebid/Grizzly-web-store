@@ -23,6 +23,6 @@ public class ProductDto {
 
     private int quantity;
 
-    private Long categoryId;
+    private String categoryName;
 
 }

@@ -19,7 +19,7 @@ public class Product {
     private Long id;
 
     @NotNull
-    @Column(name = "name", unique = true, columnDefinition = "VARCHAR(64)")
+    @Column(name = "name", columnDefinition = "VARCHAR(64)")
     private String name;
 
     @NotNull
@@ -39,7 +39,7 @@ public class Product {
     private int quantity;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id", referencedColumnName = "id")
+    @JoinColumn(name = "category_name", referencedColumnName = "name")
     private Category category;
 
     @NotNull
@@ -95,5 +95,28 @@ public class Product {
         this.price = price;
         this.quantity = quantity;
         this.category = category;
+    }
+
+    public Product(Long id, String name, String description, String mainImage, BigDecimal price, int quantity) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.mainImage = mainImage;
+        this.price = price;
+        this.quantity = quantity;
+    }
+
+    public Product(String name, String description, String mainImage, BigDecimal price, int quantity) {
+        this.name = name;
+        this.description = description;
+        this.mainImage = mainImage;
+        this.price = price;
+        this.quantity = quantity;
+    }
+
+    public Product addCategory (Category category){
+        this.category = category;
+        category.addProduct(this);
+        return this;
     }
 }

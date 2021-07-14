@@ -3,6 +3,7 @@ package com.github.grizzly.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -11,7 +12,7 @@ import java.util.Set;
 @Entity
 @Table(name = "category")
 @NoArgsConstructor
-public class Category {
+public class Category implements Serializable {
 
     @Id
     @Setter(value = AccessLevel.NONE)
@@ -21,7 +22,7 @@ public class Category {
     @Column(name = "parent_id")
     private Long parentId;
 
-    @Column(name = "name", nullable = false, unique = true, columnDefinition = "VARCHAR(32)")
+    @Column(name = "name", nullable = false, columnDefinition = "VARCHAR(32)")
     private String name;
 
     @Column(name = "description", nullable = false, columnDefinition = "VARCHAR(256)")
@@ -48,5 +49,9 @@ public class Category {
         this.parentId = parentId;
         this.name = name;
         this.description = description;
+    }
+
+    public void addProduct(Product product) {
+        this.products.add(product);
     }
 }

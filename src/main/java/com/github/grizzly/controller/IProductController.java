@@ -16,7 +16,7 @@ public interface IProductController {
     @GetMapping(path = "/find-all-{status}", produces = MediaType.APPLICATION_JSON_VALUE)
     List<ProductDto> findAllProductByStatus(@PathVariable("status") ActiveState activeState);
 
-    @PostMapping(path = "add-new", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "/add-new", produces = MediaType.APPLICATION_JSON_VALUE)
     ProductDto save(@RequestBody ProductDto payload);
 
     @PutMapping(path = "/update",produces = MediaType.APPLICATION_JSON_VALUE)

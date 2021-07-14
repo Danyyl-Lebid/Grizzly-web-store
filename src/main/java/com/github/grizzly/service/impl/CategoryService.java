@@ -19,10 +19,14 @@ public class CategoryService implements ICategoryService {
         this.categoryRepository = categoryRepository;
     }
 
-
     @Override
     public Optional<Category> findCategoryById(long id) {
         return categoryRepository.findCategoryById(id);
+    }
+
+    @Override
+    public Optional<Category> findCategoryByName(String name) {
+        return categoryRepository.findCategoryByName(name);
     }
 
     @Override

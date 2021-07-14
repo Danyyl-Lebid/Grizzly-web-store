@@ -12,8 +12,18 @@ public class ProductTransferObj {
                 data.getDescription(),
                 data.getMainImage(),
                 data.getPrice(),
-                data.getQuantity(),
-                category
+                data.getQuantity()
+        ).addCategory(category);
+    }
+
+    public static Product toProductWithoutCategory (ProductDto data) {
+        return new Product(
+                data.getId(),
+                data.getName(),
+                data.getDescription(),
+                data.getMainImage(),
+                data.getPrice(),
+                data.getQuantity()
         );
     }
 
@@ -25,7 +35,7 @@ public class ProductTransferObj {
                 data.getMainImage(),
                 data.getPrice(),
                 data.getQuantity(),
-                data.getCategory().getId()
+                data.getCategory().getName()
         );
     }
 }

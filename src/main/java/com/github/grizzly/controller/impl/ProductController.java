@@ -10,13 +10,13 @@ import com.github.grizzly.service.ICategoryService;
 import com.github.grizzly.service.IProductService;
 import com.github.grizzly.utils.ProductTransferObj;
 import lombok.RequiredArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.github.grizzly.utils.ProductTransferObj.fromProduct;
-import static com.github.grizzly.utils.ProductTransferObj.toProduct;
+import static com.github.grizzly.utils.ProductTransferObj.*;
 
 @RestController
 @RequestMapping(path = "/products")
@@ -43,20 +43,17 @@ public class ProductController implements IProductController {
     }
 
     @Override
+    @Transactional
     public ProductDto save(ProductDto payload) {
-        Long id = payload.getId();
-        Category category = this.categoryService.findCategoryById(id).orElseThrow(EntityNotFoundException::new);
+        String name = payload.getCategoryName();
+        Category category = this.categoryService.findCategoryByName(name).orElseThrow(EntityNotFoundException::new);
         Product product = toProduct(payload, category);
-        product.setCategory(category);
         return fromProduct(this.productService.create(product));
     }
 
     @Override
     public void update(ProductDto payload) {
-        Long id = payload.getCategoryId();
-        Category category = this.categoryService.findCategoryById(id).orElseThrow(EntityNotFoundException::new);
-        Product product = toProduct(payload, category);
-        this.productService.update(id, product);
+        this.productService.update(toProductWithoutCategory(payload));
     }
 
     @Override

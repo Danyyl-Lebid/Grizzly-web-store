@@ -10,6 +10,8 @@ public interface ICategoryService {
 
     Optional<Category> findCategoryById(long id);
 
+    Optional<Category> findCategoryByName(String name);
+
     List<Category> findCategoriesByParentId(Long parentId);
 
     List<Category> findCategoriesByParentIdIsNull();
