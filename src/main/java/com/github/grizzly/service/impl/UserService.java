@@ -6,6 +6,7 @@ import com.github.grizzly.entity.User;
 import com.github.grizzly.exceptions.DuplicatedDataException;
 import com.github.grizzly.exceptions.EntityNotFoundException;
 import com.github.grizzly.exceptions.user.IncorrectPasswordException;
+import com.github.grizzly.exceptions.user.UserNotVerifiedException;
 import com.github.grizzly.repository.UserRepository;
 import com.github.grizzly.service.IEmailService;
 import com.github.grizzly.service.IUserService;
@@ -13,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Service
@@ -46,7 +48,7 @@ public class UserService implements IUserService {
                 regDto.getEmail(),
                 regDto.getPhone()
         );
-        user.addRole(Role.USER);
+        user.addRole(Role.ROLE_USER);
         user.setActivationCode(UUID.randomUUID().toString());
         emailService.sendVerificationEmail(user);
         return userRepository.save(user);
@@ -73,7 +75,9 @@ public class UserService implements IUserService {
                 userRepository.save(user);
                 return user;
             }
-        }throw new IncorrectPasswordException();
+            throw new UserNotVerifiedException();
+        }
+        throw new IncorrectPasswordException();
     }
 
     @Override
@@ -91,4 +95,8 @@ public class UserService implements IUserService {
         return true;
     }
 
+    public void updateUser(User user) {
+        user.setUpdatedAt(LocalDateTime.now());
+        userRepository.save(user);
+    }
 }

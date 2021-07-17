@@ -74,7 +74,7 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Verification verification;
 
-    @ElementCollection(targetClass = Role.class)
+    @ElementCollection(fetch = FetchType.EAGER,targetClass = Role.class)
     @CollectionTable(name = "users_roles",
             joinColumns = @JoinColumn(columnDefinition = "user_id"))
     @Column(name = "role")
@@ -152,6 +152,12 @@ public class User {
         this.createdAt = createdAt;
         this.active = Active.OFF;
         this.verification = Verification.NO;
+    }
+
+
+    public User newPass(String password) {
+        this.password = password;
+        return this;
     }
 
     public enum Active {

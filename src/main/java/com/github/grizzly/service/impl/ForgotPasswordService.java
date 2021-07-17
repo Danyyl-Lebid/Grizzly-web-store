@@ -1,0 +1,21 @@
+package com.github.grizzly.service.impl;
+
+import com.github.grizzly.entity.User;
+import com.github.grizzly.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class ForgotPasswordService {
+
+    private final UserRepository userRepository;
+
+@Autowired
+    public ForgotPasswordService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email).orElseThrow(()-> new RuntimeException("No email to change password"));
+    }
+}
