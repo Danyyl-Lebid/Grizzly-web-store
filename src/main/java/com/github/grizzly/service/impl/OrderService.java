@@ -1,21 +1,16 @@
 package com.github.grizzly.service.impl;
 
-import com.github.grizzly.dto.order.OrderDto;
 import com.github.grizzly.entity.ActiveState;
 import com.github.grizzly.entity.Order;
 import com.github.grizzly.entity.User;
 import com.github.grizzly.enums.Status;
 import com.github.grizzly.repository.OrderRepository;
 import com.github.grizzly.service.IOrderService;
-import com.github.grizzly.utils.OrderTransferObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
