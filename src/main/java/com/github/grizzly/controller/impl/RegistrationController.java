@@ -14,15 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@ApiImplicitParams(
-        @ApiImplicitParam(
-                name = "Authorization",
-                value = "Access Token",
-                required = true,
-                paramType = "header",
-                example = "Bearer access_token"
-        )
-)
 public class RegistrationController implements IRegistrationController {
 
     private final IUserService userService;

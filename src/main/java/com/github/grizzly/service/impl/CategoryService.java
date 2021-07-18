@@ -45,6 +45,6 @@ public class CategoryService implements ICategoryService {
 
     @Override
     public Category update(Category category) {
-        return null;
+        return categoryRepository.save(category);
     }
 }

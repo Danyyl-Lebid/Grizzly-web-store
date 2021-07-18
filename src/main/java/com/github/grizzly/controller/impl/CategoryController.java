@@ -15,8 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.github.grizzly.utils.CategoryTransferObject.toCategory;
-import static com.github.grizzly.utils.CategoryTransferObject.fromCategory;
+import static com.github.grizzly.utils.CategoryTransferObject.*;
 
 @RestController
 @RequestMapping(path = "category")
@@ -44,7 +43,7 @@ public class CategoryController implements ICategoryController {
 
     @Override
     public CategoryDto update(CategoryDto category) {
-        return fromCategory(this.categoryRepository.save(toCategory(category)));
+        return fromCategory(this.categoryRepository.save(toCategoryUpdate(category)));
     }
 
     @Override

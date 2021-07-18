@@ -13,6 +13,15 @@ public class CategoryTransferObject {
         );
     }
 
+    public static Category toCategoryUpdate(CategoryDto categoryDto){
+        return new Category(
+                categoryDto.getId(),
+                categoryDto.getParentId(),
+                categoryDto.getName(),
+                categoryDto.getDescription()
+        );
+    }
+
     public static CategoryDto fromCategory(Category category){
         return new CategoryDto(
                 category.getId(),

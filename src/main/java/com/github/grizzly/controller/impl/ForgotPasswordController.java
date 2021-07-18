@@ -24,15 +24,6 @@ import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
-@ApiImplicitParams(
-        @ApiImplicitParam(
-                name = "Authorization",
-                value = "Access Token",
-                required = true,
-                paramType = "header",
-                example = "Bearer access_token"
-        )
-)
 public class ForgotPasswordController {
 
     private final UserService userService;
