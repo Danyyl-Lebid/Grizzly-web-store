@@ -19,6 +19,7 @@ import static com.github.grizzly.utils.CategoryTransferObject.toCategory;
 import static com.github.grizzly.utils.CategoryTransferObject.fromCategory;
 
 @RestController
+@RequestMapping(path = "category")
 @RequiredArgsConstructor
 @ApiImplicitParams(
         @ApiImplicitParam(
@@ -34,7 +35,6 @@ public class CategoryController implements ICategoryController {
     private final CategoryRepository categoryRepository;
 
     @Override
-    @GetMapping("/category")
     public List<CategoryDto> findAll() {
         return this.categoryRepository.findAll()
                 .stream()
@@ -43,7 +43,6 @@ public class CategoryController implements ICategoryController {
     }
 
     @Override
-    @PostMapping("/category/add")
     public CategoryDto update(CategoryDto category) {
         return fromCategory(this.categoryRepository.save(toCategory(category)));
     }

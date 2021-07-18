@@ -24,8 +24,8 @@ public class CategoryService implements ICategoryService {
     }
 
     @Override
-    public Optional<Category> findCategoryByName(String name) {
-        return categoryRepository.findCategoryByName(name);
+    public Category findCategoryByName(String name) {
+        return categoryRepository.findCategoryByName(name).orElseThrow();
     }
 
     @Override

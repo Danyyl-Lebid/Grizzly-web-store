@@ -9,7 +9,7 @@ public interface ICategoryService {
 
     Category findCategoryById(long id);
 
-    Optional<Category> findCategoryByName(String name);
+    Category findCategoryByName(String name);
 
     List<Category> findCategoriesByParentId(Long parentId);
 

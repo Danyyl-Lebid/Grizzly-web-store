@@ -2,8 +2,11 @@ package com.github.grizzly.controller.impl;
 
 import com.github.grizzly.controller.IProductController;
 import com.github.grizzly.dto.ProductDto;
+import com.github.grizzly.entity.ActiveState;
+import com.github.grizzly.entity.Category;
+import com.github.grizzly.entity.Product;
+import com.github.grizzly.service.ICategoryService;
 import com.github.grizzly.service.IProductService;
-import com.github.grizzly.utils.TransferObj;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import com.github.grizzly.utils.ProductTransferObj;
@@ -53,7 +56,7 @@ public class ProductController implements IProductController {
     @Transactional
     public ProductDto save(ProductDto payload) {
         String name = payload.getCategoryName();
-        Category category = this.categoryService.findCategoryByName(name).orElseThrow(EntityNotFoundException::new);
+        Category category = this.categoryService.findCategoryByName(name);
         Product product = toProduct(payload, category);
         return fromProduct(this.productService.create(product));
     }
