@@ -8,35 +8,40 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class UserPrincipal implements UserDetails {
 
-    private final User user;
+    private String login;
 
-    private final Collection<? extends GrantedAuthority> authorities;
+    private String password;
 
-    public UserPrincipal(User user, Collection<? extends GrantedAuthority> authorities) {
-        this.user = user;
-        this.authorities = authorities;
+    private Collection<? extends GrantedAuthority> grantedAuthorities;
+
+
+    public static UserPrincipal create(User user) {
+        UserPrincipal cud = new UserPrincipal();
+        cud.login = user.getLogin();
+        cud.password = user.getPassword();
+        cud.grantedAuthorities = user.getRoles().stream()
+                .map(role -> new SimpleGrantedAuthority(role.name()))
+                .collect(Collectors.toList());
+        return cud;
     }
 
-    public static UserDetails create(User user) {
-        List<SimpleGrantedAuthority> authorities = Collections.singletonList(new SimpleGrantedAuthority(user.getRoles().toString()));
-        return new UserPrincipal(user,authorities);
-    }
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return authorities;
+        return grantedAuthorities;
     }
 
     @Override
     public String getPassword() {
-        return this.user.getPassword();
+        return password;
     }
 
     @Override
     public String getUsername() {
-        return this.user.getLogin();
+        return login;
     }
 
     @Override
@@ -56,6 +61,6 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 }

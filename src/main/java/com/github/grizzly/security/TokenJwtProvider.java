@@ -26,7 +26,7 @@ public class TokenJwtProvider {
         return Jwts.builder()
                 .setSubject(String.valueOf(id))
                 .setExpiration(date)
-                .signWith(SignatureAlgorithm.HS256, this.secret)
+                .signWith(SignatureAlgorithm.HS512, this.secret)
                 .compact();
     }
 
@@ -46,7 +46,7 @@ public class TokenJwtProvider {
     }
 
     public Long getUserIdFromToken(String token) {
-        Claims claims = Jwts.parser().setSigningKey(this.secret.getBytes()).parseClaimsJws(token).getBody();
+        Claims claims = Jwts.parser().setSigningKey(this.secret).parseClaimsJws(token).getBody();
         return Long.parseLong(claims.getSubject());
     }
 }

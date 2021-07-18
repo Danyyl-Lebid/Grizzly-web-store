@@ -4,12 +4,13 @@ import com.github.grizzly.dto.order.DistributeOrderDto;
 import com.github.grizzly.dto.order.OrderDto;
 import com.github.grizzly.enums.Status;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 public interface IOrderController {
-
+    @Secured("ADMIN")
     @GetMapping(path = "/admin/all", produces = MediaType.APPLICATION_JSON_VALUE)
     List<OrderDto> findAll();
 

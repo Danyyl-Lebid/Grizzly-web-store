@@ -22,7 +22,7 @@ public class AuthorizationController implements IAuthorizationController {
 
     @Override
     public AuthResponse authorize(@RequestBody @Valid UserAuthDto authDto) {
-        User user = userService.findByLoginAndPassword(authDto.getLogin(), authDto.getPassword());
+        User user = userService.authorize(authDto.getLogin(), authDto.getPassword());
         String token = tokenJwtProvider.generateToken(user);
         return new AuthResponse(token);
     }

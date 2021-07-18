@@ -162,10 +162,10 @@ public class UserRepositoryTest {
                 "user1_@email.com",
                 "user1_phone"
         );
-        user.addRoles(Set.of(Role.ROLE_USER, Role.ROLE_MANAGER, Role.ROLE_ADMIN));
+        user.addRoles(Set.of(Role.ROLE_USER, Role.MANAGER, Role.ADMIN));
         userRepository.save(user);
         Set<Role> act = userRepository.findById(1L).orElseThrow().getRoles();
-        Set<Role> exp = Set.of(Role.ROLE_USER, Role.ROLE_MANAGER, Role.ROLE_ADMIN);
+        Set<Role> exp = Set.of(Role.ROLE_USER, Role.MANAGER, Role.ADMIN);
         Assert.assertThat(exp, containsInAnyOrder(act.toArray()));
     }
 
