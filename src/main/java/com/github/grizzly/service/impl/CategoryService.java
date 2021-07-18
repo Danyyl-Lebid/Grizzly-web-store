@@ -6,7 +6,6 @@ import com.github.grizzly.service.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
-import java.util.Optional;
 
 public class CategoryService implements ICategoryService {
 
@@ -19,8 +18,8 @@ public class CategoryService implements ICategoryService {
 
 
     @Override
-    public Optional<Category> findCategoryById(long id) {
-        return categoryRepository.findCategoryById(id);
+    public Category findCategoryById(long id) {
+        return categoryRepository.findCategoryById(id).orElseThrow();
     }
 
     @Override

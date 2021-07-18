@@ -6,6 +6,8 @@ import com.github.grizzly.dto.UserAuthDto;
 import com.github.grizzly.entity.User;
 import com.github.grizzly.security.TokenJwtProvider;
 import com.github.grizzly.service.IUserService;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,6 +16,15 @@ import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
+@ApiImplicitParams(
+        @ApiImplicitParam(
+                name = "Authorization",
+                value = "Access Token",
+                required = true,
+                paramType = "header",
+                example = "Bearer access_token"
+        )
+)
 public class AuthorizationController implements IAuthorizationController {
 
     private final IUserService userService;

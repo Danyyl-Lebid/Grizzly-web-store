@@ -3,6 +3,8 @@ package com.github.grizzly.controller.impl;
 import com.github.grizzly.controller.IRegistrationController;
 import com.github.grizzly.dto.UserRegDto;
 import com.github.grizzly.service.IUserService;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
@@ -12,6 +14,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@ApiImplicitParams(
+        @ApiImplicitParam(
+                name = "Authorization",
+                value = "Access Token",
+                required = true,
+                paramType = "header",
+                example = "Bearer access_token"
+        )
+)
 public class RegistrationController implements IRegistrationController {
 
     private final IUserService userService;

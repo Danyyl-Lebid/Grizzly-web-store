@@ -9,6 +9,10 @@ import com.github.grizzly.service.IConfirmTokenService;
 import com.github.grizzly.service.IEmailService;
 import com.github.grizzly.service.impl.ForgotPasswordService;
 import com.github.grizzly.service.impl.UserService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,6 +24,15 @@ import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
+@ApiImplicitParams(
+        @ApiImplicitParam(
+                name = "Authorization",
+                value = "Access Token",
+                required = true,
+                paramType = "header",
+                example = "Bearer access_token"
+        )
+)
 public class ForgotPasswordController {
 
     private final UserService userService;
