@@ -20,7 +20,7 @@ public class SwaggerConfig {
                 .apiInfo(apiEndPointsInfo())
                 .enable(true)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.github.ratel.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.github.grizzly.controller.impl"))
                 .paths(PathSelectors.any())
                 .build().pathMapping("/");
     }
