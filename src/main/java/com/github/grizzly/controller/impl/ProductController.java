@@ -46,7 +46,7 @@ public class ProductController implements IProductController {
     @Transactional
     public ProductDto save(ProductDto payload) {
         String name = payload.getCategoryName();
-        Category category = this.categoryService.findCategoryByName(name).orElseThrow(EntityNotFoundException::new);
+        Category category = this.categoryService.findCategoryByName(name);
         Product product = toProduct(payload, category);
         return fromProduct(this.productService.create(product));
     }

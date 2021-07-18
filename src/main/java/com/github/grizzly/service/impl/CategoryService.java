@@ -1,6 +1,7 @@
 package com.github.grizzly.service.impl;
 
 import com.github.grizzly.entity.Category;
+import com.github.grizzly.exceptions.EntityNotFoundException;
 import com.github.grizzly.repository.CategoryRepository;
 import com.github.grizzly.service.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,13 +21,13 @@ public class CategoryService implements ICategoryService {
     }
 
     @Override
-    public Optional<Category> findCategoryById(long id) {
-        return categoryRepository.findCategoryById(id);
+    public Category findCategoryById(long id) {
+        return categoryRepository.findCategoryById(id).orElseThrow(EntityNotFoundException::new);
     }
 
     @Override
-    public Optional<Category> findCategoryByName(String name) {
-        return categoryRepository.findCategoryByName(name);
+    public Category findCategoryByName(String name) {
+        return categoryRepository.findCategoryByName(name).orElseThrow(EntityNotFoundException::new);
     }
 
     @Override

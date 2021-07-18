@@ -8,9 +8,9 @@ import java.util.Optional;
 
 public interface IProductService {
 
-    Optional<Product> readById(Long id);
+    Product readById(Long id);
 
-    Optional<Product> readByName(String name);
+    Product readByName(String name);
 
     List<Product> readAll();
 
