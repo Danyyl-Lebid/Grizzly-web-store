@@ -7,6 +7,8 @@ import com.github.grizzly.entity.Category;
 import com.github.grizzly.entity.Product;
 import com.github.grizzly.service.ICategoryService;
 import com.github.grizzly.service.IProductService;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import com.github.grizzly.utils.ProductTransferObj;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +23,15 @@ import static com.github.grizzly.utils.ProductTransferObj.*;
 @RestController
 @RequestMapping(path = "/products")
 @RequiredArgsConstructor
+@ApiImplicitParams(
+        @ApiImplicitParam(
+                name = "Authorization",
+                value = "Access Token",
+                required = true,
+                paramType = "header",
+                example = "Bearer access_token"
+        )
+)
 public class ProductController implements IProductController {
 
     private final IProductService productService;

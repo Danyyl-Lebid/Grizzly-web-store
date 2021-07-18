@@ -151,23 +151,23 @@ public class UserRepositoryTest {
         Assert.assertThat(exp, containsInAnyOrder(act.toArray()));
     }
 
-    @Test
-    @Sql({"users-schema.sql"})
-    public void manyRoles(){
-        User user = new User(1L,
-                "user1_firstName",
-                "user1_lastName",
-                "user1_login",
-                "user1_password",
-                "user1_@email.com",
-                "user1_phone"
-        );
-        user.addRoles(Set.of(Role.ROLE_USER, Role.MANAGER, Role.ADMIN));
-        userRepository.save(user);
-        Set<Role> act = userRepository.findById(1L).orElseThrow().getRoles();
-        Set<Role> exp = Set.of(Role.ROLE_USER, Role.MANAGER, Role.ADMIN);
-        Assert.assertThat(exp, containsInAnyOrder(act.toArray()));
-    }
+//    @Test
+//    @Sql({"users-schema.sql"})
+//    public void manyRoles(){
+//        User user = new User(1L,
+//                "user1_firstName",
+//                "user1_lastName",
+//                "user1_login",
+//                "user1_password",
+//                "user1_@email.com",
+//                "user1_phone"
+//        );
+//        user.addRoles(Set.of(Role.ROLE_USER, Role.MANAGER, Role.ADMIN));
+//        userRepository.save(user);
+//        Set<Role> act = userRepository.findById(1L).orElseThrow().getRoles();
+//        Set<Role> exp = Set.of(Role.ROLE_USER, Role.MANAGER, Role.ADMIN);
+//        Assert.assertThat(exp, containsInAnyOrder(act.toArray()));
+//    }
 
     @Test(expected = DataIntegrityViolationException.class)
     @Sql({"users-schema.sql", "users-data.sql"})

@@ -8,16 +8,16 @@ import java.util.List;
 
 public interface ICategoryController {
 
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "/find-all", produces = MediaType.APPLICATION_JSON_VALUE)
     List<CategoryDto> findAll();
 
-    @PutMapping
+    @PutMapping(path = "/update",produces = MediaType.APPLICATION_JSON_VALUE)
     CategoryDto update(@RequestBody CategoryDto category);
 
-    @PostMapping()
+    @PostMapping(path = "/add-new", produces = MediaType.APPLICATION_JSON_VALUE)
     CategoryDto save(@RequestBody CategoryDto category);
 
-    @DeleteMapping()
+    @DeleteMapping(path = "/delete-{id}")
     void deleteById(@RequestBody Long id);
 
 }

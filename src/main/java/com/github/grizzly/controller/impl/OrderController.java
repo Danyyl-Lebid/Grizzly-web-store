@@ -15,6 +15,8 @@ import com.github.grizzly.service.IOrderItemService;
 import com.github.grizzly.service.IOrderService;
 import com.github.grizzly.service.IUserService;
 import com.github.grizzly.utils.OrderTransferObject;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +32,15 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping(path = "/order")
 @RequiredArgsConstructor
+@ApiImplicitParams(
+        @ApiImplicitParam(
+                name = "Authorization",
+                value = "Access Token",
+                required = true,
+                paramType = "header",
+                example = "Bearer access_token"
+        )
+)
 public class OrderController implements IOrderController {
 
     private final IOrderService orderService;
