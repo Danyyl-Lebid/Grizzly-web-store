@@ -5,13 +5,13 @@ import com.github.grizzly.dto.ProductDto;
 import com.github.grizzly.entity.ActiveState;
 import com.github.grizzly.entity.Category;
 import com.github.grizzly.entity.Product;
-import com.github.grizzly.exceptions.EntityNotFoundException;
 import com.github.grizzly.service.ICategoryService;
 import com.github.grizzly.service.IProductService;
 import com.github.grizzly.utils.ProductTransferObj;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.stream.Collectors;
