@@ -1,4 +1,4 @@
-package com.github.grizzly.repository;
+package com.github.grizzly.service.impl;
 
 import com.github.grizzly.entity.Category;
 import com.github.grizzly.entity.Product;
@@ -6,9 +6,9 @@ import com.github.grizzly.entity.Product;
 import java.math.BigDecimal;
 import java.util.List;
 
-import static com.github.grizzly.entity.ActiveState.ON;
+import static com.github.grizzly.entity.ActiveState.*;
 
-public class ProductRepositoryMock {
+public class ProductServiceTestMock {
 
     public static Category category1() {
         return new Category(1L,
@@ -86,12 +86,24 @@ public class ProductRepositoryMock {
         );
     }
 
+    public static Product product5() {
+        return new Product(5L,
+                "product5_name",
+                "product5_description",
+                "https://grizzly.com/prodycts/img/main5.png",
+                new BigDecimal("15.99"),
+                15,
+                category4()
+        );
+    }
+
     public static List<Product> products() {
         return List.of(
                 product1(),
                 product2(),
                 product3(),
-                product4()
+                product4(),
+                product5()
         );
     }
 
@@ -106,4 +118,5 @@ public class ProductRepositoryMock {
                 product1()
         );
     }
+
 }

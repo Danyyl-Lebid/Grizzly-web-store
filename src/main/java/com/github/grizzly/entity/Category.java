@@ -3,14 +3,16 @@ package com.github.grizzly.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Data
 @Entity
 @Table(name = "category")
 @NoArgsConstructor
-public class Category {
+public class Category implements Serializable {
 
     @Id
     @Setter(value = AccessLevel.NONE)
@@ -28,12 +30,12 @@ public class Category {
 
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "category", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "category", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<Product> products = new HashSet<>();
 
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "category", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "category", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<Specification> specifications = new HashSet<>();
 
     public Category(Long parentId, String name, String description) {
@@ -47,5 +49,9 @@ public class Category {
         this.parentId = parentId;
         this.name = name;
         this.description = description;
+    }
+
+    public void addProduct(Product product) {
+        this.products.add(product);
     }
 }

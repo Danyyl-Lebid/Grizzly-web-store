@@ -15,6 +15,7 @@ public class CategoryTransferObject {
 
     public static CategoryDto fromCategory(Category category){
         return new CategoryDto(
+                category.getId(),
                 category.getParentId(),
                 category.getName(),
                 category.getDescription()

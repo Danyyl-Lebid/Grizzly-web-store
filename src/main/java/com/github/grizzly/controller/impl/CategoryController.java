@@ -7,6 +7,8 @@ import com.github.grizzly.utils.CategoryTransferObject;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,7 +19,6 @@ import static com.github.grizzly.utils.CategoryTransferObject.toCategory;
 import static com.github.grizzly.utils.CategoryTransferObject.fromCategory;
 
 @RestController
-@RequestMapping(path = "/category")
 @RequiredArgsConstructor
 @ApiImplicitParams(
         @ApiImplicitParam(
@@ -33,6 +34,7 @@ public class CategoryController implements ICategoryController {
     private final CategoryRepository categoryRepository;
 
     @Override
+    @GetMapping("/category")
     public List<CategoryDto> findAll() {
         return this.categoryRepository.findAll()
                 .stream()
@@ -41,6 +43,7 @@ public class CategoryController implements ICategoryController {
     }
 
     @Override
+    @PostMapping("/category/add")
     public CategoryDto update(CategoryDto category) {
         return fromCategory(this.categoryRepository.save(toCategory(category)));
     }

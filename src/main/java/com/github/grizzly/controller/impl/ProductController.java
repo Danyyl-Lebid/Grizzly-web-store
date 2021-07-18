@@ -6,15 +6,15 @@ import com.github.grizzly.service.IProductService;
 import com.github.grizzly.utils.TransferObj;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
+import com.github.grizzly.utils.ProductTransferObj;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.github.grizzly.utils.TransferObj.fromProduct;
-import static com.github.grizzly.utils.TransferObj.toProduct;
+import static com.github.grizzly.utils.ProductTransferObj.*;
 
 @RestController
 @RequestMapping(path = "/products")
@@ -32,25 +32,39 @@ public class ProductController implements IProductController {
 
     private final IProductService productService;
 
+    private final ICategoryService categoryService;
+
     @Override
     public List<ProductDto> findAll() {
         return this.productService.readAll().stream()
-                .map(TransferObj::fromProduct)
+                .map(ProductTransferObj::fromProduct)
                 .collect(Collectors.toList());
     }
 
     @Override
+    public List<ProductDto> findAllProductByStatus(ActiveState activeState) {
+        return this.productService.readAllProductByStatus(activeState)
+                .stream()
+                .map(ProductTransferObj::fromProduct)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    @Transactional
     public ProductDto save(ProductDto payload) {
-        return fromProduct(this.productService.create(toProduct(payload)));
+        String name = payload.getCategoryName();
+        Category category = this.categoryService.findCategoryByName(name).orElseThrow(EntityNotFoundException::new);
+        Product product = toProduct(payload, category);
+        return fromProduct(this.productService.create(product));
     }
 
     @Override
     public void update(ProductDto payload) {
-        this.productService.update(toProduct(payload));
+        this.productService.update(toProductWithoutCategory(payload));
     }
 
     @Override
-    public void deleteById(Long id) {
+    public void deleteProductById(Long id) {
         this.productService.deleteById(id);
     }
 }

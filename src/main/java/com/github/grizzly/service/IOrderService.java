@@ -1,11 +1,9 @@
 package com.github.grizzly.service;
 
-import com.github.grizzly.dto.order.OrderDto;
 import com.github.grizzly.entity.Order;
 import com.github.grizzly.entity.User;
 import com.github.grizzly.enums.Status;
 
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 

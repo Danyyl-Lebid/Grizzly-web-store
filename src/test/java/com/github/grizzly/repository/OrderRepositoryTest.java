@@ -154,23 +154,23 @@ public class OrderRepositoryTest {
     public void shouldFindAllById(){
         List<Order> exp = List.of(
                 new Order(
-                2L,
-                LocalDateTime.of(2020, Month.JULY, 29, 19, 30, 40),
-                LocalDateTime.of(2020, Month.JULY, 29, 19, 30, 40),
-                Status.OPEN,
-                list2(),
-                user2(),
-                ActiveState.ON
-        ),
+                        2L,
+                        LocalDateTime.of(2020, Month.JULY, 29, 19, 30, 40),
+                        LocalDateTime.of(2020, Month.JULY, 29, 19, 30, 40),
+                        Status.OPEN,
+                        list2(),
+                        user2(),
+                        ActiveState.ON
+                ),
                 new Order(
-                3L,
-                LocalDateTime.of(2020, Month.JULY, 29, 19, 30, 40),
-                LocalDateTime.of(2020, Month.JULY, 29, 19, 30, 40),
-                Status.OPEN,
-                list3(),
-                user1(),
-                ActiveState.ON
-        ));
+                        3L,
+                        LocalDateTime.of(2020, Month.JULY, 29, 19, 30, 40),
+                        LocalDateTime.of(2020, Month.JULY, 29, 19, 30, 40),
+                        Status.OPEN,
+                        list3(),
+                        user1(),
+                        ActiveState.ON
+                ));
         List<Long> ids = List.of(2L,3L);
         List<Order> act = this.orderRepository.findAllById(ids);
         System.out.println("!!!!!!!!!!!!!EXP" + exp);

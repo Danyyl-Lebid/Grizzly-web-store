@@ -26,7 +26,8 @@ public class OrderTest {
             Status.OPEN,
             List.of(orderItem1, orderItem2),
             new User(),
-            ActiveState.ON);
+            ActiveState.ON
+    );
 
 
     @Test

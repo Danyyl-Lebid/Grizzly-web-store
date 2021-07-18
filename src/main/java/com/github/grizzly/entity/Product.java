@@ -5,10 +5,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Data
 @Entity
@@ -41,9 +38,14 @@ public class Product {
     @Column(name = "quantity")
     private int quantity;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "category_id", referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_name", referencedColumnName = "name")
     private Category category;
+
+    @NotNull
+    @Column(name = "state", columnDefinition = "VARCHAR(32)")
+    @Enumerated(EnumType.STRING)
+    private ActiveState state = ActiveState.ON;
 
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
@@ -53,12 +55,12 @@ public class Product {
 
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "product", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "product", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<SpecificationValue> specificationValues = new HashSet<>();
 
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "product", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "product", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<Promotion> promotions = new HashSet<>();
 
     public Product(
@@ -93,7 +95,28 @@ public class Product {
         this.price = price;
         this.quantity = quantity;
         this.category = category;
-
     }
 
+    public Product(Long id, String name, String description, String mainImage, BigDecimal price, int quantity) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.mainImage = mainImage;
+        this.price = price;
+        this.quantity = quantity;
+    }
+
+    public Product(String name, String description, String mainImage, BigDecimal price, int quantity) {
+        this.name = name;
+        this.description = description;
+        this.mainImage = mainImage;
+        this.price = price;
+        this.quantity = quantity;
+    }
+
+    public Product addCategory (Category category){
+        this.category = category;
+        category.addProduct(this);
+        return this;
+    }
 }

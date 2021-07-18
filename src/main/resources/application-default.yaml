@@ -18,11 +18,14 @@ spring:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
   mail:
     default-encoding: UTF-8
     host: smtp.gmail.com
-    username: forgotandry@gmail.com
-    password: 12345@wsw
+    username: aleksik.dodul@gmail.com
+    password: King140964
     port: 587
     protocol: smtp
     properties:

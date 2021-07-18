@@ -4,9 +4,11 @@ import com.github.grizzly.entity.Category;
 import com.github.grizzly.repository.CategoryRepository;
 import com.github.grizzly.service.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class CategoryService implements ICategoryService {
 
     private final CategoryRepository categoryRepository;
@@ -16,10 +18,14 @@ public class CategoryService implements ICategoryService {
         this.categoryRepository = categoryRepository;
     }
 
-
     @Override
     public Category findCategoryById(long id) {
         return categoryRepository.findCategoryById(id).orElseThrow();
+    }
+
+    @Override
+    public Optional<Category> findCategoryByName(String name) {
+        return categoryRepository.findCategoryByName(name);
     }
 
     @Override
