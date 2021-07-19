@@ -54,12 +54,4 @@ public class ProductServiceTest {
         Assert.assertEquals(exp, act);
     }
 
-    @Test
-    @Sql(value = {"grizzly-schema-product.sql", "grizzly-product-data.sql"})
-    public void shouldDeleteProductById() {
-        Product act = product5();
-        Product exp = this.productService.deleteById(5L).orElseThrow();
-        Assert.assertEquals(exp, act);
-    }
-
 }
