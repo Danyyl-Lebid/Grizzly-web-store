@@ -4,19 +4,31 @@ import com.github.grizzly.controller.ICategoryController;
 import com.github.grizzly.dto.CategoryDto;
 import com.github.grizzly.repository.CategoryRepository;
 import com.github.grizzly.utils.CategoryTransferObject;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.github.grizzly.utils.CategoryTransferObject.toCategory;
-import static com.github.grizzly.utils.CategoryTransferObject.fromCategory;
+import static com.github.grizzly.utils.CategoryTransferObject.*;
 
 @RestController
-@RequestMapping(path = "/category")
+@RequestMapping(path = "category")
 @RequiredArgsConstructor
+@ApiImplicitParams(
+        @ApiImplicitParam(
+                name = "Authorization",
+                value = "Access Token",
+                required = true,
+                paramType = "header",
+                example = "Bearer access_token"
+        )
+)
 public class CategoryController implements ICategoryController {
 
     private final CategoryRepository categoryRepository;
@@ -31,7 +43,7 @@ public class CategoryController implements ICategoryController {
 
     @Override
     public CategoryDto update(CategoryDto category) {
-        return fromCategory(this.categoryRepository.save(toCategory(category)));
+        return fromCategory(this.categoryRepository.save(toCategoryUpdate(category)));
     }
 
     @Override

@@ -22,7 +22,7 @@ values (2,
         'ON'
        );
 
-insert into PUBLIC.products (id, name, description, image, price, quantity, category_id,state)
+insert into PUBLIC.products (id, name, description, image, price, quantity, category_id, state)
 
 values (3,
         'product3_name',
@@ -43,6 +43,18 @@ values (4,
         'https://grizzly.com/prodycts/img/main4.png',
         14.99,
         14,
+        4,
+        'ON'
+       );
+
+insert into PUBLIC.products (id, name, description, image, price, quantity, category_id, state)
+
+values (5,
+        'product5_name',
+        'product5_description',
+        'https://grizzly.com/prodycts/img/main5.png',
+        15.99,
+        15,
         4,
         'ON'
        );

@@ -49,7 +49,7 @@ public class OrderService implements IOrderService {
     }
 
     @Override
-    public Optional <Order> findOrderById(long id) {
+    public Optional<Order> findOrderById(long id) {
         return this.orderRepository.findById(id);
     }
 
@@ -67,6 +67,6 @@ public class OrderService implements IOrderService {
 
     @Override
     public void deleteById(Long id) {
-            this.orderRepository.deleteById(id);
+        this.orderRepository.deleteById(id);
     }
 }
